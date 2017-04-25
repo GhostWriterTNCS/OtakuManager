@@ -1,0 +1,3 @@
+[submodule "OtakuManager/MyCurl"]
+	path = OtakuManager/MyCurl
+	url = https://github.com/GhostWriterTNCS/MyCurl.git
