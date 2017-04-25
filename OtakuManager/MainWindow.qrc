@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/MainWindow">
+    <file>resources/seen.ico</file>
+    <file>resources/new.ico</file>
+    <file>resources/icon.ico</file>
+  </qresource>
+</RCC>

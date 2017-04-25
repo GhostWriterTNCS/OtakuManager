@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ColorsWindow</class>
+ <widget class="QDialog" name="ColorsWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>327</width>
+    <height>204</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Colors info</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../MainWindow.qrc">
+    <normaloff>:/MainWindow/resources/icon.ico</normaloff>:/MainWindow/resources/icon.ico</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;Colors info&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; background-color:#ffffff;&quot;&gt;White&lt;/span&gt;: normal episode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; background-color:#00ff00;&quot;&gt;Green&lt;/span&gt;: first episode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; background-color:#ff6347;&quot;&gt;Red&lt;/span&gt;: last episode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; background-color:#00bfff;&quot;&gt;Blue&lt;/span&gt;: special episode (OVA/OAV)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; background-color:#cc66ff;&quot;&gt;Purple&lt;/span&gt;: movie&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="close">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../MainWindow.qrc"/>
+ </resources>
+ <connections/>
+</ui>
