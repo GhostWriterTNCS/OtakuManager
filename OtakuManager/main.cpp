@@ -26,9 +26,7 @@ int main(int argc, char* argv[]) {
 	QCoreApplication::processEvents();
 
 	QFuture<void> future = QtConcurrent::run(checkForUpadte, newVersionWindow);
-
 	w.updateAllEpisodes();
-	w.ui.statusBar->clearMessage();
 
 	return a.exec();
 }

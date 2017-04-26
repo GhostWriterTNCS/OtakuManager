@@ -59,7 +59,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Websites (restart to apply changes)</string>
+          <string>Websites (restart OMA to apply changes)</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="1" column="1">

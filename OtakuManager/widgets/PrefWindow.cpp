@@ -73,9 +73,11 @@ void PrefWindow::save() {
 	for (int i = 0; i < ui.followedListWidget->count(); i++) {
 		FollowedWidget* followed =
 			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
-		followedList.append(FollowedAnime({followed->ui.animeTitle->text(),
-										   followed->ui.websiteComboBox->currentText(),
-										   followed->ui.customLinkLineEdit->text()}));
+		if (!followed->ui.animeTitle->text().isEmpty()) {
+			followedList.append(FollowedAnime({followed->ui.animeTitle->text(),
+											   followed->ui.websiteComboBox->currentText(),
+											   followed->ui.customLinkLineEdit->text()}));
+		}
 	}
 	OMA::Settings::setFollowed(followedList);
 

@@ -13,8 +13,12 @@ public:
 
 	UrlButton(QString name, EpisodeWidget* parent = Q_NULLPTR);
 
+signals:
+	void episodeDone(bool succesful);
+
 private slots:
 	void on_UrlButton_clicked();
+	void applyEpisode(bool succesful);
 
 private:
 	Ui::UrlButton ui;
