@@ -22,13 +22,13 @@ public:
 	void updateSeries();
 
 signals:
-	void episodesUpdated();
-	void seriesUpdated();
+	void episodesUpdated(bool successful);
+	void seriesUpdated(bool successful);
 
 private slots:
 	void on_updateButton_clicked();
-	void applyUpdatedEpisodes();
-	void applyUpdatedSeries();
+	void applyUpdatedEpisodes(bool successful);
+	void applyUpdatedSeries(bool successful);
 
 private:
 	Ui::WebsiteWidget ui;

@@ -1,7 +1,7 @@
 #include "OMA.h"
 #include "Website.h"
 
-void Website::getEpisodes_AnimeForce_IT() {
+bool Website::getEpisodes_AnimeForce_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<div class=\"content-wrapper\">";
 	QString end = "<div class=\"pagination pagination-mobile\">";
@@ -24,24 +24,34 @@ void Website::getEpisodes_AnimeForce_IT() {
 			episode.name = MyUtils::substring(episode.name, "", " Sub Ita");
 			episodes.push_back(episode);
 		}
+		return true;
 	}
+	return false;
 }
 
-void Website::getSeries_AnimeForce_IT() {
-	QStringList list = MyUtils::urlToQString(seriesPage).split("<li><strong>");
-	for (int i = 1; i < list.size(); i++) {
-		Anime anime;
-		QString s = list[i];
-		s = MyUtils::substring(s, "href=\"", "\"");
-		anime.url = s;
+bool Website::getSeries_AnimeForce_IT() {
+	QString html = MyUtils::urlToQString(seriesPage);
+	QString start = "<div class=\"the-content\">";
+	QString end = "<div id=\"sidebar-wrapper\"";
+	if (html.contains(end)) {
+		html = MyUtils::substring(html, start, end);
+		QStringList list = html.split("<li><strong>");
+		for (int i = 1; i < list.size(); i++) {
+			Anime anime;
+			QString s = list[i];
+			s = MyUtils::substring(s, "href=\"", "\"");
+			anime.url = s;
 
-		s = list[i];
-		s = MyUtils::substring(s, "", " Sub Ita");
-		s = MyUtils::advancedReplace(s, "<h2>", "</h2>", "");
-		s = MyUtils::advancedReplace(s, "<", ">", "");
-		anime.name = s.trimmed();
-		series.push_back(anime);
+			s = list[i];
+			s = MyUtils::substring(s, "", " Sub Ita");
+			s = MyUtils::advancedReplace(s, "<h2>", "</h2>", "");
+			s = MyUtils::advancedReplace(s, "<", ">", "");
+			anime.name = s.trimmed();
+			series.push_back(anime);
+		}
+		return true;
 	}
+	return false;
 }
 
 QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {

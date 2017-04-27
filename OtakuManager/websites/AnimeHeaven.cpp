@@ -1,7 +1,7 @@
 #include "OMA.h"
 #include "Website.h"
 
-void Website::getEpisodes_AnimeHeaven_EN() {
+bool Website::getEpisodes_AnimeHeaven_EN() {
 	QString html = MyUtils::urlToQString(episodesPage);
 	QString start = "<div id=\"latest_updates_section\" class=\"full-width-artikle-block "
 					"infinite-scroll all-anime-list-section\">";
@@ -27,10 +27,12 @@ void Website::getEpisodes_AnimeHeaven_EN() {
 			}
 			episodes.push_back(episode);
 		}
+		return true;
 	}
+	return false;
 }
 
-void Website::getSeries_AnimeHeaven_EN() {
+bool Website::getSeries_AnimeHeaven_EN() {
 	QString html = MyUtils::urlToQString(seriesPage);
 	QString start = "<div id=\"latest_updates_section\" class=\"full-width-artikle-block "
 					"infinite-scroll all-anime-list-section\">";
@@ -45,7 +47,9 @@ void Website::getSeries_AnimeHeaven_EN() {
 			anime.name = MyUtils::substring(html, "title=\"", "\"");
 			series.push_back(anime);
 		}
+		return true;
 	}
+	return false;
 }
 
 QString Website::goToEpisode_AnimeHeaven_EN(Episode* episode, QString type) {

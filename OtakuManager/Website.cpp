@@ -40,9 +40,9 @@ Website::Website(QString website) {
 	}
 }
 
-QList<Episode> Website::getEpisodes() {
+bool Website::getEpisodes() {
 	episodes.clear();
-	getEpisodesFunction();
+	bool succesful = getEpisodesFunction();
 	if (episodes.size() > 0) {
 		QString lastEp = OMA::Settings::getLastEp(name);
 		for (int i = 0; i < episodes.size(); i++) {
@@ -54,15 +54,15 @@ QList<Episode> Website::getEpisodes() {
 		}
 		OMA::Settings::setLastEp(name, episodes[0].name);
 	}
-	return episodes;
+	return succesful;
 }
 
-QList<Anime> Website::getSeries() {
+bool Website::getSeries() {
 	series.clear();
 	if (!seriesPage.isEmpty()) {
-		getSeriesFunction();
+		return getSeriesFunction();
 	}
-	return series;
+	return false;
 }
 
 bool Website::goToEpisode(Episode* episode, QString type) {

@@ -1,7 +1,7 @@
 #include "OMA.h"
 #include "Website.h"
 
-void Website::getEpisodes_RedAnimeDatabase_IT() {
+bool Website::getEpisodes_RedAnimeDatabase_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<div style=\"overflow-y: scroll;";
 	QString end = "<div style=\" width: 420px;";
@@ -20,35 +20,46 @@ void Website::getEpisodes_RedAnimeDatabase_IT() {
 				episodes.push_back(episode);
 			}
 		}
+		return true;
 	}
+	return false;
 }
 
-void Website::getSeries_RedAnimeDatabase_IT() {
+bool Website::getSeries_RedAnimeDatabase_IT() {
 	QString html = MyUtils::urlToQString(seriesPage);
-	int pages =
-		MyUtils::substring(
-			html, "javascript:page_jump('http://redanimedatabase.forumcommunity.net/?f=8821471',",
-			",")
-			.toInt();
-	html = MyUtils::substring(html, "<ol class=\"big_list\">", "</ol>");
-	for (int i = 1; i < pages; i++) {
-		QString temp = MyUtils::urlToQString(seriesPage + "&st=" + QString::number(i * 30));
-		html += MyUtils::substring(temp, "<ol class=\"big_list\">", "</ol>");
-	}
-
-	QStringList list = html.split("</li><li");
-	for (int i = 3; i < list.size(); i++) {
-		Anime anime;
-		QString s = MyUtils::substring(list[i], "<h3", "</h3>");
-		anime.url = MyUtils::substring(s, "HREF=\"", "\"");
-
-		s = MyUtils::substring(s, "<a", "</a>");
-		anime.name = MyUtils::substring(s, ">").replace("Lista Episodi ", "");
-		if (!anime.name.contains("Ita / Sub Ita")) {
-			anime.name = anime.name.replace(" Sub Ita", "");
+	QString start = "<ol class=\"big_list\">";
+	QString end = "</ol>";
+	if (html.contains(end)) {
+		int pages =
+			MyUtils::substring(
+				html, "javascript:page_jump('http://redanimedatabase.forumcommunity.net/?f=8821471',",
+				",")
+				.toInt();
+		html = MyUtils::substring(html, start, end);
+		for (int i = 1; i < pages; i++) {
+			QString temp = MyUtils::urlToQString(seriesPage + "&st=" + QString::number(i * 30));
+			if(!temp.contains(end)) {
+				return false;
+			}
+			html += MyUtils::substring(temp, start, end);
 		}
-		series.push_back(anime);
+
+		QStringList list = html.split("</li><li");
+		for (int i = 3; i < list.size(); i++) {
+			Anime anime;
+			QString s = MyUtils::substring(list[i], "<h3", "</h3>");
+			anime.url = MyUtils::substring(s, "HREF=\"", "\"");
+
+			s = MyUtils::substring(s, "<a", "</a>");
+			anime.name = MyUtils::substring(s, ">").replace("Lista Episodi ", "");
+			if (!anime.name.contains("Ita / Sub Ita")) {
+				anime.name = anime.name.replace(" Sub Ita", "");
+			}
+			series.push_back(anime);
+		}
+		return true;
 	}
+	return false;
 }
 
 QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type) {

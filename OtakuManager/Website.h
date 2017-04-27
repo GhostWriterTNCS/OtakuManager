@@ -27,32 +27,32 @@ public:
 	QString seriesPage;
 	bool hasDownload = true;
 	bool hasDoubleButtons = false;
-	std::function<void()> getEpisodesFunction;
-	std::function<void()> getSeriesFunction;
+	std::function<bool()> getEpisodesFunction;
+	std::function<bool()> getSeriesFunction;
 	std::function<QString(Episode*, QString)> goToEpisodeFunction;
 
 	QList<Episode> episodes;
 	QList<Anime> series;
 
 	Website(QString website);
-	QList<Episode> getEpisodes();
-	QList<Anime> getSeries();
+	bool getEpisodes();
+	bool getSeries();
 	bool goToEpisode(Episode* episode, QString type);
 
 private:
-	void getEpisodes_AnimeHeaven_EN();
-	void getSeries_AnimeHeaven_EN();
+	bool getEpisodes_AnimeHeaven_EN();
+	bool getSeries_AnimeHeaven_EN();
 	QString goToEpisode_AnimeHeaven_EN(Episode* episode, QString type);
 
-	void getEpisodes_AnimeForce_IT();
-	void getSeries_AnimeForce_IT();
+	bool getEpisodes_AnimeForce_IT();
+	bool getSeries_AnimeForce_IT();
 	QString goToEpisode_AnimeForce_IT(Episode* episode, QString type);
 
-	void getEpisodes_RedAnimeDatabase_IT();
-	void getSeries_RedAnimeDatabase_IT();
+	bool getEpisodes_RedAnimeDatabase_IT();
+	bool getSeries_RedAnimeDatabase_IT();
 	QString goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type);
 
-	void getEpisodes_WebAnimex_IT();
-	void getSeries_WebAnimex_IT();
+	bool getEpisodes_WebAnimex_IT();
+	bool getSeries_WebAnimex_IT();
 	QString goToEpisode_WebAnimex_IT(Episode* episode, QString type);
 }; // class Website

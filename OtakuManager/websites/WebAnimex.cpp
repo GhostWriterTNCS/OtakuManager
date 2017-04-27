@@ -1,7 +1,7 @@
 #include "OMA.h"
 #include "Website.h"
 
-void Website::getEpisodes_WebAnimex_IT() {
+bool Website::getEpisodes_WebAnimex_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<ul class=\"list list-episodes\">";
 	QString end = "<!-- #content -->";
@@ -23,23 +23,33 @@ void Website::getEpisodes_WebAnimex_IT() {
 			episode.name = MyUtils::substring(episode.name, "", " - [SubITA]");
 			episodes.push_back(episode);
 		}
+		return true;
 	}
+	return false;
 }
 
-void Website::getSeries_WebAnimex_IT() {
-	QStringList list = MyUtils::urlToQString(seriesPage).split("<h2>");
-	for (int i = 1; i < list.size(); i++) {
-		Anime anime;
-		QString s = list[i];
-		s = MyUtils::substring(s, "href=\"", "\"");
-		anime.url = s;
+bool Website::getSeries_WebAnimex_IT() {
+	QString html = MyUtils::urlToQString(seriesPage);
+	QString start = "<div id=\"content\">";
+	QString end = "<!-- #content -->";
+	if (html.contains(end)) {
+		html = MyUtils::substring(html, start, end);
+		QStringList list = html.split("<h2>");
+		for (int i = 1; i < list.size(); i++) {
+			Anime anime;
+			QString s = list[i];
+			s = MyUtils::substring(s, "href=\"", "\"");
+			anime.url = s;
 
-		s = list[i];
-		s = MyUtils::substring(s, "title=\"", " in streaming");
-		s = MyUtils::substring(s, "", "\"");
-		anime.name = s.trimmed();
-		series.push_back(anime);
+			s = list[i];
+			s = MyUtils::substring(s, "title=\"", " in streaming");
+			s = MyUtils::substring(s, "", "\"");
+			anime.name = s.trimmed();
+			series.push_back(anime);
+		}
+		return true;
 	}
+	return false;
 }
 
 QString Website::goToEpisode_WebAnimex_IT(Episode* episode, QString type) {

@@ -199,6 +199,9 @@
           </item>
           <item row="5" column="0">
            <widget class="QCheckBox" name="post">
+            <property name="toolTip">
+             <string>Opens the page you would reach in the website.</string>
+            </property>
             <property name="text">
              <string>Post</string>
             </property>

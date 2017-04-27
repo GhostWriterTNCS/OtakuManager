@@ -51,6 +51,10 @@ const QStringList websites = {"Anime Heaven", // English
 							  "AnimeForce",   // Italian
 							  "RedAnimeDatabase", "WebAnimex"};
 
+const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
+						 "style='text-align: center;'>If problem persists, check your internet "
+						 "connection or try another website.</p>";
+
 MainWindow* getMainWindow();
 void setMainWindow(MainWindow* mainWindow);
 
