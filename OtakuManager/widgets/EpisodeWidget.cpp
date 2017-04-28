@@ -41,7 +41,13 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 				!OMA::Settings::getFollowed(episode->name).customLink.isEmpty()) {
 			if (!button.contains("2") || website->hasDoubleButtons) {
 				bool show = false;
-				if (button.contains("Download")) {
+				if (button == OMA::linkTypes[LinkTypes::animeInfo]) {
+					if (!website->seriesPage.isEmpty()) {
+						show = true;
+					} else {
+						show = false;
+					}
+				} else if (button.contains("Download")) {
 					if (button.contains("IfNoDownload")) {
 						if (!episode->hasDownload || !website->hasDownload) {
 							show = true;
@@ -51,7 +57,7 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 							show = true;
 						}
 					}
-				} else {
+				} else if (!button.contains("Streaming") || website->hasStreaming) {
 					show = true;
 				}
 				if (show) {

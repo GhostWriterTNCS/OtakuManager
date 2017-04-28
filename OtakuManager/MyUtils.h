@@ -10,6 +10,7 @@ QString advancedReplace(QString str, QString startReplace, QString endReplace, Q
 
 QString urlToQString(QString url);
 QString redirectedUrlQt(QString url);
+QString decodeHtml(QString html);
 
 QString simplify(QString s);
 QString simplifyOneLine(QString s);

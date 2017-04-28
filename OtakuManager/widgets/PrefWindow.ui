@@ -166,6 +166,16 @@
               </property>
              </item>
             </item>
+            <item>
+             <property name="text">
+              <string>Torrent</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Nyaa</string>
+              </property>
+             </item>
+            </item>
            </widget>
           </item>
           <item row="0" column="0">
@@ -325,7 +335,7 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can add the name of an anime or a keyword (for example &lt;span style=&quot; font-style:italic;&quot;&gt;movie&lt;/span&gt; to highlight movies).&lt;/p&gt;&lt;p&gt;Special characters and letters with accents will be ignored, case insensitive.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can add the name of an anime or a keyword (for example &lt;span style=&quot; font-style:italic;&quot;&gt;movie&lt;/span&gt; to highlight movies).&lt;/p&gt;&lt;p&gt;Name are case insensitive, letters with accents will be ignored.Only these special characters are allowed:&lt;br/&gt;- _ &amp;amp; [ ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>

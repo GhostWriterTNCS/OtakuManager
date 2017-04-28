@@ -35,6 +35,14 @@ Website::Website(QString website) {
 		getSeriesFunction = std::bind(&Website::getSeries_WebAnimex_IT, this);
 		goToEpisodeFunction = std::bind(&Website::goToEpisode_WebAnimex_IT, this,
 										std::placeholders::_1, std::placeholders::_2);
+	} else if (website == OMA::websites[Websites::Nyaa_TT]) {
+		homepage = "https://www.nyaa.se/";
+		episodesPage = "https://www.nyaa.se/?cats=1_0";
+		hasStreaming = false;
+		getEpisodesFunction = std::bind(&Website::getEpisodes_Nyaa_TT, this);
+		getSeriesFunction = std::bind(&Website::getSeries_Nyaa_TT, this);
+		goToEpisodeFunction = std::bind(&Website::goToEpisode_Nyaa_TT, this, std::placeholders::_1,
+										std::placeholders::_2);
 	} else {
 		QMessageBox::warning(OMA::getMainWindow(), "Error", "Website not valid: " + website);
 	}
