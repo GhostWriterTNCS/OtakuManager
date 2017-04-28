@@ -18,17 +18,18 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 		ui.iconLayout->addWidget(new NewIcon());
 	}
 
-	if (episode->name.contains(QRegExp("[^a-z]*movie[^a-z]*", Qt::CaseInsensitive)) ||
-		episode->name.contains(QRegExp("[^a-z]*film[^a-z]*", Qt::CaseInsensitive))) {
+	QString name = " " + episode->name + " ";
+	if (name.contains(QRegExp("[^a-z]+movie[^a-z]+", Qt::CaseInsensitive)) ||
+		name.contains(QRegExp("[^a-z]+film[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: #CC66FF; }");
-	} else if (episode->name.contains(QRegExp("[^a-z]*ova[^a-z]*", Qt::CaseInsensitive)) ||
-			   episode->name.contains(QRegExp("[^a-z]*oav[^a-z]*", Qt::CaseInsensitive)) ||
-			   episode->name.contains(QRegExp("[^a-z]*sp[^a-z]*", Qt::CaseInsensitive)) ||
-			   episode->name.contains(QRegExp("[^a-z]*special[^a-z]*", Qt::CaseInsensitive))) {
+	} else if (name.contains(QRegExp("[^a-z]+ova[^a-z]+", Qt::CaseInsensitive)) ||
+			   name.contains(QRegExp("[^a-z]+oav[^a-z]+", Qt::CaseInsensitive)) ||
+			   name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
+			   name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: deepskyblue; }");
-	} else if (episode->name.endsWith("end", Qt::CaseInsensitive)) {
+	} else if (name.endsWith("end", Qt::CaseInsensitive)) {
 		setStyleSheet("#groupBox { background: tomato; }");
-	} else if (episode->name.contains(QRegExp("[^0-9]*01[^0-9]*"))) {
+	} else if (name.contains(QRegExp("[^0-9]+01[^0-9]+"))) {
 		setStyleSheet("#groupBox { background: lime; }");
 	}
 

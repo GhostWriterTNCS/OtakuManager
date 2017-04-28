@@ -27,7 +27,7 @@ void getEpisodeUrl(UrlButton* button) {
 
 void UrlButton::applyEpisode(bool succesful) {
 	OMA::getMainWindow()->ui.statusBar->clearMessage();
-	if (succesful) {
+	if (succesful && type != OMA::linkTypes[LinkTypes::animeInfo]) {
 		while (QLayoutItem* item = episodeWidget->ui.iconLayout->itemAt(0)) {
 			delete item->widget();
 		}
