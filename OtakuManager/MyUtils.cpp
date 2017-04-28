@@ -34,19 +34,22 @@ QString advancedReplace(QString str, QString startReplace, QString endReplace, Q
 }
 
 QString urlToQString(QString url) {
-	return QString::fromLocal8Bit(MyCurl::urlToString(url.toStdString()).c_str());
+	return QString::fromUtf8(MyCurl::urlToString(url.toStdString()).c_str());
 }
 
 QString redirectedUrlQt(QString url) {
 	return QString::fromLocal8Bit(MyCurl::redirectedUrl(url.toStdString()).c_str());
 }
 
+QString decodeHtml(QString html) {
+	return QString::fromLocal8Bit(MyCurl::decodeHtml(html.toStdString()).c_str());
+}
+
 QString simplify(QString s) {
 	s = s.replace("ō", "ou");
 	QString s1;
 	for (int i = 0; i < s.length(); i++) {
-		if (s[i] >= '0' && s[i] <= '9' || s[i] >= 'A' && s[i] <= 'Z' ||
-			s[i] >= 'a' && s[i] <= 'z' || s[i] == ' ' || s[i] == '-' || s[i] == '&' || s[i] == '\n')
+		if (s[i].isLetterOrNumber() || ((QString) " -_&[]\n").contains(s[i]))
 			s1 += s[i];
 	}
 	return s1;

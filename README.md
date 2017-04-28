@@ -11,6 +11,8 @@ The manager that any otaku should have.
 	* [AnimeForce](http://www.animeforce.org/)
 	* [RedAnimeDatabase](http://redanimedatabase.forumcommunity.net/)
 	* [WebAnimex](http://webanimex.com/)
+* Torrent:
+	* [Nyaa](https://www.nyaa.se/)
 
 ### Release notices
 

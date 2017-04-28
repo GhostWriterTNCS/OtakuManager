@@ -9,6 +9,8 @@ class Episode {
 public:
 	QString url;
 	QString name;
+	QString streamingLink;
+	QString downloadLink;
 	bool isNew = false;
 	bool hasDownload = true;
 }; // class Episode
@@ -25,6 +27,7 @@ public:
 	QString homepage;
 	QString episodesPage;
 	QString seriesPage;
+	bool hasStreaming = true;
 	bool hasDownload = true;
 	bool hasDoubleButtons = false;
 	std::function<bool()> getEpisodesFunction;
@@ -55,4 +58,8 @@ private:
 	bool getEpisodes_WebAnimex_IT();
 	bool getSeries_WebAnimex_IT();
 	QString goToEpisode_WebAnimex_IT(Episode* episode, QString type);
+
+	bool getEpisodes_Nyaa_TT();
+	bool getSeries_Nyaa_TT();
+	QString goToEpisode_Nyaa_TT(Episode* episode, QString type);
 }; // class Website

@@ -184,6 +184,9 @@
     <ClCompile Include="websites\AnimeHeaven.cpp">
       <Filter>Websites</Filter>
     </ClCompile>
+    <ClCompile Include="websites\Nyaa.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.h">

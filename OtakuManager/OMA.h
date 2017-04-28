@@ -19,7 +19,8 @@ enum Websites {
 	AnimeHeaven_EN, // English
 	AnimeForce_IT,  // Italian
 	RedAnimeDatabase_IT,
-	WebAnimex_IT
+	WebAnimex_IT,
+	Nyaa_TT // Torrent
 };
 
 class LastEpisode {
@@ -47,9 +48,12 @@ const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
 							   "Anime info",  "Custom link",
 							   "Post",		  "PostIfNoDownload"};
 
-const QStringList websites = {"Anime Heaven", // English
-							  "AnimeForce",   // Italian
-							  "RedAnimeDatabase", "WebAnimex"};
+const QStringList websites = {
+	"Anime Heaven", // English
+	"AnimeForce",   // Italian
+	"RedAnimeDatabase", "WebAnimex",
+	"Nyaa" // Torrent
+};
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "

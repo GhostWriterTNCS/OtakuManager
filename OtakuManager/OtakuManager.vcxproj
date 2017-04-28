@@ -164,6 +164,7 @@
     <ClCompile Include="Website.cpp" />
     <ClCompile Include="websites\AnimeForce.cpp" />
     <ClCompile Include="websites\AnimeHeaven.cpp" />
+    <ClCompile Include="websites\Nyaa.cpp" />
     <ClCompile Include="websites\RedAnimeDatabase.cpp" />
     <ClCompile Include="websites\WebAnimex.cpp" />
     <ClCompile Include="widgets\AboutWindow.cpp" />
