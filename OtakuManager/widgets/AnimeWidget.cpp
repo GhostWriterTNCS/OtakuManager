@@ -10,9 +10,16 @@ AnimeWidget::AnimeWidget(Anime* anime, Website* website, QWidget* parent) : QWid
 		ui.followCheckBox->setChecked(true);
 		QList<FollowedAnime> list = OMA::Settings::getFollowed();
 		for (int i = 0; i < list.size(); i++) {
-			if (anime->name.contains(list[i].anime)) {
-				this->followedName = list[i].anime;
-				ui.customLinkLineEdit->setText(list[i].customLink);
+			if (list[i].regex) {
+				if (anime->name.contains(QRegExp(list[i].anime, Qt::CaseInsensitive))) {
+					this->followedName = list[i].anime;
+					ui.customLinkLineEdit->setText(list[i].customLink);
+				}
+			} else {
+				if (anime->name.contains(list[i].anime, Qt::CaseInsensitive)) {
+					this->followedName = list[i].anime;
+					ui.customLinkLineEdit->setText(list[i].customLink);
+				}
 			}
 		}
 	}
@@ -20,15 +27,15 @@ AnimeWidget::AnimeWidget(Anime* anime, Website* website, QWidget* parent) : QWid
 
 void AnimeWidget::on_followCheckBox_clicked(bool checked) {
 	if (!followedName.isEmpty() && !checked) {
-		OMA::Settings::setFollowed(followedName, website->name, ui.customLinkLineEdit->text(),
-								   checked);
+		OMA::Settings::setFollowed(followedName, false, website->name,
+								   ui.customLinkLineEdit->text(), checked);
 	} else {
-		OMA::Settings::setFollowed(anime->name, website->name, ui.customLinkLineEdit->text(),
+		OMA::Settings::setFollowed(anime->name, false, website->name, ui.customLinkLineEdit->text(),
 								   checked);
 	}
 }
 
 void AnimeWidget::on_saveButton_clicked() {
-	OMA::Settings::setFollowed(followedName, website->name, ui.customLinkLineEdit->text(),
+	OMA::Settings::setFollowed(followedName, false, website->name, ui.customLinkLineEdit->text(),
 							   ui.followCheckBox->isChecked());
 }
