@@ -1,4 +1,3 @@
-#include <iostream>
 #include <QComboBox>
 #include <QItemDelegate>
 #include <QScrollBar>
@@ -26,6 +25,19 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.post->setChecked(OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::post]));
 	ui.postIfNoDownload->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::postIfNoDownload]));
+
+	for (int i = 0; i < OMA::websites.size(); i) {
+		QTreeWidgetItem* topItem = new QTreeWidgetItem();
+		topItem->setText(0, OMA::websites[i].mid(2, OMA::websites[i].length() - 4));
+		i++;
+		while (i < OMA::websites.size() && !OMA::websites[i].startsWith("-")) {
+			QTreeWidgetItem* item = new QTreeWidgetItem();
+			item->setText(0, OMA::websites[i]);
+			topItem->addChild(item);
+			i++;
+		}
+		ui.availableWebsites->addTopLevelItem(topItem);
+	}
 
 	QList<FollowedAnime> list = OMA::Settings::getFollowed();
 	for (int i = 0; i < list.size(); i++) {
@@ -74,9 +86,10 @@ void PrefWindow::save() {
 		FollowedWidget* followed =
 			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
 		if (!followed->ui.animeTitle->text().isEmpty()) {
-			followedList.append(FollowedAnime({followed->ui.animeTitle->text(),
-											   followed->ui.websiteComboBox->currentText(),
-											   followed->ui.customLinkLineEdit->text()}));
+			followedList.append(FollowedAnime(followed->ui.animeTitle->text(),
+											  followed->ui.regex->isChecked(),
+											  followed->ui.websiteComboBox->currentText(),
+											  followed->ui.customLinkLineEdit->text()));
 		}
 	}
 	OMA::Settings::setFollowed(followedList);

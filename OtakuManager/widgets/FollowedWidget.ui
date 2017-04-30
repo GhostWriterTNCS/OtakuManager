@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>335</width>
-    <height>99</height>
+    <height>67</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,6 +89,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="regex">
+             <property name="text">
+              <string>Regex</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="websiteComboBox"/>
            </item>
           </layout>
@@ -135,40 +142,6 @@
              </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="separator" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QLineEdit" name="separatorLineEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>--- SEPARATOR ---</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
           </widget>
          </item>
         </layout>

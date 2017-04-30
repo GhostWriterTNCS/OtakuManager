@@ -16,11 +16,14 @@ enum LinkTypes {
 };
 
 enum Websites {
-	AnimeHeaven_EN, // English
-	AnimeForce_IT,  // Italian
+	ENGLISH,
+	AnimeHeaven_EN,
+	ITALIAN,
+	AnimeForce_IT,
 	RedAnimeDatabase_IT,
 	WebAnimex_IT,
-	Nyaa_TT // Torrent
+	TORRENT,
+	Nyaa_TT
 };
 
 class LastEpisode {
@@ -33,14 +36,16 @@ public:
 class FollowedAnime {
 public:
 	QString anime;
+	bool regex;
 	QString website;
 	QString customLink;
 	FollowedAnime(QStringList list);
+	FollowedAnime(QString anime, bool regex, QString website, QString customLink);
 };
 
 namespace OMA {
 
-const QString version = "3.1";
+const QString version = "3.1.1";
 
 const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
 							   "Streaming 2", "Streaming 2IfNoDownload",
@@ -48,12 +53,8 @@ const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
 							   "Anime info",  "Custom link",
 							   "Post",		  "PostIfNoDownload"};
 
-const QStringList websites = {
-	"Anime Heaven", // English
-	"AnimeForce",   // Italian
-	"RedAnimeDatabase", "WebAnimex",
-	"Nyaa" // Torrent
-};
+const QStringList websites = {"- English -",	  "Anime Heaven", "- Italian -", "AnimeForce",
+							  "RedAnimeDatabase", "WebAnimex",	"- Torrent -", "Nyaa"};
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "
@@ -88,7 +89,7 @@ void setButtons(QString hidden, bool hide = true);
 QList<FollowedAnime> getFollowed();
 int getFollowedCount(QString website);
 FollowedAnime getFollowed(QString name);
-void setFollowed(QString name, QString website = "*", QString customLink = "",
+void setFollowed(QString name, bool regex = false, QString website = "*", QString customLink = "",
 				 bool followed = true);
 void setFollowed(QList<FollowedAnime> list);
 

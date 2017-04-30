@@ -1,3 +1,4 @@
+#include <iostream>
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QUrl>
@@ -9,10 +10,17 @@ LastEpisode::LastEpisode(QStringList list) {
 	this->episode = list[1];
 }
 
+FollowedAnime::FollowedAnime(QString anime, bool regex, QString website, QString customLink) {
+	this->anime = anime;
+	this->regex = regex;
+	this->website = website;
+	this->customLink = customLink;
+}
 FollowedAnime::FollowedAnime(QStringList list) {
 	this->anime = list[0];
-	this->website = list[1];
-	this->customLink = list[2];
+	this->regex = (list[1] == "true");
+	this->website = list[2];
+	this->customLink = list[3];
 }
 
 namespace OMA {
@@ -35,12 +43,20 @@ bool isSeen(QString ep) {
 }
 
 bool isFollowed(QString name, QString website) {
-	name = " " + MyUtils::simplify(name) + " ";
+	name = " " + name + " ";
 	QList<FollowedAnime> list = Settings::getFollowed();
 	for (int i = 0; i < list.size(); i++) {
-		if (name.contains(list[i].anime, Qt::CaseInsensitive)) {
-			if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
-				return true;
+		if (list[i].regex) {
+			if (name.contains(QRegExp(list[i].anime, Qt::CaseInsensitive))) {
+				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
+					return true;
+				}
+			}
+		} else {
+			if (MyUtils::simplify(name).contains(list[i].anime, Qt::CaseInsensitive)) {
+				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
+					return true;
+				}
 			}
 		}
 	}

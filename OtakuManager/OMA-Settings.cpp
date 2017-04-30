@@ -78,7 +78,9 @@ void setButtons(QString button, bool show) {
 // Followed
 QString getFollowedString() {
 	return settings
-		->value("Followed/followed", " 01 |*|\n01new|*|\nspecial|*|\nova|*|\noav|*|\nmovie|*|")
+		->value("Followed/followed", "[^0-9]+01[^0-9]+|true|*|\n[^a-z]+sp[^a-z]+|true|*|\n[^a-z]+"
+									 "special[^a-z]+|true|*|\n[^a-z]+ova[^a-z]+|true|*|\n[^a-z]+"
+									 "oav[^a-z]+|true|*|\n[^a-z]+movie[^a-z]+|true|*|")
 		.toString();
 }
 QList<FollowedAnime> getFollowed() {
@@ -86,7 +88,12 @@ QList<FollowedAnime> getFollowed() {
 	QList<FollowedAnime> followed;
 	for (int i = 0; i < list.size(); i++) {
 		if (!list[i].isEmpty()) {
-			followed.append(list[i].split("|"));
+			if (list[i].split("|").size() == 4) {
+				followed.append(list[i].split("|"));
+			} else {
+				QStringList temp = list[i].split("|");
+				followed.append(FollowedAnime(temp[0], false, temp[1], temp[2]));
+			}
 		}
 	}
 	return followed;
@@ -108,10 +115,12 @@ FollowedAnime getFollowed(QString name) {
 			return followed[i];
 		}
 	}
-	return FollowedAnime({"", "", ""});
+	return FollowedAnime("", false, "", "");
 }
-void setFollowed(QString name, QString website, QString customLink, bool followed) {
-	name = MyUtils::simplify(name);
+void setFollowed(QString name, bool regex, QString website, QString customLink, bool followed) {
+	if (!regex) {
+		name = MyUtils::simplify(name);
+	}
 	QList<FollowedAnime> list = getFollowed();
 	if (!followed) {
 		for (int i = 0; i < list.size(); i++) {
@@ -122,7 +131,7 @@ void setFollowed(QString name, QString website, QString customLink, bool followe
 		}
 	} else {
 		if (!name.isEmpty()) {
-			list.append(FollowedAnime({name, website, customLink}));
+			list.append(FollowedAnime(name, regex, website, customLink));
 		}
 	}
 	setFollowed(list);
@@ -130,8 +139,15 @@ void setFollowed(QString name, QString website, QString customLink, bool followe
 void setFollowed(QList<FollowedAnime> followed) {
 	QString s;
 	for (int i = 0; i < followed.size(); i++) {
-		s += MyUtils::simplifyOneLine(followed[i].anime) + "|" + followed[i].website + "|" +
-			 followed[i].customLink + "\n";
+		QString anime, regex;
+		if (followed[i].regex) {
+			anime = followed[i].anime;
+			regex = "true";
+		} else {
+			anime = MyUtils::simplifyOneLine(followed[i].anime);
+			regex = "false";
+		}
+		s += anime + "|" + regex + "|" + followed[i].website + "|" + followed[i].customLink + "\n";
 	}
 	if (s.endsWith("\n")) {
 		s = s.mid(0, s.length() - 1);

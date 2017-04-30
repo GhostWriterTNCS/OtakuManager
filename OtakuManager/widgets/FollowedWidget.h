@@ -12,5 +12,5 @@ public:
 	Ui::FollowedWidget ui;
 
 	FollowedWidget(FollowedAnime* followed, QWidget* parent = Q_NULLPTR);
-	FollowedWidget(QStringList list, QWidget* parent = Q_NULLPTR);
+	// FollowedWidget(QStringList list, QWidget* parent = Q_NULLPTR);
 };
