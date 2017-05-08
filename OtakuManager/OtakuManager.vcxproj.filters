@@ -187,6 +187,12 @@
     <ClCompile Include="websites\Nyaa.cpp">
       <Filter>Websites</Filter>
     </ClCompile>
+    <ClCompile Include="websites\AniDex.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="MyAwesomium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.h">
@@ -316,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="QtGeneratedFiles\ui_AboutWindow.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyAwesomium.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

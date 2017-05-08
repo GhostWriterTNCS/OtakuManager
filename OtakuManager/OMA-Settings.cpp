@@ -1,3 +1,4 @@
+#include <QStandardPaths>
 #include "MyUtils.h"
 #include "OMA.h"
 
@@ -153,6 +154,29 @@ void setFollowed(QList<FollowedAnime> followed) {
 		s = s.mid(0, s.length() - 1);
 	}
 	settings->setValue("Followed/followed", s);
+}
+
+bool getDownloadTorrent() {
+	return settings->value("downloadTorrent", "false").toBool();
+}
+void setDownloadTorrent(bool value) {
+	settings->setValue("downloadTorrent", value);
+}
+
+QString getTorrentDir() {
+	return settings
+		->value("torrendDir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation))
+		.toString();
+}
+void setTorrentDir(QString dir) {
+	settings->setValue("torrendDir", dir);
+}
+
+bool getYoutubeToUmmy() {
+	return settings->value("youtubeToUmmy", "false").toBool();
+}
+void setYoutubeToUmmy(bool value) {
+	settings->setValue("youtubeToUmmy", value);
 }
 
 // Other

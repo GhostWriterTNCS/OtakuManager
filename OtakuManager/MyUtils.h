@@ -1,6 +1,5 @@
 #pragma once
 #include <QString>
-#include "MyCurl.h"
 
 namespace MyUtils {
 
@@ -9,6 +8,8 @@ QString substringFromEnd(QString str, QString start, QString end = "");
 QString advancedReplace(QString str, QString startReplace, QString endReplace, QString newText);
 
 QString urlToQString(QString url);
+QString urlToQStringJS(QString url);
+bool urlToFile(QString url, QString filename);
 QString redirectedUrlQt(QString url);
 QString decodeHtml(QString html);
 

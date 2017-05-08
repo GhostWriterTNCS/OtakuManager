@@ -12,8 +12,11 @@ The manager that any otaku should have.
 	* [RedAnimeDatabase](http://redanimedatabase.forumcommunity.net/)
 	* [WebAnimex](http://webanimex.com/)
 * Torrent:
+	* [AniDex](https://anidex.info/)
 	* [Nyaa](https://www.nyaa.se/)
 
 ### Release notices
 
 Made with [Qt5.8](https://www.qt.io/download-open-source/)
+
+Uses [Awesomium](http://www.awesomium.com/) to parse pages with JavaScript.

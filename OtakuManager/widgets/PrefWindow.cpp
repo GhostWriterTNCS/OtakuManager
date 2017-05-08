@@ -1,4 +1,5 @@
 #include <QComboBox>
+#include <QFileDialog>
 #include <QItemDelegate>
 #include <QScrollBar>
 #include <QTreeWidgetItem>
@@ -55,6 +56,10 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 
 	ui.followedListWidget->verticalScrollBar()->setSingleStep(10);
 
+	ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
+	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
+	ui.youtubeToUmmy->setChecked(OMA::Settings::getYoutubeToUmmy());
+
 	connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &PrefWindow::save);
 	connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
 }
@@ -93,6 +98,10 @@ void PrefWindow::save() {
 		}
 	}
 	OMA::Settings::setFollowed(followedList);
+
+	OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
+	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
+	OMA::Settings::setYoutubeToUmmy(ui.youtubeToUmmy->isChecked());
 
 	close();
 }
@@ -133,4 +142,12 @@ void PrefWindow::on_remove_clicked() {
 	if (list.size() > 0) {
 		delete list[0];
 	}
+}
+
+void PrefWindow::on_browseTorrentsDir_clicked() {
+	QString folder = QFileDialog::getExistingDirectory(
+		this, tr("Open Directory"), ui.torrentsDir->displayText(),
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (!folder.isEmpty())
+		ui.torrentsDir->setText(folder);
 }
