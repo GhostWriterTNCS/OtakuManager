@@ -11,7 +11,7 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 	this->episode = episode;
 	this->website = website;
 	ui.episodeTitle->setText(episode->name);
-	ui.episodeTitle->setToolTip(episode->url);
+	// ui.episodeTitle->setToolTip(episode->url);
 	if (OMA::isSeen(episode->name)) {
 		ui.iconLayout->addWidget(new SeenIcon(episode->name));
 	} else if (episode->isNew) {
@@ -47,6 +47,8 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 					} else {
 						show = false;
 					}
+				} else if (button == OMA::linkTypes[LinkTypes::magnet] && website->hasMagnet) {
+					show = true;
 				} else if (button.contains("Download")) {
 					if (button.contains("IfNoDownload")) {
 						if (!episode->hasDownload || !website->hasDownload) {

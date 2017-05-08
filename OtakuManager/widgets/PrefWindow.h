@@ -17,6 +17,7 @@ private slots:
 	void on_addWebsite_clicked();
 	void on_addFollowed_clicked();
 	void on_remove_clicked();
+	void on_browseTorrentsDir_clicked();
 
 private:
 	Ui::PrefWindow ui;

@@ -37,7 +37,7 @@ void UrlButton::applyEpisode(bool succesful) {
 }
 
 void UrlButton::on_UrlButton_clicked() {
-	OMA::getMainWindow()->ui.statusBar->showMessage("Getting link of " +
+	OMA::getMainWindow()->ui.statusBar->showMessage("Getting " + type + " of " +
 													episodeWidget->episode->name + "...");
 	QFuture<void> future = QtConcurrent::run(getEpisodeUrl, this);
 }

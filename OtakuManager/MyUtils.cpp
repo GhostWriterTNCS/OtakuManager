@@ -1,4 +1,6 @@
-﻿#include "MyUtils.h"
+﻿#include "MyAwesomium.h"
+#include "MyCurl.h"
+#include "MyUtils.h"
 #include "OMA.h"
 
 namespace MyUtils {
@@ -34,6 +36,13 @@ QString advancedReplace(QString str, QString startReplace, QString endReplace, Q
 
 QString urlToQString(QString url) {
 	return QString::fromUtf8(MyCurl::urlToString(url.toStdString()).c_str());
+}
+QString urlToQStringJS(QString url) {
+	return QString::fromUtf8(MyAwesomium::urlToString(url.toStdString()).c_str());
+}
+
+bool urlToFile(QString url, QString filename) {
+	return MyCurl::urlToFile(url.toStdString(), filename.toStdString());
 }
 
 QString redirectedUrlQt(QString url) {

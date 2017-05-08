@@ -1,6 +1,7 @@
 #include <QtConcurrent\QtConcurrentRun>
 #include <QtWidgets/QApplication>
 #include "MainWindow.h"
+#include "MyAwesomium.h"
 #include "MyUtils.h"
 #include "NewVersionWindow.h"
 #include "OMA.h"
@@ -19,6 +20,8 @@ void checkForUpadte(NewVersionWindow* newVersionWindow) {
 }
 
 int main(int argc, char* argv[]) {
+	MyAwesomium::InitializeWebCore();
+
 	QApplication a(argc, argv);
 	MainWindow w;
 	w.show();
@@ -28,5 +31,8 @@ int main(int argc, char* argv[]) {
 	QFuture<void> future = QtConcurrent::run(checkForUpadte, newVersionWindow);
 	w.updateAllEpisodes();
 
-	return a.exec();
+	a.exec();
+
+	MyAwesomium::ShutdownWebCore();
+	return 0;
 }

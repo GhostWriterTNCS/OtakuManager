@@ -9,6 +9,7 @@ enum LinkTypes {
 	streaming2IfNoDownload,
 	download,
 	download2,
+	magnet,
 	animeInfo,
 	customLink,
 	post,
@@ -23,6 +24,7 @@ enum Websites {
 	RedAnimeDatabase_IT,
 	WebAnimex_IT,
 	TORRENT,
+	AniDex_TT,
 	Nyaa_TT
 };
 
@@ -45,20 +47,24 @@ public:
 
 namespace OMA {
 
-const QString version = "3.1.1";
+const QString version = "3.2";
 
-const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
-							   "Streaming 2", "Streaming 2IfNoDownload",
-							   "Download",	"Download 2",
-							   "Anime info",  "Custom link",
-							   "Post",		  "PostIfNoDownload"};
+const QStringList linkTypes = {"Streaming",		  "StreamingIfNoDownload",
+							   "Streaming 2",	 "Streaming 2IfNoDownload",
+							   "Download",		  "Download 2",
+							   "Magnet",		  "Anime info",
+							   "Custom link",	 "Post",
+							   "PostIfNoDownload"};
 
-const QStringList websites = {"- English -",	  "Anime Heaven", "- Italian -", "AnimeForce",
-							  "RedAnimeDatabase", "WebAnimex",	"- Torrent -", "Nyaa"};
+const QStringList websites = {"- English -", "Anime Heaven",	 "- Italian -",
+							  "AnimeForce",  "RedAnimeDatabase", "WebAnimex",
+							  "- Torrent -", "AniDex",			 "Nyaa"};
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "
 						 "connection or try another website.</p>";
+
+const QString torrentDownloaded = "OMA::torrentDownloaded";
 
 MainWindow* getMainWindow();
 void setMainWindow(MainWindow* mainWindow);
@@ -92,6 +98,15 @@ FollowedAnime getFollowed(QString name);
 void setFollowed(QString name, bool regex = false, QString website = "*", QString customLink = "",
 				 bool followed = true);
 void setFollowed(QList<FollowedAnime> list);
+
+bool getDownloadTorrent();
+void setDownloadTorrent(bool value);
+
+QString getTorrentDir();
+void setTorrentDir(QString dir);
+
+bool getYoutubeToUmmy();
+void setYoutubeToUmmy(bool value);
 
 // Other
 QList<LastEpisode> getLastEps();
