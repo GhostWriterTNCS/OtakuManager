@@ -37,7 +37,7 @@ Website::Website(QString website) {
 										std::placeholders::_1, std::placeholders::_2);
 	} else if (website == OMA::websites[Websites::AniDex_TT]) {
 		homepage = "https://anidex.info/";
-		episodesPage = "https://anidex.info/rss/cat/1";
+		// episodesPage = "https://anidex.info/rss/cat/1";
 		hasStreaming = false;
 		hasMagnet = true;
 		getEpisodesFunction = std::bind(&Website::getEpisodes_AniDex_TT, this);

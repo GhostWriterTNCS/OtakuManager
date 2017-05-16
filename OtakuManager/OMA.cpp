@@ -25,12 +25,34 @@ FollowedAnime::FollowedAnime(QStringList list) {
 
 namespace OMA {
 
-MainWindow* window;
+MainWindow* mainWindow;
 MainWindow* getMainWindow() {
-	return window;
+	return mainWindow;
 }
-void setMainWindow(MainWindow* mainWindow) {
-	window = mainWindow;
+void setMainWindow(MainWindow* window) {
+	mainWindow = window;
+}
+
+QStringList messages;
+void addStatusMessage(QString mex) {
+	messages.append(mex);
+	QString s = messages[0];
+	for (int i = 1; i < messages.count(); i++) {
+		s += " | " + messages[i];
+	}
+	mainWindow->ui.statusBar->showMessage("[" + QString::number(messages.count()) + "] " + s);
+}
+void removeStatusMessage(QString mex) {
+	messages.removeOne(mex);
+	if (messages.count() > 0) {
+		QString s = messages[0];
+		for (int i = 1; i < messages.count(); i++) {
+			s += " | " + messages[i];
+		}
+		mainWindow->ui.statusBar->showMessage("[" + QString::number(messages.count()) + "] " + s);
+	} else {
+		mainWindow->ui.statusBar->clearMessage();
+	}
 }
 
 bool isSeen(QString ep) {
@@ -65,7 +87,7 @@ bool isFollowed(QString name, QString website) {
 
 bool upenUrl(QString url) {
 	if (!QDesktopServices::openUrl(QUrl(url))) {
-		QMessageBox::warning(OMA::getMainWindow(), "Error", "Unable to open url: " + url);
+		QMessageBox::warning(mainWindow, "Error", "Unable to open url: " + url);
 		return false;
 	}
 	return true;

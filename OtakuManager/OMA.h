@@ -47,7 +47,7 @@ public:
 
 namespace OMA {
 
-const QString version = "3.2";
+const QString version = "3.2.1";
 
 const QStringList linkTypes = {"Streaming",		  "StreamingIfNoDownload",
 							   "Streaming 2",	 "Streaming 2IfNoDownload",
@@ -68,6 +68,8 @@ const QString torrentDownloaded = "OMA::torrentDownloaded";
 
 MainWindow* getMainWindow();
 void setMainWindow(MainWindow* mainWindow);
+void addStatusMessage(QString message);
+void removeStatusMessage(QString message);
 
 bool isSeen(QString episode);
 bool isFollowed(QString name, QString website = "");
@@ -101,6 +103,9 @@ void setFollowed(QList<FollowedAnime> list);
 
 bool getDownloadTorrent();
 void setDownloadTorrent(bool value);
+
+QString getAniDexUrl();
+void setAniDexUrl(QString url);
 
 QString getTorrentDir();
 void setTorrentDir(QString dir);

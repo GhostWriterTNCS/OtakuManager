@@ -26,7 +26,7 @@ void getEpisodeUrl(UrlButton* button) {
 }
 
 void UrlButton::applyEpisode(bool succesful) {
-	OMA::getMainWindow()->ui.statusBar->clearMessage();
+	OMA::removeStatusMessage("Getting " + type + " of " + episodeWidget->episode->name + "...");
 	if (succesful && type != OMA::linkTypes[LinkTypes::animeInfo]) {
 		while (QLayoutItem* item = episodeWidget->ui.iconLayout->itemAt(0)) {
 			delete item->widget();
@@ -37,7 +37,6 @@ void UrlButton::applyEpisode(bool succesful) {
 }
 
 void UrlButton::on_UrlButton_clicked() {
-	OMA::getMainWindow()->ui.statusBar->showMessage("Getting " + type + " of " +
-													episodeWidget->episode->name + "...");
+	OMA::addStatusMessage("Getting " + type + " of " + episodeWidget->episode->name + "...");
 	QFuture<void> future = QtConcurrent::run(getEpisodeUrl, this);
 }

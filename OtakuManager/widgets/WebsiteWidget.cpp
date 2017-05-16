@@ -30,11 +30,14 @@ void getEpisodes(WebsiteWidget* ww) {
 	emit ww->episodesUpdated(successful);
 }
 void WebsiteWidget::updateEpisodes() {
-	OMA::getMainWindow()->ui.statusBar->showMessage("Getting episodes from " + website->name +
-													"...");
+	OMA::addStatusMessage("Getting episodes from " + website->name + "...");
+
+	parentTab->setTabText(tabIndex, website->name + "...");
 	while (QLayoutItem* item = ui.episodesScrollAreaContent->layout()->takeAt(0)) {
 		delete item->widget();
 	}
+
+	followedTab->setTabText(tabIndex - 1, website->name + "...");
 	while (QLayoutItem* item = followedWidget->layout()->takeAt(0)) {
 		delete item->widget();
 	}
@@ -45,6 +48,7 @@ void WebsiteWidget::updateEpisodes() {
 void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 	if (successful) {
 		int newCount = 0;
+		int followedCount = 0;
 		int followedNewCount = 0;
 		for (int i = 0; i < website->episodes.size(); i++) {
 			EpisodeWidget* episode = new EpisodeWidget(&(website->episodes[i]), website);
@@ -52,6 +56,7 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 			if (OMA::isFollowed(website->episodes[i].name, website->name)) {
 				followedWidget->layout()->addWidget(
 					new EpisodeWidget(&(website->episodes[i]), website));
+				followedCount++;
 				if (website->episodes[i].isNew) {
 					followedNewCount++;
 				}
@@ -74,17 +79,16 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 			followedTab->setTabText(tabIndex - 1, website->name);
 		}
 
-		if (OMA::Settings::getFollowedCount(website->name) == 0) {
+		if (followedCount == 0) {
 			followedWidget->layout()->addWidget(
-				new QLabel("<h3 style='text-align: center;'>No followed episodes for " +
-						   website->name + ".</h3>"));
+				new QLabel("<h3 style='text-align: center;'>No followed episodes found.</h3>"));
 		}
 	} else {
 		ui.episodesScrollAreaContent->layout()->addWidget(new QLabel(OMA::errorMex));
 		followedWidget->layout()->addWidget(new QLabel(OMA::errorMex));
 	}
 
-	OMA::getMainWindow()->ui.statusBar->clearMessage();
+	OMA::removeStatusMessage("Getting episodes from " + website->name + "...");
 	QCoreApplication::processEvents();
 }
 
@@ -94,8 +98,7 @@ void getSeries(WebsiteWidget* ww) {
 }
 void WebsiteWidget::updateSeries() {
 	if (!website->seriesPage.isEmpty()) {
-		OMA::getMainWindow()->ui.statusBar->showMessage("Getting series from " + website->name +
-														"...");
+		OMA::addStatusMessage("Getting series from " + website->name + "...");
 		while (QLayoutItem* item = ui.seriesScrollAreaContent->layout()->takeAt(0)) {
 			delete item->widget();
 		}
@@ -114,7 +117,7 @@ void WebsiteWidget::applyUpdatedSeries(bool successful) {
 	} else {
 		ui.seriesScrollAreaContent->layout()->addWidget(new QLabel(OMA::errorMex));
 	}
-	OMA::getMainWindow()->ui.statusBar->clearMessage();
+	OMA::removeStatusMessage("Getting series from " + website->name + "...");
 	QCoreApplication::processEvents();
 }
 

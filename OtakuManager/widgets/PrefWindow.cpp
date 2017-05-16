@@ -21,6 +21,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download]));
 	ui.download2->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download2]));
+	ui.magnet->setChecked(OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::magnet]));
 	ui.animeInfo->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::animeInfo]));
 	ui.post->setChecked(OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::post]));
@@ -56,6 +57,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 
 	ui.followedListWidget->verticalScrollBar()->setSingleStep(10);
 
+	ui.AniDexUrl->setText(OMA::Settings::getAniDexUrl());
 	ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
 	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
 	ui.youtubeToUmmy->setChecked(OMA::Settings::getYoutubeToUmmy());
@@ -81,6 +83,7 @@ void PrefWindow::save() {
 							  ui.streaming2IfNoDownload->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download], ui.download->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download2], ui.download2->isChecked());
+	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::magnet], ui.magnet->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::animeInfo], ui.animeInfo->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::post], ui.post->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::postIfNoDownload],
@@ -99,6 +102,7 @@ void PrefWindow::save() {
 	}
 	OMA::Settings::setFollowed(followedList);
 
+	OMA::Settings::setAniDexUrl(ui.AniDexUrl->displayText().trimmed());
 	OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
 	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
 	OMA::Settings::setYoutubeToUmmy(ui.youtubeToUmmy->isChecked());

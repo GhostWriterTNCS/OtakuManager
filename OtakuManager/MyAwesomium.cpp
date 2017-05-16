@@ -27,8 +27,8 @@ void loopFunction() {
 			std::string tempUrl = localUrl;
 			localUrl = "";
 
-			// Create a new WebView instance with a certain width and height.
-			WebView* view = web_core->CreateWebView(800, 600);
+			WebSession* session = web_core->CreateWebSession(WSLit(""), WebPreferences());
+			WebView* view = web_core->CreateWebView(800, 600, session);
 
 			// Load a certain URL into our WebView instance.
 			view->LoadURL(WebURL(WSLit(tempUrl.c_str())));

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>495</height>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -157,7 +157,7 @@
           <string>Buttons</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="5" column="1">
+          <item row="6" column="1">
            <widget class="QCheckBox" name="postIfNoDownload">
             <property name="styleSheet">
              <string notr="true"/>
@@ -167,37 +167,13 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <widget class="QCheckBox" name="post">
             <property name="toolTip">
              <string>Opens the page you would reach in the website.</string>
             </property>
             <property name="text">
              <string>Post</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="animeInfo">
-            <property name="text">
-             <string>Anime info</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="download">
-            <property name="text">
-             <string>Download</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="download2">
-            <property name="toolTip">
-             <string>Only some websites</string>
-            </property>
-            <property name="text">
-             <string>Download 2</string>
             </property>
            </widget>
           </item>
@@ -211,6 +187,23 @@
             </property>
            </widget>
           </item>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="animeInfo">
+            <property name="text">
+             <string>Anime info</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="download2">
+            <property name="toolTip">
+             <string>Only some websites</string>
+            </property>
+            <property name="text">
+             <string>Download 2</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="1">
            <widget class="QCheckBox" name="streamingIfNoDownload">
             <property name="styleSheet">
@@ -221,10 +214,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="streaming">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="download">
             <property name="text">
-             <string>Streaming</string>
+             <string>Download</string>
             </property>
            </widget>
           </item>
@@ -235,6 +228,20 @@
             </property>
             <property name="text">
              <string>Streaming 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="streaming">
+            <property name="text">
+             <string>Streaming</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="magnet">
+            <property name="text">
+             <string>Magnet</string>
             </property>
            </widget>
           </item>
@@ -313,6 +320,25 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>AniDex</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="AniDexLabel">
+            <property name="text">
+             <string>Search url:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="AniDexUrl"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>Torrent download</string>
@@ -352,7 +378,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>YouTube videos</string>
+          <string>YouTube</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>

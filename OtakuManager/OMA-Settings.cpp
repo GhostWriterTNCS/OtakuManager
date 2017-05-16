@@ -163,6 +163,13 @@ void setDownloadTorrent(bool value) {
 	settings->setValue("downloadTorrent", value);
 }
 
+QString getAniDexUrl() {
+	return settings->value("AniDexUrl", "https://anidex.info/").toString();
+}
+void setAniDexUrl(QString url) {
+	settings->setValue("AniDexUrl", url);
+}
+
 QString getTorrentDir() {
 	return settings
 		->value("torrendDir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation))

@@ -1,22 +1,21 @@
-#include <iostream>
 #include "OMA.h"
 #include "Website.h"
 
 bool Website::getEpisodes_AniDex_TT() {
-	QString html = MyUtils::urlToQString(episodesPage);
-	QString start = "<channel>";
-	QString end = "</channel>";
+	QString html = MyUtils::urlToQStringJS(OMA::Settings::getAniDexUrl());
+	QString start = "<table class=\"table table-striped table-hover table-condensed\">";
+	QString end = "</table>";
 	if (html.contains(end)) {
 		html = MyUtils::substring(html, start, end);
-		QStringList list = html.split("<item>");
-		for (int i = 1; i < list.size(); i++) {
+		QStringList list = html.split("<tr>");
+		for (int i = 2; i < list.size(); i++) {
 			Episode episode;
 			html = list[i];
-			episode.url = MyUtils::substring(html, "<link>", "</link>");
-			episode.name = MyUtils::substring(html, "<title>", "</title>");
-			episode.downloadLink = MyUtils::substring(html, "<a href=\"", "\"");
-			episode.magnetLink =
-				"magnet:" + MyUtils::substring(html, "<a href=\"magnet:", "\"").replace(" ", "");
+			episode.url = "https://anidex.info/" + MyUtils::substring(html, "href=\"", "\"");
+			episode.name = MyUtils::substring(html, "<span class=\"span-1440\">", "</span>");
+			episode.downloadLink =
+				"https://anidex.info/dl" + MyUtils::substring(html, "<a href=\"/dl", "\"");
+			episode.magnetLink = "magnet:" + MyUtils::substring(html, "<a href=\"magnet:", "\"");
 			episodes.push_back(episode);
 		}
 		return true;
