@@ -84,6 +84,9 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 				new QLabel("<h3 style='text-align: center;'>No followed episodes found.</h3>"));
 		}
 	} else {
+		parentTab->setTabText(tabIndex, website->name + " :(");
+		followedTab->setTabText(tabIndex - 1, website->name + " :(");
+
 		ui.episodesScrollAreaContent->layout()->addWidget(new QLabel(OMA::errorMex));
 		followedWidget->layout()->addWidget(new QLabel(OMA::errorMex));
 	}
