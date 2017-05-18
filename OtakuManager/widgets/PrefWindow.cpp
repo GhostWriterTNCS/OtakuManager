@@ -110,11 +110,6 @@ void PrefWindow::save() {
 	close();
 }
 
-void PrefWindow::on_removeWebsite_clicked() {
-	if (ui.activeWebsites->selectedItems().size() > 0) {
-		delete ui.activeWebsites->selectedItems()[0];
-	}
-}
 void PrefWindow::on_addWebsite_clicked() {
 	if (ui.availableWebsites->selectedItems().size() > 0) {
 		QTreeWidgetItem* item = ui.availableWebsites->selectedItems()[0];
@@ -132,15 +127,21 @@ void PrefWindow::on_addWebsite_clicked() {
 		}
 	}
 }
+void PrefWindow::on_removeWebsite_clicked() {
+	if (ui.activeWebsites->selectedItems().size() > 0) {
+		delete ui.activeWebsites->selectedItems()[0];
+	}
+}
 
 void PrefWindow::on_addFollowed_clicked() {
-	FollowedWidget* widget = new FollowedWidget(new FollowedAnime({"", "*", ""}));
+	FollowedWidget* widget = new FollowedWidget(new FollowedAnime("", false, "*", ""));
 	QListWidgetItem* item = new QListWidgetItem();
 	item->setSizeHint(QSize(item->sizeHint().width(), widget->sizeHint().height()));
 	ui.followedListWidget->addItem(item);
 	ui.followedListWidget->setItemWidget(item, widget);
+	ui.followedListWidget->scrollToBottom();
+	widget->ui.animeTitle->setFocus();
 }
-
 void PrefWindow::on_remove_clicked() {
 	QList<QListWidgetItem*> list = ui.followedListWidget->selectedItems();
 	if (list.size() > 0) {
