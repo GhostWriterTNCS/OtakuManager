@@ -1,4 +1,3 @@
-#include <iostream>
 #include "OMA.h"
 #include "Website.h"
 
@@ -31,7 +30,7 @@ bool Website::getSeries_Nyaa_TT() {
 }
 
 QString Website::goToEpisode_Nyaa_TT(Episode* episode, QString type) {
-	if (type == OMA::linkTypes[LinkTypes::download]) {
+	if (type == OMA::linkTypes[LinkTypes::torrent]) {
 		return episode->downloadLink;
 	}
 	return "";

@@ -23,9 +23,9 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 		name.contains(QRegExp("[^a-z]+film[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: #CC66FF; }");
 	} else if (name.contains(QRegExp("[^a-z]+ova[^a-z]+", Qt::CaseInsensitive)) ||
-			   name.contains(QRegExp("[^a-z]+oav[^a-z]+", Qt::CaseInsensitive)) ||
-			   name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
-			   name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
+		name.contains(QRegExp("[^a-z]+oav[^a-z]+", Qt::CaseInsensitive)) ||
+		name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
+		name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: deepskyblue; }");
 	} else if (name.endsWith("end", Qt::CaseInsensitive)) {
 		setStyleSheet("#groupBox { background: tomato; }");
@@ -36,40 +36,52 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 	int count = 0;
 	for (int i = 0; i < OMA::linkTypes.size(); i++) {
 		QString button = OMA::linkTypes[i];
-		if (OMA::Settings::getButtons().contains(button) ||
-			button == OMA::linkTypes[LinkTypes::customLink] &&
-				!OMA::Settings::getFollowed(episode->name).customLink.isEmpty()) {
-			if (button != OMA::linkTypes[LinkTypes::magnet] || website->hasMagnet) {
-				if (!button.contains("2") || website->hasDoubleButtons) {
-					bool show = false;
-					if (button == OMA::linkTypes[LinkTypes::animeInfo]) {
-						if (!website->seriesPage.isEmpty()) {
-							show = true;
-						} else {
-							show = false;
-						}
-					} else if (button == OMA::linkTypes[LinkTypes::magnet] && website->hasMagnet) {
-						show = true;
-					} else if (button.contains("Download")) {
-						if (button.contains("IfNoDownload")) {
-							if (!episode->hasDownload || !website->hasDownload) {
-								show = true;
-							}
-						} else {
-							if (episode->hasDownload && website->hasDownload) {
-								show = true;
-							}
-						}
-					} else if (!button.contains("Streaming") || website->hasStreaming) {
-						show = true;
-					}
-					if (show) {
-						UrlButton* urlButton =
-							new UrlButton(button.replace("IfNoDownload", ""), this);
-						ui.gridLayout->addWidget(urlButton, count / 2, count % 2, 1, 1);
-						count++;
-					}
-				}
+		bool show = false;
+		if (OMA::Settings::getButtons().contains(button)) {
+			switch (i) {
+				case streaming:
+					show = website->hasStreaming;
+					break;
+				case streamingIfNoDownload:
+					show =
+						(!episode->hasDownload || !website->hasDownload) && website->hasStreaming;
+					break;
+				case streaming2:
+					show = website->hasStreaming && website->hasDoubleButtons;
+					break;
+				case streaming2IfNoDownload:
+					show = (!episode->hasDownload || !website->hasDownload) &&
+						website->hasStreaming && website->hasDoubleButtons;
+					break;
+				case download:
+					show = episode->hasDownload && website->hasDownload;
+					break;
+				case download2:
+					show =
+						episode->hasDownload && website->hasDownload && website->hasDoubleButtons;
+					break;
+				case torrent:
+					show = website->hasTorrent;
+					break;
+				case magnet:
+					show = website->hasMagnet;
+					break;
+				case animeInfo:
+					show = !website->seriesPage.isEmpty();
+					break;
+				case customLink:
+					show = !OMA::Settings::getFollowed(episode->name).customLink.isEmpty();
+					break;
+				case postIfNoDownload:
+					show = !episode->hasDownload || !website->hasDownload;
+					break;
+				default:
+					show = true;
+			}
+			if (show) {
+				UrlButton* urlButton = new UrlButton(button.replace("IfNoDownload", ""), this);
+				ui.gridLayout->addWidget(urlButton, count / 2, count % 2, 1, 1);
+				count++;
 			}
 		}
 	}

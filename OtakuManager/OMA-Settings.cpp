@@ -49,7 +49,8 @@ void setWebsites(QStringList list) {
 QStringList getButtons() {
 	return settings
 		->value("buttons", linkTypes[LinkTypes::streaming] + "|" + linkTypes[LinkTypes::download] +
-							   "|" + linkTypes[LinkTypes::animeInfo])
+			"|" + linkTypes[LinkTypes::torrent] + "|" +
+			linkTypes[LinkTypes::animeInfo])
 		.toString()
 		.split("|");
 }
@@ -80,8 +81,8 @@ void setButtons(QString button, bool show) {
 QString getFollowedString() {
 	return settings
 		->value("Followed/followed", "[^0-9]+01[^0-9]+|true|*|\n[^a-z]+sp[^a-z]+|true|*|\n[^a-z]+"
-									 "special[^a-z]+|true|*|\n[^a-z]+ova[^a-z]+|true|*|\n[^a-z]+"
-									 "oav[^a-z]+|true|*|\n[^a-z]+movie[^a-z]+|true|*|")
+			"special[^a-z]+|true|*|\n[^a-z]+ova[^a-z]+|true|*|\n[^a-z]+"
+			"oav[^a-z]+|true|*|\n[^a-z]+movie[^a-z]+|true|*|")
 		.toString();
 }
 QList<FollowedAnime> getFollowed() {
@@ -249,7 +250,7 @@ void setSeen(QString ep, bool seen) {
 }
 
 QList<int> getWindowValues() {
-	QList<int> values = {770, 500, -9999, -9999, 0};
+	QList<int> values = { 770, 500, -9999, -9999, 0 };
 #ifndef DEBUG
 	QStringList list = settings->value("windowValues", "").toString().split("|");
 	for (int i = 0; i < 5; i++) {

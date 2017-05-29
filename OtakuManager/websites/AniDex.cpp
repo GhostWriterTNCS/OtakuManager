@@ -2,7 +2,11 @@
 #include "Website.h"
 
 bool Website::getEpisodes_AniDex_TT() {
-	QString html = MyUtils::urlToQStringJS(OMA::Settings::getAniDexUrl());
+	QString url = homepage;
+	if (!OMA::Settings::getAniDexUrl().isEmpty()) {
+		url = OMA::Settings::getAniDexUrl();
+	}
+	QString html = MyUtils::urlToQStringJS(url);
 	QString start = "<table class=\"table table-striped table-hover table-condensed\">";
 	QString end = "</table>";
 	if (html.contains(end)) {
@@ -28,7 +32,7 @@ bool Website::getSeries_AniDex_TT() {
 }
 
 QString Website::goToEpisode_AniDex_TT(Episode* episode, QString type) {
-	if (type == OMA::linkTypes[LinkTypes::download]) {
+	if (type == OMA::linkTypes[LinkTypes::torrent]) {
 		return episode->downloadLink;
 	}
 	return "";

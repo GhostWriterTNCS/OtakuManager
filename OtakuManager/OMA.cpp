@@ -86,7 +86,10 @@ bool isFollowed(QString name, QString website) {
 }
 
 bool upenUrl(QString url) {
-	if (!QDesktopServices::openUrl(QUrl(url))) {
+	if (url.isEmpty()) {
+		QMessageBox::warning(mainWindow, "Error", "Url is empty.");
+		return false;
+	} else if (!QDesktopServices::openUrl(QUrl(url))) {
 		QMessageBox::warning(mainWindow, "Error", "Unable to open url: " + url);
 		return false;
 	}

@@ -12,20 +12,19 @@ namespace MyAwesomium {
 
 std::string localUrl = "";
 std::string result = "";
+bool started = false;
 bool running = false;
-bool shutdown = false;
-
-void executeUrlToString() {}
 
 // Awesomium does not support multithread.
 void loopFunction() {
 	WebCore* web_core = WebCore::Initialize(WebConfig());
-	while (!shutdown) {
+	while (started) {
 		if (localUrl == "") {
 			Sleep(500);
 		} else {
 			std::string tempUrl = localUrl;
 			localUrl = "";
+			result = "";
 
 			WebSession* session = web_core->CreateWebSession(WSLit(""), WebPreferences());
 			WebView* view = web_core->CreateWebView(800, 600, session);
@@ -59,8 +58,8 @@ void loopFunction() {
 			// Get the page source.
 			WebString webString =
 				view->ExecuteJavascriptWithResult(
-						WSLit("document.getElementsByTagName('html')[0].innerHTML"), WSLit(""))
-					.ToString();
+					WSLit("document.getElementsByTagName('html')[0].innerHTML"), WSLit(""))
+				.ToString();
 
 			view->Destroy();
 
@@ -71,15 +70,20 @@ void loopFunction() {
 	WebCore::Shutdown();
 }
 
-void InitializeWebCore() {
+/*void InitializeWebCore() {
 	std::thread* t = new std::thread(loopFunction);
-}
+}*/
 void ShutdownWebCore() {
-	shutdown = true;
+	started = false;
 }
 
 std::string urlToString(std::string url) {
-	std::cout << "[Awesomium] Started: " << url << std::endl;
+	if (!started) {
+		std::thread* t = new std::thread(loopFunction);
+		started = true;
+	}
+
+	std::cout << "[MyAwesomium] Started " << url << std::endl;
 	while (running) {
 		Sleep(250);
 	}
@@ -87,10 +91,12 @@ std::string urlToString(std::string url) {
 	localUrl = url;
 	running = true;
 
-	while (running) {
+	int i = 0;
+	while (running && i < 120) { // wait max 30sec
 		Sleep(250);
+		i++;
 	}
-	std::cout << "[Awesomium] Finished: " << url << std::endl;
+	std::cout << "[MyAwesomium] Finished " << url << std::endl;
 	return result;
 }
 

@@ -21,6 +21,8 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download]));
 	ui.download2->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download2]));
+	ui.torrent->setChecked(
+		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::torrent]));
 	ui.magnet->setChecked(OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::magnet]));
 	ui.animeInfo->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::animeInfo]));
@@ -78,16 +80,17 @@ void PrefWindow::save() {
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming], ui.streaming->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2], ui.streaming2->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streamingIfNoDownload],
-							  ui.streamingIfNoDownload->isChecked());
+		ui.streamingIfNoDownload->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2IfNoDownload],
-							  ui.streaming2IfNoDownload->isChecked());
+		ui.streaming2IfNoDownload->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download], ui.download->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download2], ui.download2->isChecked());
+	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::torrent], ui.torrent->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::magnet], ui.magnet->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::animeInfo], ui.animeInfo->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::post], ui.post->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::postIfNoDownload],
-							  ui.postIfNoDownload->isChecked());
+		ui.postIfNoDownload->isChecked());
 
 	QList<FollowedAnime> followedList;
 	for (int i = 0; i < ui.followedListWidget->count(); i++) {
@@ -95,9 +98,9 @@ void PrefWindow::save() {
 			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
 		if (!followed->ui.animeTitle->text().isEmpty()) {
 			followedList.append(FollowedAnime(followed->ui.animeTitle->text(),
-											  followed->ui.regex->isChecked(),
-											  followed->ui.websiteComboBox->currentText(),
-											  followed->ui.customLinkLineEdit->text()));
+				followed->ui.regex->isChecked(),
+				followed->ui.websiteComboBox->currentText(),
+				followed->ui.customLinkLineEdit->text()));
 		}
 	}
 	OMA::Settings::setFollowed(followedList);

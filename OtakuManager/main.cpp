@@ -20,7 +20,7 @@ void checkForUpadte(NewVersionWindow* newVersionWindow) {
 }
 
 int main(int argc, char* argv[]) {
-	MyAwesomium::InitializeWebCore();
+	//MyAwesomium::InitializeWebCore();
 
 	QApplication a(argc, argv);
 	MainWindow w;

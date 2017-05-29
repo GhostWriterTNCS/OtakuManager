@@ -12,10 +12,13 @@ bool Website::getEpisodes_AnimeHeaven_EN() {
 		for (int i = 0; i < list.size() - 1; i++) {
 			Episode episode;
 			html = list[i];
-			if (html.contains("<span class=\"new_series\">New series</span>")) {
+			if (html.contains("<span class=\"new_movie\">New movie</span>")) {
+				episode.url = MyUtils::substring(html, "href=\"", "\"");
+				episode.name = MyUtils::substring(html, "title=\"", "\"") + " Movie";
+			} else if (html.contains("<span class=\"new_series\">New series</span>")) {
 				episode.url = MyUtils::substring(html, "href=\"", "\"");
 				episode.name = MyUtils::substring(html, "title=\"", "\"") + " Episode 01";
-			} else {
+			} else if(html.contains("<span class=\"new_episode\">New episode</span>")) {
 				html = MyUtils::substring(html, "<span>Latest:</span>");
 				episode.url = MyUtils::substring(html, "href=\"", "\"");
 
@@ -24,6 +27,9 @@ bool Website::getEpisodes_AnimeHeaven_EN() {
 				html = MyUtils::substring(html, ">", "<").trimmed();
 				episode.name =
 					html.trimmed() + " " + MyUtils::substring(list[i], episode.url + "\">", "</a>");
+			} else {
+				episode.url = MyUtils::substring(html, "href=\"", "\"");
+				episode.name = MyUtils::substring(html, "title=\"", "\"");
 			}
 			episodes.push_back(episode);
 		}

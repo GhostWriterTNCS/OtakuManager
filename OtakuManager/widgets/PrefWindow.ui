@@ -157,13 +157,10 @@
           <string>Buttons</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="6" column="1">
-           <widget class="QCheckBox" name="postIfNoDownload">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="animeInfo">
             <property name="text">
-             <string>Post if no Download</string>
+             <string>Anime info</string>
             </property>
            </widget>
           </item>
@@ -177,23 +174,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="streaming2IfNoDownload">
-            <property name="toolTip">
-             <string>Only some websites</string>
-            </property>
-            <property name="text">
-             <string>Streaming 2 if no Download</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QCheckBox" name="animeInfo">
-            <property name="text">
-             <string>Anime info</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="1">
            <widget class="QCheckBox" name="download2">
             <property name="toolTip">
@@ -201,6 +181,13 @@
             </property>
             <property name="text">
              <string>Download 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="download">
+            <property name="text">
+             <string>Download</string>
             </property>
            </widget>
           </item>
@@ -214,10 +201,30 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="download">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="streaming">
             <property name="text">
-             <string>Download</string>
+             <string>Streaming</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="streaming2IfNoDownload">
+            <property name="toolTip">
+             <string>Only some websites</string>
+            </property>
+            <property name="text">
+             <string>Streaming 2 if no Download</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="postIfNoDownload">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Post if no Download</string>
             </property>
            </widget>
           </item>
@@ -231,17 +238,17 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="streaming">
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="magnet">
             <property name="text">
-             <string>Streaming</string>
+             <string>Magnet</string>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QCheckBox" name="magnet">
+           <widget class="QCheckBox" name="torrent">
             <property name="text">
-             <string>Magnet</string>
+             <string>Torrent</string>
             </property>
            </widget>
           </item>
@@ -380,11 +387,39 @@
          <property name="title">
           <string>YouTube</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QCheckBox" name="youtubeToUmmy">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Open YouTube videos with Ummy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://videodownloader.ummy.net/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://videodownloader.ummy.net/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="openExternalLinks">
+             <bool>true</bool>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::TextBrowserInteraction</set>
             </property>
            </widget>
           </item>

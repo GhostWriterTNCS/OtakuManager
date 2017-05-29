@@ -8,7 +8,7 @@ namespace MyUtils {
 QString substring(QString str, QString start, QString end) {
 	if (!start.isEmpty() && str.contains(start))
 		str = str.mid(str.indexOf(start) + start.length(),
-					  str.length() - str.indexOf(start) - start.length());
+			str.length() - str.indexOf(start) - start.length());
 	if (!end.isEmpty() && str.contains(end))
 		str = str.mid(0, str.indexOf(end));
 	return str;
@@ -17,9 +17,9 @@ QString substring(QString str, QString start, QString end) {
 QString substringFromEnd(QString str, QString start, QString end) {
 	if (!start.isEmpty() && str.contains(start))
 		str = str.mid(str.lastIndexOf(start) + start.length(),
-					  str.length() - str.lastIndexOf(start) - start.length());
+			str.length() - str.lastIndexOf(start) - start.length());
 	if (!end.isEmpty() && str.contains(end))
-		str = str.mid(0, str.indexOf(end));
+		str = str.mid(0, str.lastIndexOf(end));
 	return str;
 }
 

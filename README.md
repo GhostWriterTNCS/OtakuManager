@@ -7,6 +7,7 @@ The manager that any otaku should have.
 ## Supported websites:
 * English:
 	* [Anime Heaven](http://animehaven.to/)
+	* [KissAnime](https://kissanime.io/)
 * Italian:
 	* [AnimeForce](http://www.animeforce.org/)
 	* [RedAnimeDatabase](http://redanimedatabase.forumcommunity.net/)

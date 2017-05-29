@@ -30,6 +30,7 @@ public:
 	QString seriesPage;
 	bool hasStreaming = true;
 	bool hasDownload = true;
+	bool hasTorrent = false;
 	bool hasDoubleButtons = false;
 	bool hasMagnet = false;
 	std::function<bool()> getEpisodesFunction;
@@ -52,6 +53,10 @@ private:
 	bool getEpisodes_AnimeForce_IT();
 	bool getSeries_AnimeForce_IT();
 	QString goToEpisode_AnimeForce_IT(Episode* episode, QString type);
+
+	bool getEpisodes_KissAnime_EN();
+	bool getSeries_KissAnime_EN();
+	QString goToEpisode_KissAnime_EN(Episode* episode, QString type);
 
 	bool getEpisodes_RedAnimeDatabase_IT();
 	bool getSeries_RedAnimeDatabase_IT();

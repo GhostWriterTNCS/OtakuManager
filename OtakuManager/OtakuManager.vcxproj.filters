@@ -193,6 +193,9 @@
     <ClCompile Include="MyAwesomium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="websites\KissAnime.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.h">
