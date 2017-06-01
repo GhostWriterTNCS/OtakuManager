@@ -49,7 +49,7 @@ public:
 
 namespace OMA {
 
-const QString version = "3.3";
+const QString version = "3.3.1";
 
 const QStringList linkTypes = { "Streaming",   "StreamingIfNoDownload",
 							   "Streaming 2", "Streaming 2IfNoDownload",
@@ -98,7 +98,7 @@ void setButtons(QString hidden, bool hide = true);
 // FollowedAndLinks
 QList<FollowedAnime> getFollowed();
 int getFollowedCount(QString website);
-FollowedAnime getFollowed(QString name);
+FollowedAnime getFollowed(QString name, QString website = "");
 void setFollowed(QString name, bool regex = false, QString website = "*", QString customLink = "",
 	bool followed = true);
 void setFollowed(QList<FollowedAnime> list);

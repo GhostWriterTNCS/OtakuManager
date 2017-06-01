@@ -37,42 +37,42 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 	for (int i = 0; i < OMA::linkTypes.size(); i++) {
 		QString button = OMA::linkTypes[i];
 		bool show = false;
-		if (OMA::Settings::getButtons().contains(button)) {
+		if (OMA::Settings::getButtons().contains(button) || i == LinkTypes::customLink) {
 			switch (i) {
-				case streaming:
+				case LinkTypes::streaming:
 					show = website->hasStreaming;
 					break;
-				case streamingIfNoDownload:
+				case LinkTypes::streamingIfNoDownload:
 					show =
 						(!episode->hasDownload || !website->hasDownload) && website->hasStreaming;
 					break;
-				case streaming2:
+				case LinkTypes::streaming2:
 					show = website->hasStreaming && website->hasDoubleButtons;
 					break;
-				case streaming2IfNoDownload:
+				case LinkTypes::streaming2IfNoDownload:
 					show = (!episode->hasDownload || !website->hasDownload) &&
 						website->hasStreaming && website->hasDoubleButtons;
 					break;
-				case download:
+				case LinkTypes::download:
 					show = episode->hasDownload && website->hasDownload;
 					break;
-				case download2:
+				case LinkTypes::download2:
 					show =
 						episode->hasDownload && website->hasDownload && website->hasDoubleButtons;
 					break;
-				case torrent:
+				case LinkTypes::torrent:
 					show = website->hasTorrent;
 					break;
-				case magnet:
+				case LinkTypes::magnet:
 					show = website->hasMagnet;
 					break;
-				case animeInfo:
+				case LinkTypes::animeInfo:
 					show = !website->seriesPage.isEmpty();
 					break;
-				case customLink:
+				case LinkTypes::customLink:
 					show = !OMA::Settings::getFollowed(episode->name).customLink.isEmpty();
 					break;
-				case postIfNoDownload:
+				case LinkTypes::postIfNoDownload:
 					show = !episode->hasDownload || !website->hasDownload;
 					break;
 				default:

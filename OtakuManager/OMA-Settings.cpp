@@ -110,11 +110,22 @@ int getFollowedCount(QString website) {
 	}
 	return count;
 }
-FollowedAnime getFollowed(QString name) {
-	QList<FollowedAnime> followed = getFollowed();
-	for (int i = 0; i < followed.size(); i++) {
-		if (name.contains(followed[i].anime)) {
-			return followed[i];
+FollowedAnime getFollowed(QString name, QString website) {
+	name = " " + name + " ";
+	QList<FollowedAnime> list = getFollowed();
+	for (int i = 0; i < list.size(); i++) {
+		if (list[i].regex) {
+			if (name.contains(QRegExp(list[i].anime, Qt::CaseInsensitive))) {
+				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
+					return list[i];
+				}
+			}
+		} else {
+			if (MyUtils::simplify(name).contains(list[i].anime, Qt::CaseInsensitive)) {
+				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
+					return list[i];
+				}
+			}
 		}
 	}
 	return FollowedAnime("", false, "", "");

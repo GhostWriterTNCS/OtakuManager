@@ -1,4 +1,3 @@
-#include <iostream>
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QUrl>
@@ -65,24 +64,8 @@ bool isSeen(QString ep) {
 }
 
 bool isFollowed(QString name, QString website) {
-	name = " " + name + " ";
-	QList<FollowedAnime> list = Settings::getFollowed();
-	for (int i = 0; i < list.size(); i++) {
-		if (list[i].regex) {
-			if (name.contains(QRegExp(list[i].anime, Qt::CaseInsensitive))) {
-				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
-					return true;
-				}
-			}
-		} else {
-			if (MyUtils::simplify(name).contains(list[i].anime, Qt::CaseInsensitive)) {
-				if (website.isEmpty() || list[i].website == "*" || website == list[i].website) {
-					return true;
-				}
-			}
-		}
-	}
-	return false;
+	FollowedAnime followed = Settings::getFollowed(name, website);
+	return !followed.anime.isEmpty();
 }
 
 bool upenUrl(QString url) {

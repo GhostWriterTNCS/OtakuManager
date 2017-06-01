@@ -1,4 +1,3 @@
-#include <iostream>
 #include <QtConcurrent\QtConcurrentRun>
 #include "OMA.h"
 #include "SeenIcon.h"
@@ -20,7 +19,7 @@ void getEpisodeUrl(UrlButton* button) {
 			OMA::Settings::getFollowed(button->episodeWidget->episode->name).customLink);
 	} else {
 		succesful = button->episodeWidget->website->goToEpisode(button->episodeWidget->episode,
-																button->type);
+			button->type);
 	}
 	emit button->episodeDone(succesful);
 }
