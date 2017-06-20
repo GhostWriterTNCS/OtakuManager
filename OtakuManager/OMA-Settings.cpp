@@ -27,7 +27,7 @@ void setCheckForUpdates(bool value) {
 }
 
 QString getWebsitesQString() {
-	return settings->value("websites", "Anime Heaven").toString();
+	return settings->value("websites", "KissAnime").toString();
 }
 QStringList getWebsites() {
 	return getWebsitesQString().split("|");
