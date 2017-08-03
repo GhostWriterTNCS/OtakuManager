@@ -1,6 +1,15 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_AnimeForce_IT() {
+	homepage = "http://www.animeforce.org/";
+	seriesPage = "http://www.animeforce.org/lista-anime-in-corso/";
+	getEpisodesFunction = std::bind(&Website::getEpisodes_AnimeForce_IT, this);
+	getSeriesFunction = std::bind(&Website::getSeries_AnimeForce_IT, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_AnimeForce_IT, this,
+		std::placeholders::_1, std::placeholders::_2);
+}
+
 bool Website::getEpisodes_AnimeForce_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<div class=\"content-wrapper\">";
@@ -56,14 +65,14 @@ bool Website::getSeries_AnimeForce_IT() {
 
 QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {
 	QString url = episode->url;
-	QStringList codes = {"-episodio-", "-oav-", "-movie-"};
+	QStringList codes = { "-episodio-", "-oav-", "-movie-" };
 	int index, charsToReplace;
 	for (int i = 0; i < codes.size(); i++) {
 		if (url.contains(codes[i])) {
 			index = url.lastIndexOf(codes[i]) + 1;
 			charsToReplace = codes[i].length();
 			while (isdigit(url.toStdString()[index + charsToReplace]) ||
-				   url[index + charsToReplace] == '-') {
+				url[index + charsToReplace] == '-') {
 				charsToReplace++;
 			}
 			break;
@@ -74,7 +83,7 @@ QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {
 
 	if (type != OMA::linkTypes[LinkTypes::animeInfo]) {
 		QString name = MyUtils::substring(episode->name, "", " Sub Ita");
-		QStringList otherCodes = {"Episodio", "OAV", "Movie"};
+		QStringList otherCodes = { "Episodio", "OAV", "Movie" };
 		for (int i = 0; i < otherCodes.size(); i++) {
 			if (name.contains(otherCodes[i]))
 				name = otherCodes[i] + MyUtils::substringFromEnd(name, otherCodes[i]);

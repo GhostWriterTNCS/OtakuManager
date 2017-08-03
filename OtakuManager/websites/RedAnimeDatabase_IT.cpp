@@ -1,6 +1,16 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_RedAnimeDatabase_IT() {
+	homepage = "http://redanimedatabase.forumcommunity.net/index.php";
+	seriesPage = "http://redanimedatabase.forumcommunity.net/?f=8821471";
+	hasDoubleButtons = true;
+	getEpisodesFunction = std::bind(&Website::getEpisodes_RedAnimeDatabase_IT, this);
+	getSeriesFunction = std::bind(&Website::getSeries_RedAnimeDatabase_IT, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_RedAnimeDatabase_IT, this,
+		std::placeholders::_1, std::placeholders::_2);
+}
+
 bool Website::getEpisodes_RedAnimeDatabase_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<div style=\"overflow-y: scroll;";
@@ -32,13 +42,14 @@ bool Website::getSeries_RedAnimeDatabase_IT() {
 	if (html.contains(end)) {
 		int pages =
 			MyUtils::substring(
-				html, "javascript:page_jump('http://redanimedatabase.forumcommunity.net/?f=8821471',",
+				html,
+				"javascript:page_jump('http://redanimedatabase.forumcommunity.net/?f=8821471',",
 				",")
-				.toInt();
+			.toInt();
 		html = MyUtils::substring(html, start, end);
 		for (int i = 1; i < pages; i++) {
 			QString temp = MyUtils::urlToQString(seriesPage + "&st=" + QString::number(i * 30));
-			if(!temp.contains(end)) {
+			if (!temp.contains(end)) {
 				return false;
 			}
 			html += MyUtils::substring(temp, start, end);
@@ -87,7 +98,7 @@ QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type)
 			s = "";
 			for (int i = 0; i < episode.size(); i++) {
 				if ((episode[i].contains(tipo_ep + id) ||
-					 episode[i].contains(tipo_ep + "0" + id)) &&
+					episode[i].contains(tipo_ep + "0" + id)) &&
 					episode[i].contains("href")) {
 					s = episode[i];
 					break;

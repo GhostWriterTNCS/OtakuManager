@@ -1,6 +1,19 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_AniDex_TT() {
+	homepage = "https://anidex.info/";
+	// episodesPage = "https://anidex.info/rss/cat/1";
+	hasStreaming = false;
+	hasDownload = false;
+	hasTorrent = true;
+	hasMagnet = true;
+	getEpisodesFunction = std::bind(&Website::getEpisodes_AniDex_TT, this);
+	getSeriesFunction = std::bind(&Website::getSeries_AniDex_TT, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_AniDex_TT, this, std::placeholders::_1,
+		std::placeholders::_2);
+}
+
 bool Website::getEpisodes_AniDex_TT() {
 	QString url = homepage;
 	if (!OMA::Settings::getAniDexUrl().isEmpty()) {

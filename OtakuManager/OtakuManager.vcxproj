@@ -163,13 +163,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Website.cpp" />
-    <ClCompile Include="websites\AniDex.cpp" />
-    <ClCompile Include="websites\AnimeForce.cpp" />
-    <ClCompile Include="websites\AnimeHeaven.cpp" />
-    <ClCompile Include="websites\KissAnime.cpp" />
-    <ClCompile Include="websites\Nyaa.cpp" />
-    <ClCompile Include="websites\RedAnimeDatabase.cpp" />
-    <ClCompile Include="websites\WebAnimex.cpp" />
+    <ClCompile Include="websites\AniDex_TT.cpp" />
+    <ClCompile Include="websites\AnimeForce_IT.cpp" />
+    <ClCompile Include="websites\AnimeHeaven_EN.cpp" />
+    <ClCompile Include="websites\KissAnime_EN.cpp" />
+    <ClCompile Include="websites\Nyaa_TT.cpp" />
+    <ClCompile Include="websites\RedAnimeDatabase_IT.cpp" />
+    <ClCompile Include="websites\WebAnimex_IT.cpp" />
     <ClCompile Include="widgets\AboutWindow.cpp" />
     <ClCompile Include="widgets\AnimeWidget.cpp" />
     <ClCompile Include="widgets\ColorsWindow.cpp" />

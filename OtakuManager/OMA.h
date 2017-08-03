@@ -17,6 +17,12 @@ enum LinkTypes {
 	postIfNoDownload
 };
 
+/*
+ * HOW TO ADD A WEBSITE
+ * Insert here the new website name.
+ * Note: add the language suffix and put the website in the correct language group. Groups are
+ * sorted alphabeticcaly.
+ */
 enum Websites {
 	ENGLISH,
 	AnimeHeaven_EN,
@@ -58,6 +64,12 @@ const QStringList linkTypes = { "Streaming",   "StreamingIfNoDownload",
 							   "Anime info",  "Custom link",
 							   "Post",		  "PostIfNoDownload" };
 
+/*
+ * HOW TO ADD A WEBSITE
+ * Insert here the new website name.
+ * Note: put the website in the correct language group. Groups are sorted alphabeticcaly. The
+ * website position must be the same in 'enum Websites' and in 'const QStringList websites'.
+ */
 const QStringList websites = {
 	"- English -",		"Anime Heaven", "KissAnime",   "- Italian -", "AnimeForce",
 	"RedAnimeDatabase", "WebAnimex",	"- Torrent -", "AniDex",	  "Nyaa" };

@@ -4,65 +4,25 @@
 
 Website::Website(QString website) {
 	name = website;
+	/*
+	 * HOW TO ADD A WEBSITE
+	 * Insert here the new website initializer.
+	 * Note: group languages and sort alphabetically.
+	 */
 	if (website == OMA::websites[Websites::AnimeHeaven_EN]) {
-		homepage = "http://animehaven.to/";
-		episodesPage = "http://animehaven.to/anime-list?show_latest_anime=true";
-		seriesPage = "http://animehaven.to/anime-list?show_latest_anime=true&show=series";
-		hasDownload = false;
-		getEpisodesFunction = std::bind(&Website::getEpisodes_AnimeHeaven_EN, this);
-		getSeriesFunction = std::bind(&Website::getSeries_AnimeHeaven_EN, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_AnimeHeaven_EN, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_AnimeHeaven_EN();
 	} else if (website == OMA::websites[Websites::KissAnime_EN]) {
-		homepage = "https://kissanime.io/";
-		seriesPage = "https://kissanime.io/Status/Ongoing/LatestUpdate";
-		getEpisodesFunction = std::bind(&Website::getEpisodes_KissAnime_EN, this);
-		getSeriesFunction = std::bind(&Website::getSeries_KissAnime_EN, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_KissAnime_EN, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_KissAnime_EN();
 	} else if (website == OMA::websites[Websites::AnimeForce_IT]) {
-		homepage = "http://www.animeforce.org/";
-		seriesPage = "http://www.animeforce.org/lista-anime-in-corso/";
-		getEpisodesFunction = std::bind(&Website::getEpisodes_AnimeForce_IT, this);
-		getSeriesFunction = std::bind(&Website::getSeries_AnimeForce_IT, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_AnimeForce_IT, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_AnimeForce_IT();
 	} else if (website == OMA::websites[Websites::RedAnimeDatabase_IT]) {
-		homepage = "http://redanimedatabase.forumcommunity.net/index.php";
-		seriesPage = "http://redanimedatabase.forumcommunity.net/?f=8821471";
-		hasDoubleButtons = true;
-		getEpisodesFunction = std::bind(&Website::getEpisodes_RedAnimeDatabase_IT, this);
-		getSeriesFunction = std::bind(&Website::getSeries_RedAnimeDatabase_IT, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_RedAnimeDatabase_IT, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_RedAnimeDatabase_IT();
 	} else if (website == OMA::websites[Websites::WebAnimex_IT]) {
-		homepage = "http://webanimex.com/";
-		seriesPage = "http://webanimex.com/episodi-in-streaming/anime-in-corso/";
-		getEpisodesFunction = std::bind(&Website::getEpisodes_WebAnimex_IT, this);
-		getSeriesFunction = std::bind(&Website::getSeries_WebAnimex_IT, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_WebAnimex_IT, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_WebAnimex_IT();
 	} else if (website == OMA::websites[Websites::AniDex_TT]) {
-		homepage = "https://anidex.info/";
-		// episodesPage = "https://anidex.info/rss/cat/1";
-		hasStreaming = false;
-		hasDownload = false;
-		hasTorrent = true;
-		hasMagnet = true;
-		getEpisodesFunction = std::bind(&Website::getEpisodes_AniDex_TT, this);
-		getSeriesFunction = std::bind(&Website::getSeries_AniDex_TT, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_AniDex_TT, this,
-			std::placeholders::_1, std::placeholders::_2);
+		initialize_AniDex_TT();
 	} else if (website == OMA::websites[Websites::Nyaa_TT]) {
-		homepage = "https://www.nyaa.se/";
-		episodesPage = "https://nyaa.se/?q=&f=0&c=1_0";
-		hasStreaming = false;
-		hasDownload = false;
-		hasTorrent = true;
-		getEpisodesFunction = std::bind(&Website::getEpisodes_Nyaa_TT, this);
-		getSeriesFunction = std::bind(&Website::getSeries_Nyaa_TT, this);
-		goToEpisodeFunction = std::bind(&Website::goToEpisode_Nyaa_TT, this, std::placeholders::_1,
-			std::placeholders::_2);
+		initialize_Nyaa_TT();
 	} else {
 		QMessageBox::warning(OMA::getMainWindow(), "Error", "Website not valid: " + website);
 	}

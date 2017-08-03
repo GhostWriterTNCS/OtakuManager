@@ -1,6 +1,18 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_Nyaa_TT() {
+	homepage = "https://www.nyaa.se/";
+	episodesPage = "https://nyaa.se/?q=&f=0&c=1_0";
+	hasStreaming = false;
+	hasDownload = false;
+	hasTorrent = true;
+	getEpisodesFunction = std::bind(&Website::getEpisodes_Nyaa_TT, this);
+	getSeriesFunction = std::bind(&Website::getSeries_Nyaa_TT, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_Nyaa_TT, this, std::placeholders::_1,
+		std::placeholders::_2);
+}
+
 bool Website::getEpisodes_Nyaa_TT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<th class=\"tlistthfive\">";

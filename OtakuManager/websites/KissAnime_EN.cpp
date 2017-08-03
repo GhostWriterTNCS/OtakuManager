@@ -1,6 +1,15 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_KissAnime_EN() {
+	homepage = "https://kissanime.io/";
+	seriesPage = "https://kissanime.io/Status/Ongoing/LatestUpdate";
+	getEpisodesFunction = std::bind(&Website::getEpisodes_KissAnime_EN, this);
+	getSeriesFunction = std::bind(&Website::getSeries_KissAnime_EN, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_KissAnime_EN, this, std::placeholders::_1,
+		std::placeholders::_2);
+}
+
 bool Website::getEpisodes_KissAnime_EN() {
 	QString html = MyUtils::urlToQStringJS(homepage);
 	QString start = "<div class=\"barTitle full\">Latest anime update</div>";

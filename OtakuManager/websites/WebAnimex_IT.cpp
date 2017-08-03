@@ -1,6 +1,15 @@
 #include "OMA.h"
 #include "Website.h"
 
+void Website::initialize_WebAnimex_IT() {
+	homepage = "http://webanimex.com/";
+	seriesPage = "http://webanimex.com/episodi-in-streaming/anime-in-corso/";
+	getEpisodesFunction = std::bind(&Website::getEpisodes_WebAnimex_IT, this);
+	getSeriesFunction = std::bind(&Website::getSeries_WebAnimex_IT, this);
+	goToEpisodeFunction = std::bind(&Website::goToEpisode_WebAnimex_IT, this, std::placeholders::_1,
+		std::placeholders::_2);
+}
+
 bool Website::getEpisodes_WebAnimex_IT() {
 	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<ul class=\"list list-episodes\">";
@@ -67,7 +76,7 @@ QString Website::goToEpisode_WebAnimex_IT(Episode* episode, QString type) {
 		s = MyUtils::substring(s, "red.html?af=");
 		s = MyUtils::redirectedUrlQt(s);
 		s = MyUtils::advancedReplace(s, "",
-									 ".php?file=", "http://go.animeforce.org/1706398/http://");
+			".php?file=", "http://go.animeforce.org/1706398/http://");
 	} else if (type == OMA::linkTypes[LinkTypes::animeInfo]) {
 		s = MyUtils::urlToQString(episode->url);
 		if (s.contains("class=\"breadcrumb-list\"")) {

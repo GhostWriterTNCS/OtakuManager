@@ -100,9 +100,6 @@
     <ClCompile Include="QtGeneratedFiles\Release\moc_SeenIcon.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="websites\WebAnimex.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
     <ClCompile Include="widgets\NewIcon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,12 +108,6 @@
     </ClCompile>
     <ClCompile Include="QtGeneratedFiles\Release\moc_NewIcon.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\AnimeForce.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\RedAnimeDatabase.cpp">
-      <Filter>Websites</Filter>
     </ClCompile>
     <ClCompile Include="widgets\UrlButton.cpp">
       <Filter>Source Files</Filter>
@@ -181,19 +172,28 @@
     <ClCompile Include="widgets\AboutWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="websites\AnimeHeaven.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\Nyaa.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\AniDex.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
     <ClCompile Include="MyAwesomium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="websites\KissAnime.cpp">
+    <ClCompile Include="websites\KissAnime_EN.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\WebAnimex_IT.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\RedAnimeDatabase_IT.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\Nyaa_TT.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\AnimeHeaven_EN.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\AnimeForce_IT.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="websites\AniDex_TT.cpp">
       <Filter>Websites</Filter>
     </ClCompile>
   </ItemGroup>
