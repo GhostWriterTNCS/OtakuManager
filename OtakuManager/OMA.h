@@ -55,14 +55,14 @@ public:
 
 namespace OMA {
 
-const QString version = "3.3.2";
+const QString version = "3.3.3";
 
-const QStringList linkTypes = { "Streaming",   "StreamingIfNoDownload",
+const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
 							   "Streaming 2", "Streaming 2IfNoDownload",
 							   "Download",	"Download 2",
 							   "Torrent",	 "Magnet",
 							   "Anime info",  "Custom link",
-							   "Post",		  "PostIfNoDownload" };
+							   "Post",		  "PostIfNoDownload"};
 
 /*
  * HOW TO ADD A WEBSITE
@@ -72,11 +72,11 @@ const QStringList linkTypes = { "Streaming",   "StreamingIfNoDownload",
  */
 const QStringList websites = {
 	"- English -",		"Anime Heaven", "KissAnime",   "- Italian -", "AnimeForce",
-	"RedAnimeDatabase", "WebAnimex",	"- Torrent -", "AniDex",	  "Nyaa" };
+	"RedAnimeDatabase", "WebAnimex",	"- Torrent -", "AniDex",	  "Nyaa"};
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
-"style='text-align: center;'>If problem persists, check your internet "
-"connection or try another website.</p>";
+						 "style='text-align: center;'>If problem persists, check your internet "
+						 "connection or try another website.</p>";
 
 const QString torrentDownloaded = "OMA::torrentDownloaded";
 
@@ -112,7 +112,7 @@ QList<FollowedAnime> getFollowed();
 int getFollowedCount(QString website);
 FollowedAnime getFollowed(QString name, QString website = "");
 void setFollowed(QString name, bool regex = false, QString website = "*", QString customLink = "",
-	bool followed = true);
+				 bool followed = true);
 void setFollowed(QList<FollowedAnime> list);
 
 bool getDownloadTorrent();

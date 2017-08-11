@@ -25,7 +25,7 @@ bool Website::getEpisodes_WebAnimex_IT() {
 
 			html = list[i];
 			html = MyUtils::advancedReplace(html, "<", ">", "");
-			episode.name = html.trimmed();
+			episode.name = MyUtils::decodeHtml(html).trimmed();
 
 			if (!episode.name.contains("Download"))
 				episode.hasDownload = false;
