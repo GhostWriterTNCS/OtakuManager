@@ -96,6 +96,9 @@
     <ClCompile Include="QtGeneratedFiles\Debug\moc_EpisodeWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_FeedWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="QtGeneratedFiles\Debug\moc_FollowedWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -138,6 +141,9 @@
     <ClCompile Include="QtGeneratedFiles\Release\moc_EpisodeWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Release\moc_FeedWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="QtGeneratedFiles\Release\moc_FollowedWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -166,6 +172,7 @@
     <ClCompile Include="websites\AniDex_TT.cpp" />
     <ClCompile Include="websites\AnimeForce_IT.cpp" />
     <ClCompile Include="websites\AnimeHeaven_EN.cpp" />
+    <ClCompile Include="websites\Feeds.cpp" />
     <ClCompile Include="websites\KissAnime_EN.cpp" />
     <ClCompile Include="websites\Nyaa_TT.cpp" />
     <ClCompile Include="websites\RedAnimeDatabase_IT.cpp" />
@@ -174,6 +181,7 @@
     <ClCompile Include="widgets\AnimeWidget.cpp" />
     <ClCompile Include="widgets\ColorsWindow.cpp" />
     <ClCompile Include="widgets\EpisodeWidget.cpp" />
+    <ClCompile Include="widgets\FeedWidget.cpp" />
     <ClCompile Include="widgets\FollowedWidget.cpp" />
     <ClCompile Include="widgets\NewIcon.cpp" />
     <ClCompile Include="widgets\PrefWindow.cpp" />
@@ -216,6 +224,7 @@
     <ClInclude Include="QtGeneratedFiles\ui_AnimeWidget.h" />
     <ClInclude Include="QtGeneratedFiles\ui_ColorsWindow.h" />
     <ClInclude Include="QtGeneratedFiles\ui_EpisodeWidget.h" />
+    <ClInclude Include="QtGeneratedFiles\ui_FeedWidget.h" />
     <ClInclude Include="QtGeneratedFiles\ui_FollowedWidget.h" />
     <ClInclude Include="QtGeneratedFiles\ui_MainWindow.h" />
     <ClInclude Include="QtGeneratedFiles\ui_NewIcon.h" />
@@ -226,6 +235,16 @@
     <ClInclude Include="QtGeneratedFiles\ui_WebsiteWidget.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Website.h" />
+    <CustomBuild Include="widgets\FeedWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing FeedWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\QtGeneratedFiles" "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWebEngineWidgets" "-I.\QtGeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\MyCurl" "-I.\websites" "-I.\widgets"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing FeedWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\QtGeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\QtGeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\MyCurl" "-I.\websites" "-I.\widgets"</Command>
+    </CustomBuild>
     <CustomBuild Include="widgets\AboutWindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing AboutWindow.h...</Message>
@@ -474,6 +493,18 @@
     <Image Include="resources\icon.ico" />
     <Image Include="resources\new.ico" />
     <Image Include="resources\seen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="widgets\FeedWidget.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\QtGeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\QtGeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\QtGeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\QtGeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

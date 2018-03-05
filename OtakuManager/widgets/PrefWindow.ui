@@ -38,7 +38,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="generalTab">
       <attribute name="title">
        <string>General settings</string>
       </attribute>
@@ -257,7 +257,48 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="feedTab">
+      <attribute name="title">
+       <string>Feeds</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QListWidget" name="feedListWidget"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="addFeed">
+           <property name="text">
+            <string>Add feed</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeFeed">
+           <property name="text">
+            <string>Remove selected</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="rssHorizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="followedTab">
       <attribute name="title">
        <string>Followed anime</string>
       </attribute>
@@ -285,14 +326,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="remove">
+          <widget class="QPushButton" name="removeFollowed">
            <property name="text">
             <string>Remove selected</string>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="followedHorizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -321,7 +362,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="otherTab">
       <attribute name="title">
        <string>Other</string>
       </attribute>

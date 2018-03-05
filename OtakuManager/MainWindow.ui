@@ -106,6 +106,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: none; }
            <item>
             <widget class="QPushButton" name="updateButton">
              <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="updateAllButton">
+             <property name="text">
               <string>Update all</string>
              </property>
             </widget>

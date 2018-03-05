@@ -23,9 +23,9 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 		name.contains(QRegExp("[^a-z]+film[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: #CC66FF; }");
 	} else if (name.contains(QRegExp("[^a-z]+ova[^a-z]+", Qt::CaseInsensitive)) ||
-		name.contains(QRegExp("[^a-z]+oav[^a-z]+", Qt::CaseInsensitive)) ||
-		name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
-		name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
+			   name.contains(QRegExp("[^a-z]+oav[^a-z]+", Qt::CaseInsensitive)) ||
+			   name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
+			   name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: deepskyblue; }");
 	} else if (name.endsWith("end ", Qt::CaseInsensitive)) {
 		setStyleSheet("#groupBox { background: #FF5040; }");
@@ -37,7 +37,8 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 	for (int i = 0; i < OMA::linkTypes.size(); i++) {
 		QString button = OMA::linkTypes[i];
 		bool show = false;
-		if (OMA::Settings::getButtons().contains(button) || i == LinkTypes::customLink) {
+		if (OMA::Settings::getButtons().contains(button) || i == LinkTypes::customLink ||
+			website->isFeed && i == LinkTypes::post) {
 			switch (i) {
 				case LinkTypes::streaming:
 					show = website->hasStreaming;
@@ -51,7 +52,7 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 					break;
 				case LinkTypes::streaming2IfNoDownload:
 					show = (!episode->hasDownload || !website->hasDownload) &&
-						website->hasStreaming && website->hasDoubleButtons;
+						   website->hasStreaming && website->hasDoubleButtons;
 					break;
 				case LinkTypes::download:
 					show = episode->hasDownload && website->hasDownload;

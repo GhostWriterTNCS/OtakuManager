@@ -23,6 +23,8 @@ Website::Website(QString website) {
 		initialize_AniDex_TT();
 	} else if (website == OMA::websites[Websites::Nyaa_TT]) {
 		initialize_Nyaa_TT();
+	} else if (OMA::Settings::getFeedNames().contains(website)) {
+		initialize_Feed();
 	} else {
 		QMessageBox::warning(OMA::getMainWindow(), "Error", "Website not valid: " + website);
 	}
@@ -68,7 +70,7 @@ bool Website::goToEpisode(Episode* episode, QString type) {
 	if (type == OMA::linkTypes[LinkTypes::magnet]) {
 		url = episode->magnetLink;
 	} else if (type != OMA::linkTypes[LinkTypes::post] &&
-		type != OMA::linkTypes[LinkTypes::customLink]) {
+			   type != OMA::linkTypes[LinkTypes::customLink]) {
 		url = goToEpisodeFunction(episode, type);
 	}
 

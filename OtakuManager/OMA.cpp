@@ -9,6 +9,7 @@ LastEpisode::LastEpisode(QStringList list) {
 	this->episode = list[1];
 }
 
+FollowedAnime::FollowedAnime() {}
 FollowedAnime::FollowedAnime(QString anime, bool regex, QString website, QString customLink) {
 	this->anime = anime;
 	this->regex = regex;
@@ -16,10 +17,25 @@ FollowedAnime::FollowedAnime(QString anime, bool regex, QString website, QString
 	this->customLink = customLink;
 }
 FollowedAnime::FollowedAnime(QStringList list) {
-	this->anime = list[0];
-	this->regex = (list[1] == "true");
-	this->website = list[2];
-	this->customLink = list[3];
+	if (list.size() > 3) {
+		this->anime = list[0];
+		this->regex = (list[1] == "true");
+		this->website = list[2];
+		this->customLink = list[3];
+	}
+}
+
+Feed::Feed() {}
+Feed::Feed(QStringList list) {
+	if (list.size() > 1) {
+		this->name = list[0];
+		this->url = list[1];
+	}
+}
+Feed::Feed(QString name, QString url, QString oldName) {
+	this->name = name;
+	this->url = url;
+	this->oldName = oldName;
 }
 
 namespace OMA {

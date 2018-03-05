@@ -11,7 +11,7 @@ void Website::initialize_AniDex_TT() {
 	getEpisodesFunction = std::bind(&Website::getEpisodes_AniDex_TT, this);
 	getSeriesFunction = std::bind(&Website::getSeries_AniDex_TT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_AniDex_TT, this, std::placeholders::_1,
-		std::placeholders::_2);
+									std::placeholders::_2);
 }
 
 bool Website::getEpisodes_AniDex_TT() {
@@ -28,8 +28,9 @@ bool Website::getEpisodes_AniDex_TT() {
 		for (int i = 2; i < list.size(); i++) {
 			Episode episode;
 			html = list[i];
+			html = MyUtils::substring(html, "<a class=\"torrent\"");
 			episode.url = "https://anidex.info/" + MyUtils::substring(html, "href=\"", "\"");
-			episode.name = MyUtils::substring(html, "<span class=\"span-1440\">", "</span>");
+			episode.name = MyUtils::substring(html, "title=\"", "\"");
 			episode.downloadLink =
 				"https://anidex.info/dl" + MyUtils::substring(html, "<a href=\"/dl", "\"");
 			episode.magnetLink = "magnet:" + MyUtils::substring(html, "<a href=\"magnet:", "\"");

@@ -1,3 +1,6 @@
+#include <QMessageBox>
+#include <QSharedMemory>
+#include <QSystemSemaphore>
 #include <QtConcurrent\QtConcurrentRun>
 #include <QtWidgets/QApplication>
 #include "MainWindow.h"
@@ -6,7 +9,7 @@
 #include "NewVersionWindow.h"
 #include "OMA.h"
 
-void checkForUpadte(NewVersionWindow* newVersionWindow) {
+void checkForUpdates(NewVersionWindow* newVersionWindow) {
 	if (OMA::Settings::getCheckForUpdates()) {
 		QString s = MyUtils::urlToQString(
 			"https://github.com/GhostWriterTNCS/OtakuManager/releases/latest");
@@ -20,17 +23,28 @@ void checkForUpadte(NewVersionWindow* newVersionWindow) {
 }
 
 int main(int argc, char* argv[]) {
-	//MyAwesomium::InitializeWebCore();
-
 	QApplication a(argc, argv);
+
+	QSharedMemory sharedMemory;
+	sharedMemory.setKey("OtakuManagerKey");
+	if (!sharedMemory.create(1)) {
+		QMessageBox msgBox;
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setText("Otaku Manager is already running.");
+		msgBox.setWindowIcon(QIcon(":/MainWindow/resources/icon.ico"));
+		msgBox.exec();
+		exit(1);
+		return 1;
+	}
+
 	MainWindow w;
 	w.show();
-	NewVersionWindow* newVersionWindow = new NewVersionWindow();
 	QCoreApplication::processEvents();
 
-	QFuture<void> future = QtConcurrent::run(checkForUpadte, newVersionWindow);
-	w.updateAllEpisodes();
+	NewVersionWindow* newVersionWindow = new NewVersionWindow();
+	QFuture<void> future = QtConcurrent::run(checkForUpdates, newVersionWindow);
 
+	w.updateAllEpisodes();
 	a.exec();
 
 	MyAwesomium::ShutdownWebCore();

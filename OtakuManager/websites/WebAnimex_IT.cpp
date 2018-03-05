@@ -7,7 +7,7 @@ void Website::initialize_WebAnimex_IT() {
 	getEpisodesFunction = std::bind(&Website::getEpisodes_WebAnimex_IT, this);
 	getSeriesFunction = std::bind(&Website::getSeries_WebAnimex_IT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_WebAnimex_IT, this, std::placeholders::_1,
-		std::placeholders::_2);
+									std::placeholders::_2);
 }
 
 bool Website::getEpisodes_WebAnimex_IT() {
@@ -75,8 +75,9 @@ QString Website::goToEpisode_WebAnimex_IT(Episode* episode, QString type) {
 		s = MyUtils::substring(s, "href=\"", "\"");
 		s = MyUtils::substring(s, "red.html?af=");
 		s = MyUtils::redirectedUrlQt(s);
-		s = MyUtils::advancedReplace(s, "",
-			".php?file=", "http://go.animeforce.org/1706398/http://");
+		/*s = MyUtils::advancedReplace(
+			s, "", ".php?file=", "https://anon.to/?http://animeforce.stream/?u=http://");*/
+		s = MyUtils::advancedReplace(s, "", ".php?file=", "http://");
 	} else if (type == OMA::linkTypes[LinkTypes::animeInfo]) {
 		s = MyUtils::urlToQString(episode->url);
 		if (s.contains("class=\"breadcrumb-list\"")) {

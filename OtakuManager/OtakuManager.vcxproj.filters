@@ -196,6 +196,18 @@
     <ClCompile Include="websites\AniDex_TT.cpp">
       <Filter>Websites</Filter>
     </ClCompile>
+    <ClCompile Include="websites\Feeds.cpp">
+      <Filter>Websites</Filter>
+    </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_FeedWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Release\moc_FeedWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="widgets\FeedWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.h">
@@ -273,6 +285,12 @@
     <CustomBuild Include="widgets\AboutWindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="widgets\FeedWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="widgets\FeedWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QtGeneratedFiles\ui_MainWindow.h">
@@ -328,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="MyAwesomium.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QtGeneratedFiles\ui_FeedWidget.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

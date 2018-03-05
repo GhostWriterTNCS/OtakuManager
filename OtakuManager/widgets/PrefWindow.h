@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QDialog>
-#include "FollowedWidget.h"
 #include "OMA.h"
 #include "ui_PrefWindow.h"
 
@@ -15,8 +14,13 @@ private slots:
 	void save();
 	void on_removeWebsite_clicked();
 	void on_addWebsite_clicked();
+
 	void on_addFollowed_clicked();
-	void on_remove_clicked();
+	void on_removeFollowed_clicked();
+
+	void on_addFeed_clicked();
+	void on_removeFeed_clicked();
+
 	void on_browseTorrentsDir_clicked();
 
 private:

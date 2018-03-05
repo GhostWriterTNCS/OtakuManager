@@ -15,7 +15,7 @@ public:
 	MainWindow(QWidget* parent = Q_NULLPTR);
 	~MainWindow();
 	void updateAllEpisodes();
-	void initSettings();
+	// void initSettings();
 
 	void openPreferences();
 	void openColorsInfo();
@@ -23,4 +23,5 @@ public:
 
 private slots:
 	void on_updateButton_clicked();
+	void on_updateAllButton_clicked();
 };

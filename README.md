@@ -15,6 +15,7 @@ The manager that any otaku should have.
 * Torrent:
 	* [AniDex](https://anidex.info/)
 	* [Nyaa](https://www.nyaa.se/)
+* Feeds
 
 ### Release notices
 

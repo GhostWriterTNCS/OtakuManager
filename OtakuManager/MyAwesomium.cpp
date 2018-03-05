@@ -58,8 +58,8 @@ void loopFunction() {
 			// Get the page source.
 			WebString webString =
 				view->ExecuteJavascriptWithResult(
-					WSLit("document.getElementsByTagName('html')[0].innerHTML"), WSLit(""))
-				.ToString();
+						WSLit("document.getElementsByTagName('html')[0].innerHTML"), WSLit(""))
+					.ToString();
 
 			view->Destroy();
 
@@ -70,9 +70,6 @@ void loopFunction() {
 	WebCore::Shutdown();
 }
 
-/*void InitializeWebCore() {
-	std::thread* t = new std::thread(loopFunction);
-}*/
 void ShutdownWebCore() {
 	started = false;
 }

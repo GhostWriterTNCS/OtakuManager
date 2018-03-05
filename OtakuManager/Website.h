@@ -30,9 +30,10 @@ public:
 	QString seriesPage;
 	bool hasStreaming = true;
 	bool hasDownload = true;
-	bool hasTorrent = false;
 	bool hasDoubleButtons = false;
+	bool hasTorrent = false;
 	bool hasMagnet = false;
+	bool isFeed = false;
 	std::function<bool()> getEpisodesFunction;
 	std::function<bool()> getSeriesFunction;
 	std::function<QString(Episode*, QString)> goToEpisodeFunction;
@@ -41,8 +42,20 @@ public:
 	QList<Anime> series;
 
 	Website(QString website);
+
+	/**
+		Get the episodes.
+	*/
 	bool getEpisodes();
+
+	/**
+		Get the series.
+	*/
 	bool getSeries();
+
+	/**
+		Perform an action according to the chosen type (streaming, download, anime info...)
+	*/
 	bool goToEpisode(Episode* episode, QString type);
 
 private:
@@ -52,7 +65,7 @@ private:
 	 * name).
 	 * Note: use the same name as in 'enum Websites'.
 	 */
-	 // ENGLISH
+	// ENGLISH
 	void initialize_AnimeHeaven_EN();
 	bool getEpisodes_AnimeHeaven_EN();
 	bool getSeries_AnimeHeaven_EN();
@@ -89,5 +102,11 @@ private:
 	bool getEpisodes_Nyaa_TT();
 	bool getSeries_Nyaa_TT();
 	QString goToEpisode_Nyaa_TT(Episode* episode, QString type);
+
+	// FEED
+	void initialize_Feed();
+	bool getEpisodes_Feed();
+	bool getSeries_Feed();
+	QString goToEpisode_Feed(Episode* episode, QString type);
 
 }; // class Website

@@ -15,11 +15,11 @@
    height="256"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="icon.svg"
    inkscape:export-filename="D:\Visual Studio\OtakuManager\OtakuManager\resources\icon.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <defs
      id="defs4">
     <linearGradient
@@ -102,8 +102,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="200.31164"
-     inkscape:cy="141.04592"
+     inkscape:cx="151.28177"
+     inkscape:cy="160.03648"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -129,7 +129,8 @@
      inkscape:snap-smooth-nodes="true"
      inkscape:snap-midpoints="false"
      inkscape:snap-text-baseline="true"
-     inkscape:snap-bbox-midpoints="false">
+     inkscape:snap-bbox-midpoints="false"
+     borderlayer="false">
     <inkscape:grid
        type="xygrid"
        id="grid5606"
@@ -137,8 +138,22 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       spacingx="8px"
-       spacingy="8px" />
+       spacingx="8"
+       spacingy="8"
+       originx="0"
+       originy="0"
+       units="px" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid31"
+       spacingx="4"
+       units="px"
+       spacingy="4"
+       empspacing="1"
+       empcolor="#000000"
+       empopacity="0.06666667"
+       color="#000000"
+       opacity="0" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -148,7 +163,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -185,20 +200,23 @@
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <text
-       xml:space="preserve"
-       style="font-size:148.17840576px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Agency FB;-inkscape-font-specification:Agency FB Bold Condensed"
-       x="126.4457"
-       y="968.11798"
-       id="text4295"
-       sodipodi:linespacing="125%"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       transform="scale(1.0122922,0.98785705)"><tspan
-         sodipodi:role="line"
-         id="tspan4297"
-         x="126.4457"
-         y="968.11798"
-         style="font-size:148.17840576px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:center;text-anchor:middle;font-family:Agency FB;-inkscape-font-specification:Agency FB Bold Condensed">OMA</tspan></text>
+    <path
+       style="opacity:1;fill:#0c0902;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="m 32,48 c -3.771236,0 -8,4.228764 -8,8 v 96 c 0,3.77124 4.228764,8 8,8 h 44 c 3.771236,0 8,-4.22876 8,-8 V 56 c 0,-3.771236 -4.228764,-8 -8,-8 z m 8,16 h 28 v 80 H 40 Z"
+       transform="translate(0,796.36217)"
+       id="path3740"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssccccc" />
+    <path
+       style="opacity:1;fill:#0c0902;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="m 96,956.36217 v -112 h 16 l 16,56 16,-56 h 16 v 112 h -16 v -52 l -8,28 h -16 l -8,-28 v 52 z"
+       id="path4550"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccc" />
+    <path
+       style="opacity:1;fill:#0c0902;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       d="M 192 48 L 168 160 L 184 160 L 188.36328 136 L 211.63672 136 L 216 160 L 232 160 L 208 48 L 192 48 z M 200 72 L 208.72656 120 L 191.27344 120 L 200 72 z "
+       transform="translate(0,796.36217)"
+       id="path4552" />
   </g>
 </svg>

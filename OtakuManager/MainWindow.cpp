@@ -10,6 +10,9 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 	ui.setupUi(this);
 	OMA::setMainWindow(this);
+	OMA::Settings::fix();
+
+	setWindowTitle("Otaku Manager " + OMA::version);
 
 	connect(ui.actionPreferences, &QAction::triggered, this, &MainWindow::openPreferences);
 	connect(ui.actionQuit, &QAction::triggered, this, &QApplication::quit);
@@ -39,13 +42,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 		scrollArea->setWidget(scrollAreaContent);
 		followedScrollAreas.append(scrollAreaContent);
 	}
-
-	if (OMA::Settings::getVersion().isEmpty()) {
-		initSettings();
-	}
 }
 
 MainWindow::~MainWindow() {
+	OMA::Settings::setVersion();
 	OMA::Settings::sync();
 }
 
@@ -55,7 +55,7 @@ void MainWindow::updateAllEpisodes() {
 	}
 }
 
-void MainWindow::initSettings() {
+/*void MainWindow::initSettings() {
 	OMA::Settings::setVersion();
 	OMA::Settings::setCheckForUpdates(OMA::Settings::getCheckForUpdates());
 	OMA::Settings::setWebsites(OMA::Settings::getWebsites());
@@ -69,7 +69,7 @@ void MainWindow::initSettings() {
 	}
 	OMA::Settings::setButtons(buttons);
 	OMA::Settings::setFollowed(OMA::Settings::getFollowed());
-}
+}*/
 
 void MainWindow::openPreferences() {
 	PrefWindow* w = new PrefWindow();
@@ -87,5 +87,10 @@ void MainWindow::openAbout() {
 }
 
 void MainWindow::on_updateButton_clicked() {
+	int index = ui.followedTabWidget->currentIndex();
+	websites[index]->updateEpisodes();
+}
+
+void MainWindow::on_updateAllButton_clicked() {
 	updateAllEpisodes();
 }

@@ -13,7 +13,7 @@ WebsiteWidget::WebsiteWidget(Website* website, QTabWidget* parentTab, QWidget* f
 	this->followedWidget = followedWidget;
 	this->followedTab = followedTab;
 	this->tabIndex = tabIndex;
-	QString url = website->homepage;
+	// QString url = website->homepage;
 	ui.websiteLabel->setText("<h2><a href='" +
 							 MyUtils::substringFromEnd(website->homepage, "", "index.php") + "'>" +
 							 website->name + "</a></h2>");
