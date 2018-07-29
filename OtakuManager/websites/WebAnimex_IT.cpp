@@ -86,5 +86,8 @@ QString Website::goToEpisode_WebAnimex_IT(Episode* episode, QString type) {
 			s = MyUtils::substring(s, "href=\"", "\"");
 		}
 	}
+	if (s.endsWith("&")) {
+		s.truncate(s.length() - 1);
+	}
 	return s;
 }

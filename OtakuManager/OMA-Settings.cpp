@@ -1,3 +1,4 @@
+#include <QMutex>
 #include <QStandardPaths>
 #include "MyUtils.h"
 #include "OMA.h"
@@ -5,13 +6,17 @@
 namespace OMA {
 namespace Settings {
 
+QMutex mutex(QMutex::Recursive);
 QSettings* settings;
 
 void sync() {
+	mutex.lock();
 	settings->sync();
+	mutex.unlock();
 }
 
 void fix() {
+	mutex.lock();
 	settings = new QSettings(QCoreApplication::applicationDirPath() + "\\settings.ini",
 							 QSettings::IniFormat);
 
@@ -41,6 +46,7 @@ void fix() {
 			settings->remove("Other/seen");
 		}
 	}
+	mutex.unlock();
 }
 
 // [General]
@@ -49,14 +55,18 @@ QString getVersion() {
 	return settings->value("version", "").toString();
 }
 void setVersion() {
+	mutex.lock();
 	settings->setValue("version", OMA::version);
+	mutex.unlock();
 }
 
 bool getCheckForUpdates() {
 	return settings->value("autoUpdate", "true").toBool();
 }
 void setCheckForUpdates(bool value) {
+	mutex.lock();
 	settings->setValue("autoUpdate", value);
+	mutex.unlock();
 }
 
 QString getWebsitesQString() {
@@ -66,7 +76,9 @@ QStringList getWebsites() {
 	return getWebsitesQString().split("|");
 }
 void setWebsites(QString s) {
+	mutex.lock();
 	settings->setValue("websites", s);
+	mutex.unlock();
 }
 void setWebsites(QStringList list) {
 	QString s = "";
@@ -88,6 +100,7 @@ QStringList getButtons() {
 		.split("|");
 }
 void setButtons(QString button, bool show) {
+	mutex.lock();
 	QString s = "";
 	QStringList list = getButtons();
 	if (show) {
@@ -108,6 +121,7 @@ void setButtons(QString button, bool show) {
 		s = s.mid(0, s.length() - 1);
 	}
 	settings->setValue("buttons", s);
+	mutex.unlock();
 }
 
 QString getFeedString() {
@@ -132,13 +146,16 @@ QStringList getFeedNames() {
 	return names;
 }
 void setFeeds(QString name, QString url, QString oldName) {
+	mutex.lock();
 	QList<Feed> list = getFeeds();
 	if (!url.isEmpty()) {
 		list.append(Feed(name, url, oldName));
 	}
 	setFeeds(list);
+	mutex.unlock();
 }
 void setFeeds(QList<Feed> list) {
+	mutex.lock();
 	QString s;
 	QStringList websites = getWebsites();
 	bool websitesdEdited = false;
@@ -171,6 +188,7 @@ void setFeeds(QList<Feed> list) {
 		s = s.mid(0, s.length() - 1);
 	}
 	settings->setValue("feed", s);
+	mutex.unlock();
 }
 
 // [Followed]
@@ -228,6 +246,7 @@ FollowedAnime getFollowed(QString name, QString website) {
 	return FollowedAnime();
 }
 void setFollowed(QString name, bool regex, QString website, QString customLink, bool followed) {
+	mutex.lock();
 	if (!regex) {
 		name = MyUtils::simplify(name);
 	}
@@ -245,8 +264,10 @@ void setFollowed(QString name, bool regex, QString website, QString customLink, 
 		}
 	}
 	setFollowed(list);
+	mutex.unlock();
 }
 void setFollowed(QList<FollowedAnime> followed) {
+	mutex.lock();
 	QString s;
 	for (int i = 0; i < followed.size(); i++) {
 		QString anime, regex;
@@ -263,6 +284,7 @@ void setFollowed(QList<FollowedAnime> followed) {
 		s = s.mid(0, s.length() - 1);
 	}
 	settings->setValue("Followed/followed", s);
+	mutex.unlock();
 }
 
 // [Other]
@@ -271,14 +293,18 @@ QString getAniDexUrl() {
 	return settings->value("Other/AniDexUrl", "https://anidex.info/").toString();
 }
 void setAniDexUrl(QString url) {
+	mutex.lock();
 	settings->setValue("Other/AniDexUrl", url);
+	mutex.unlock();
 }
 
 bool getDownloadTorrent() {
 	return settings->value("Other/downloadTorrent", "false").toBool();
 }
 void setDownloadTorrent(bool value) {
+	mutex.lock();
 	settings->setValue("Other/downloadTorrent", value);
+	mutex.unlock();
 }
 
 QString getTorrentDir() {
@@ -288,14 +314,18 @@ QString getTorrentDir() {
 		.toString();
 }
 void setTorrentDir(QString dir) {
+	mutex.lock();
 	settings->setValue("Other/torrendDir", dir);
+	mutex.unlock();
 }
 
 bool getYoutubeToUmmy() {
 	return settings->value("Other/youtubeToUmmy", "false").toBool();
 }
 void setYoutubeToUmmy(bool value) {
+	mutex.lock();
 	settings->setValue("Other/youtubeToUmmy", value);
+	mutex.unlock();
 }
 
 // [Log]
@@ -319,6 +349,7 @@ QString getLastEp(QString website) {
 	return "";
 }
 void setLastEp(QString website, QString episode) {
+	mutex.lock();
 	bool added = false;
 	QList<LastEpisode> lastEps = getLastEps();
 	for (int i = 0; i < lastEps.size(); i++) {
@@ -339,12 +370,14 @@ void setLastEp(QString website, QString episode) {
 		s = s.mid(0, s.length() - 1);
 	}
 	settings->setValue("Log/lastEps", s);
+	mutex.unlock();
 }
 
 QString getSeen() {
 	return settings->value("Log/seen", "").toString();
 }
 void setSeen(QString ep, bool seen) {
+	mutex.lock();
 	ep = MyUtils::simplifyEp(ep);
 	if (!isSeen(ep) && seen) {
 		if (!getSeen().isEmpty()) {
@@ -359,6 +392,7 @@ void setSeen(QString ep, bool seen) {
 		}
 		settings->setValue("Log/seen", s);
 	}
+	mutex.unlock();
 }
 
 /*QList<int> getWindowValues() {
