@@ -1,3 +1,5 @@
+#include <QDesktopServices>
+#include <QUrl>
 #include <QtConcurrent\QtConcurrentRun>
 #include "OMA.h"
 #include "SeenIcon.h"
@@ -15,11 +17,15 @@ UrlButton::UrlButton(QString name, EpisodeWidget* parent) : QPushButton(parent) 
 void getEpisodeUrl(UrlButton* button) {
 	bool succesful = false;
 	if (button->type == OMA::linkTypes[LinkTypes::customLink]) {
-		succesful = OMA::upenUrl(
-			OMA::Settings::getFollowed(button->episodeWidget->episode->name).customLink);
+		QString link = OMA::Settings::getFollowed(button->episodeWidget->episode->name).customLink;
+		if (!link.startsWith("http://") && !link.startsWith("https://") &&
+			!link.startsWith("file:///")) {
+			link = "file:///" + link;
+		}
+		succesful = OMA::upenUrl(link);
 	} else {
 		succesful = button->episodeWidget->website->goToEpisode(button->episodeWidget->episode,
-			button->type);
+																button->type);
 	}
 	emit button->episodeDone(succesful);
 }

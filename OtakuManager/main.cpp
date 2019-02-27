@@ -37,6 +37,8 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
+	qRegisterMetaType<QMessageBox::Icon>();
+
 	MainWindow w;
 	w.show();
 	QCoreApplication::processEvents();

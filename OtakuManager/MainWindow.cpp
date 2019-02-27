@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 	connect(ui.actionColorsInfo, &QAction::triggered, this, &MainWindow::openColorsInfo);
 	connect(ui.actionAbout, &QAction::triggered, this, &MainWindow::openAbout);
 
+	connect(this, SIGNAL(showMessageBoxSignal(QMessageBox::Icon, QString, QString)), this,
+			SLOT(showMessageBox(QMessageBox::Icon, QString, QString)));
+
 	ui.mainTabWidget->removeTab(1);
 	ui.followedTabWidget->removeTab(0);
 	ui.followedTabWidget->removeTab(0);
@@ -93,4 +96,15 @@ void MainWindow::on_updateButton_clicked() {
 
 void MainWindow::on_updateAllButton_clicked() {
 	updateAllEpisodes();
+}
+
+void MainWindow::showMessageBox(QMessageBox::Icon type, QString title, QString mex) {
+	switch (type) {
+		case QMessageBox::Icon::Warning:
+			QMessageBox::warning(this, title, mex);
+			break;
+		default:
+			QMessageBox::information(this, title, mex);
+			break;
+	}
 }

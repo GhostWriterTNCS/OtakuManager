@@ -19,6 +19,6 @@ The manager that any otaku should have.
 
 ### Release notices
 
-Made with [Qt5.8](https://www.qt.io/download-open-source/)
+Made with [Qt 5.12.1](https://www.qt.io/download-open-source/)
 
 Uses [Awesomium](http://www.awesomium.com/) to parse pages with JavaScript.
