@@ -1,5 +1,7 @@
+#include <iostream>
 #include <QDesktopServices>
 #include <QMessageBox>
+#include <QProcess>
 #include <QUrl>
 #include "MyUtils.h"
 #include "OMA.h"
@@ -90,10 +92,13 @@ bool upenUrl(QString url) {
 		// QMessageBox::warning(mainWindow, "Error", "Url is empty.");
 		return false;
 	} else if (!QDesktopServices::openUrl(QUrl(url))) {
-		emit mainWindow->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
-											  "Unable to open " + url);
-		// QMessageBox::warning(mainWindow, "Error", "Unable to open " + url);
-		return false;
+		QProcess process;
+		if (!process.startDetached(url.replace("file:///", ""))) {
+			emit mainWindow->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
+												  "Unable to open " + url);
+			// QMessageBox::warning(mainWindow, "Error", "Unable to open " + url);
+			return false;
+		}
 	}
 	return true;
 }
