@@ -2,8 +2,8 @@
 #include "Website.h"
 
 void Website::initialize_Nyaa_TT() {
-	homepage = "https://www.nyaa.si/";
-	episodesPage = "https://nyaa.si/?f=0&c=1_0&q=";
+	homepage = "https://nyaa.si/";
+	episodesPage = "https://nyaa.si/?q";
 	hasStreaming = false;
 	hasDownload = false;
 	hasTorrent = true;
@@ -15,7 +15,7 @@ void Website::initialize_Nyaa_TT() {
 }
 
 bool Website::getEpisodes_Nyaa_TT() {
-	QString html = MyUtils::urlToQStringJS(homepage);
+	QString html = MyUtils::urlToQString(episodesPage);
 	QString start = "<tbody>";
 	QString end = "</tbody>";
 	if (html.count(end) == 1) {

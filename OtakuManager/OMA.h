@@ -66,7 +66,7 @@ public:
 
 namespace OMA {
 
-const QString version = "3.5.2";
+const QString version = "3.5.3";
 
 const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
 							   "Streaming 2", "Streaming 2IfNoDownload",
