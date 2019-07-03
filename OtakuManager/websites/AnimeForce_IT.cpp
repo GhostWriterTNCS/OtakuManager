@@ -7,7 +7,7 @@ void Website::initialize_AnimeForce_IT() {
 	getEpisodesFunction = std::bind(&Website::getEpisodes_AnimeForce_IT, this);
 	getSeriesFunction = std::bind(&Website::getSeries_AnimeForce_IT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_AnimeForce_IT, this,
-		std::placeholders::_1, std::placeholders::_2);
+									std::placeholders::_1, std::placeholders::_2);
 }
 
 bool Website::getEpisodes_AnimeForce_IT() {
@@ -28,9 +28,14 @@ bool Website::getEpisodes_AnimeForce_IT() {
 			// html = html.replace("Episodio", "");
 			episode.name = html.trimmed();
 
-			if (!episode.name.contains("Download"))
+			if (!episode.name.contains("Download")) {
 				episode.hasDownload = false;
-			episode.name = MyUtils::substring(episode.name, "", " Sub Ita");
+			}
+			QString endLabel = "";
+			if (episode.name.endsWith("(Fine)")) {
+				endLabel = " END";
+			}
+			episode.name = MyUtils::substring(episode.name, "", " Sub Ita") + endLabel;
 			episodes.push_back(episode);
 		}
 		return true;
@@ -65,14 +70,14 @@ bool Website::getSeries_AnimeForce_IT() {
 
 QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {
 	QString url = episode->url;
-	QStringList codes = { "-episodio-", "-oav-", "-movie-" };
+	QStringList codes = {"-episodio-", "-oav-", "-movie-"};
 	int index, charsToReplace;
 	for (int i = 0; i < codes.size(); i++) {
 		if (url.contains(codes[i])) {
 			index = url.lastIndexOf(codes[i]) + 1;
 			charsToReplace = codes[i].length();
 			while (isdigit(url.toStdString()[index + charsToReplace]) ||
-				url[index + charsToReplace] == '-') {
+				   url[index + charsToReplace] == '-') {
 				charsToReplace++;
 			}
 			break;
@@ -83,7 +88,10 @@ QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {
 
 	if (type != OMA::linkTypes[LinkTypes::animeInfo]) {
 		QString name = MyUtils::substring(episode->name, "", " Sub Ita");
-		QStringList otherCodes = { "Episodio", "OAV", "Movie" };
+		if (name.endsWith(" END")) {
+			name = MyUtils::substringFromEnd(name, "", " END");
+		}
+		QStringList otherCodes = {"Episodio", "OAV", "Movie"};
 		for (int i = 0; i < otherCodes.size(); i++) {
 			if (name.contains(otherCodes[i]))
 				name = otherCodes[i] + MyUtils::substringFromEnd(name, otherCodes[i]);
@@ -100,15 +108,18 @@ QString Website::goToEpisode_AnimeForce_IT(Episode* episode, QString type) {
 			}
 		}
 		s = MyUtils::substring(s, "href=\"", "\"");
-		if (s.indexOf("/ds") == 0)
+		if (s.indexOf("/ds") == 0) {
 			s = "http://www.animeforce.org" + s;
+		}
 		if (type == OMA::linkTypes[LinkTypes::streaming]) {
 			url = s;
 		} else if (type == OMA::linkTypes[LinkTypes::download]) {
-			url = MyUtils::redirectedUrlQt(s);
-			url = MyUtils::advancedReplace(
-				url, "", ".php?file=", "http://go.animeforce.org/1706398/http://");
+			url = MyUtils::redirectedUrlQt("http:" + s);
+			// url = MyUtils::advancedReplace(url, "", ".php?file=",
+			// "http://go.animeforce.org/1706398/http://");
+			url = MyUtils::substring(url, "animeforce.org/ds16.php?file=", "");
 		}
+		// url = s;
 	}
 	return url;
 }
