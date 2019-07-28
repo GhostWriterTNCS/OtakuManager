@@ -1,4 +1,6 @@
+#include <iostream>
 #include <QMessageBox>
+#include "MyLua.h"
 #include "OMA.h"
 #include "Website.h"
 
@@ -32,7 +34,10 @@ Website::Website(QString website) {
 
 bool Website::getEpisodes() {
 	episodes.clear();
-	bool succesful = getEpisodesFunction();
+	bool succesful = MyLua::getEpisodes(name, &episodes);
+	if (!succesful) {
+		succesful = getEpisodesFunction();
+	}
 	if (episodes.size() > 0) {
 		QString lastEp = OMA::Settings::getLastEp(name);
 		for (int i = 0; i < episodes.size(); i++) {
@@ -43,6 +48,8 @@ bool Website::getEpisodes() {
 			}
 		}
 		OMA::Settings::setLastEp(name, episodes[0].name);
+	} else {
+		std::cout << "No episodes" << std::endl;
 	}
 	return succesful;
 }
@@ -71,7 +78,10 @@ bool Website::goToEpisode(Episode* episode, QString type) {
 		url = episode->magnetLink;
 	} else if (type != OMA::linkTypes[LinkTypes::post] &&
 			   type != OMA::linkTypes[LinkTypes::customLink]) {
-		url = goToEpisodeFunction(episode, type);
+		url = MyLua::goToEpisode(name, episode, type);
+		if (url.isEmpty()) {
+			url = goToEpisodeFunction(episode, type);
+		}
 	}
 
 	if (url.startsWith("https://www.youtube.com/watch?v=") && OMA::Settings::getYoutubeToUmmy()) {

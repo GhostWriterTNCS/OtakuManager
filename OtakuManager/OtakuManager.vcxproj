@@ -32,14 +32,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <TargetName>Otaku Manager</TargetName>
-    <IncludePath>$(AWE_DIR)include;$(ProjectDir)\MyCurl\curl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(AWE_DIR)build\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ProjectDir)\MyCurl</LibraryPath>
+    <IncludePath>$(SolutionDir)\include;$(AWE_DIR)include;$(ProjectDir)\MyCurl\curl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib;$(AWE_DIR)build\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ProjectDir)\MyCurl</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <TargetName>Otaku Manager</TargetName>
-    <IncludePath>$(AWE_DIR)include;$(ProjectDir)\MyCurl\curl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(AWE_DIR)build\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ProjectDir)\MyCurl</LibraryPath>
+    <IncludePath>$(SolutionDir)\include;$(AWE_DIR)include;$(ProjectDir)\MyCurl\curl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib;$(AWE_DIR)build\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ProjectDir)\MyCurl</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -56,7 +56,7 @@
       <OutputFile>$(OutDir)\$(TargetName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>awesomium.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;awesomium.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,14 +73,49 @@
       <OutputFile>$(OutDir)\$(TargetName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>awesomium.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;awesomium.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\lua\lapi.c" />
+    <ClCompile Include="..\include\lua\lauxlib.c" />
+    <ClCompile Include="..\include\lua\lbaselib.c" />
+    <ClCompile Include="..\include\lua\lbitlib.c" />
+    <ClCompile Include="..\include\lua\lcode.c" />
+    <ClCompile Include="..\include\lua\lcorolib.c" />
+    <ClCompile Include="..\include\lua\lctype.c" />
+    <ClCompile Include="..\include\lua\ldblib.c" />
+    <ClCompile Include="..\include\lua\ldebug.c" />
+    <ClCompile Include="..\include\lua\ldo.c" />
+    <ClCompile Include="..\include\lua\ldump.c" />
+    <ClCompile Include="..\include\lua\lfunc.c" />
+    <ClCompile Include="..\include\lua\lgc.c" />
+    <ClCompile Include="..\include\lua\linit.c" />
+    <ClCompile Include="..\include\lua\liolib.c" />
+    <ClCompile Include="..\include\lua\llex.c" />
+    <ClCompile Include="..\include\lua\lmathlib.c" />
+    <ClCompile Include="..\include\lua\lmem.c" />
+    <ClCompile Include="..\include\lua\loadlib.c" />
+    <ClCompile Include="..\include\lua\lobject.c" />
+    <ClCompile Include="..\include\lua\lopcodes.c" />
+    <ClCompile Include="..\include\lua\loslib.c" />
+    <ClCompile Include="..\include\lua\lparser.c" />
+    <ClCompile Include="..\include\lua\lstate.c" />
+    <ClCompile Include="..\include\lua\lstring.c" />
+    <ClCompile Include="..\include\lua\lstrlib.c" />
+    <ClCompile Include="..\include\lua\ltable.c" />
+    <ClCompile Include="..\include\lua\ltablib.c" />
+    <ClCompile Include="..\include\lua\ltm.c" />
+    <ClCompile Include="..\include\lua\lundump.c" />
+    <ClCompile Include="..\include\lua\lutf8lib.c" />
+    <ClCompile Include="..\include\lua\lvm.c" />
+    <ClCompile Include="..\include\lua\lzio.c" />
+    <ClCompile Include="HtmlDoc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MyAwesomium.cpp" />
     <ClCompile Include="MyCurl\MyCurl.cpp" />
+    <ClCompile Include="MyLua.cpp" />
     <ClCompile Include="MyUtils.cpp" />
     <ClCompile Include="OMA-Settings.cpp" />
     <ClCompile Include="OMA.cpp" />
@@ -216,8 +251,36 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\lua\lapi.h" />
+    <ClInclude Include="..\include\lua\lauxlib.h" />
+    <ClInclude Include="..\include\lua\lcode.h" />
+    <ClInclude Include="..\include\lua\lctype.h" />
+    <ClInclude Include="..\include\lua\ldebug.h" />
+    <ClInclude Include="..\include\lua\ldo.h" />
+    <ClInclude Include="..\include\lua\lfunc.h" />
+    <ClInclude Include="..\include\lua\lgc.h" />
+    <ClInclude Include="..\include\lua\llex.h" />
+    <ClInclude Include="..\include\lua\llimits.h" />
+    <ClInclude Include="..\include\lua\lmem.h" />
+    <ClInclude Include="..\include\lua\lobject.h" />
+    <ClInclude Include="..\include\lua\lopcodes.h" />
+    <ClInclude Include="..\include\lua\lparser.h" />
+    <ClInclude Include="..\include\lua\lprefix.h" />
+    <ClInclude Include="..\include\lua\lstate.h" />
+    <ClInclude Include="..\include\lua\lstring.h" />
+    <ClInclude Include="..\include\lua\ltable.h" />
+    <ClInclude Include="..\include\lua\ltm.h" />
+    <ClInclude Include="..\include\lua\lua.h" />
+    <ClInclude Include="..\include\lua\lua.hpp" />
+    <ClInclude Include="..\include\lua\luaconf.h" />
+    <ClInclude Include="..\include\lua\lualib.h" />
+    <ClInclude Include="..\include\lua\lundump.h" />
+    <ClInclude Include="..\include\lua\lvm.h" />
+    <ClInclude Include="..\include\lua\lzio.h" />
+    <ClInclude Include="HtmlDoc.h" />
     <ClInclude Include="MyAwesomium.h" />
     <ClInclude Include="MyCurl\MyCurl.h" />
+    <ClInclude Include="MyLua.h" />
     <ClInclude Include="MyUtils.h" />
     <ClInclude Include="OMA.h" />
     <ClInclude Include="QtGeneratedFiles\ui_AboutWindow.h" />
