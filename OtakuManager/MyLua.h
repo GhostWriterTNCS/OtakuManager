@@ -10,7 +10,6 @@ extern "C" {
 #include "Website.h"
 
 namespace MyLua {
-void initialize();
 
 /**
 	Get the episodes.

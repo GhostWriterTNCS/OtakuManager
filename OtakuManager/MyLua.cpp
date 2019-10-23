@@ -8,7 +8,6 @@
 #include "Website.h"
 
 namespace MyLua {
-lua_State* L;
 
 static int lua_urlToString(lua_State* L) {
 	// get first argument.
@@ -172,9 +171,9 @@ static int lua_split(lua_State* L) {
 	return 1; /* return the table */
 }
 
-void initialize() {
+lua_State* initialize() {
 	// initialize Lua
-	L = luaL_newstate();
+	lua_State* L = luaL_newstate();
 
 	// load Lua base libraries
 	luaL_openlibs(L);
@@ -188,12 +187,12 @@ void initialize() {
 	lua_register(L, "print", lua_print);
 	lua_register(L, "split", lua_split);
 	lua_register(L, "Episode", lua_Episode);
+
+	return L;
 }
 
 bool getEpisodes(QString website, QList<Episode>* episodes) {
-	if (L == nullptr) {
-		initialize();
-	}
+	lua_State* L = initialize();
 
 	// load the script
 	int l = luaL_dofile(L, ("lua/" + website + ".lua").toStdString().c_str());
@@ -201,6 +200,7 @@ bool getEpisodes(QString website, QList<Episode>* episodes) {
 		/*emit OMA::getMainWindow()->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
 														"Lua module not found: " + website);*/
 		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
+		lua_close(L);
 		return false;
 	}
 
@@ -217,7 +217,7 @@ bool getEpisodes(QString website, QList<Episode>* episodes) {
 	std::cout << num_returns << " results." << std::endl;
 
 	if (lua_istable(L, -1)) {
-		printf("1 is a table\n");
+		// printf("1 is a table\n");
 		lua_pushnil(L); /* first key */
 		while (lua_next(L, -2) != 0) {
 			/* uses 'key' (at index -2) and 'value' (at index -1) */
@@ -240,12 +240,11 @@ bool getEpisodes(QString website, QList<Episode>* episodes) {
 	}*/
 	lua_pop(L, 1);
 
+	lua_close(L);
 	return true;
 }
 QString goToEpisode(QString website, Episode* episode, QString type) {
-	if (L == nullptr) {
-		initialize();
-	}
+	lua_State* L = initialize();
 
 	// load the script
 	int l = luaL_dofile(L, ("lua/" + website + ".lua").toStdString().c_str());
@@ -253,6 +252,7 @@ QString goToEpisode(QString website, Episode* episode, QString type) {
 		/*emit OMA::getMainWindow()->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
 														"Lua module not found: " + website);*/
 		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
+		lua_close(L);
 		return "";
 	}
 
@@ -270,10 +270,13 @@ QString goToEpisode(QString website, Episode* episode, QString type) {
 	int num_returns = lua_gettop(L) - stack_size;
 	std::cout << num_returns << " results." << std::endl;
 
-	if (lua_isstring(L, -1))
-		std::cout << lua_tostring(L, lua_gettop(L)) << std::endl;
-	else
+	std::string url = "";
+	if (lua_isstring(L, -1)) {
+		url = lua_tostring(L, lua_gettop(L));
+		std::cout << url << std::endl;
+	} else {
 		std::cout << "Result is not a string." << std::endl;
+	}
 
 	/*while (lua_gettop(L)) {
 		if (lua_isstring(L, -1))
@@ -284,6 +287,7 @@ QString goToEpisode(QString website, Episode* episode, QString type) {
 	}*/
 	lua_pop(L, 1);
 
-	return "";
+	lua_close(L);
+	return QString::fromStdString(url);
 }
 } // namespace MyLua
