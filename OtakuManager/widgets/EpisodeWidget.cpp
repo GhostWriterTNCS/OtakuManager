@@ -27,7 +27,8 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 			   name.contains(QRegExp("[^a-z]+sp[^a-z]+", Qt::CaseInsensitive)) ||
 			   name.contains(QRegExp("[^a-z]+special[^a-z]+", Qt::CaseInsensitive))) {
 		setStyleSheet("#groupBox { background: deepskyblue; }");
-	} else if (name.endsWith("end ", Qt::CaseInsensitive)) {
+	} else if (name.endsWith("end ", Qt::CaseInsensitive) ||
+			   name.endsWith("(fine) ", Qt::CaseInsensitive)) {
 		setStyleSheet("#groupBox { background: #FF5040; }");
 	} else if (name.contains(QRegExp("[^0-9]+01[^0-9]+"))) {
 		setStyleSheet("#groupBox { background: lime; }");
