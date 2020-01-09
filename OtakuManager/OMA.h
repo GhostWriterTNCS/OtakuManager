@@ -68,10 +68,10 @@ namespace OMA {
 
 const QString version = "3.5.4";
 
-const QStringList linkTypes = {"Streaming",   "StreamingIfNoDownload",
+const QStringList linkTypes = {"Streaming",	  "StreamingIfNoDownload",
 							   "Streaming 2", "Streaming 2IfNoDownload",
-							   "Download",	"Download 2",
-							   "Torrent",	 "Magnet",
+							   "Download",	  "Download 2",
+							   "Torrent",	  "Magnet",
 							   "Anime info",  "Custom link",
 							   "Post",		  "PostIfNoDownload"};
 
@@ -85,7 +85,7 @@ const QStringList feedTypes = {"Atom", "RSS"};
  */
 const QStringList websites = {
 	"- English -",		"Anime Heaven", "KissAnime",	"- Italian -", "AnimeForce",
-	"RedAnimeDatabase", "WebAnimex",	"- Torrents -", "AniDex",	  "Nyaa"};
+	"RedAnimeDatabase", "WebAnimex",	"- Torrents -", "AniDex",	   "Nyaa"};
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "
@@ -254,6 +254,24 @@ bool getYoutubeToUmmy();
 	Set open YouTube links with Ummy ON (true) of OFF (false).
 */
 void setYoutubeToUmmy(bool value);
+
+/**
+	Show console?
+*/
+bool getConsole();
+/**
+	Set show console.
+*/
+void setConsole(bool value);
+
+/**
+	cURL verbose?
+*/
+bool getCurlVerbose();
+/**
+	Set cURL verbose.
+*/
+void setCurlVerbose(bool value);
 
 // [Log]
 

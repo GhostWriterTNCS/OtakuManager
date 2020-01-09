@@ -83,6 +83,8 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
 	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
 	ui.youtubeToUmmy->setChecked(OMA::Settings::getYoutubeToUmmy());
+	ui.console->setChecked(OMA::Settings::getConsole());
+	ui.curlVerbose->setChecked(OMA::Settings::getCurlVerbose());
 
 	connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &PrefWindow::save);
 	connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
@@ -138,6 +140,8 @@ void PrefWindow::save() {
 	OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
 	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
 	OMA::Settings::setYoutubeToUmmy(ui.youtubeToUmmy->isChecked());
+	OMA::Settings::setConsole(ui.console->isChecked());
+	OMA::Settings::setCurlVerbose(ui.curlVerbose->isChecked());
 
 	close();
 }

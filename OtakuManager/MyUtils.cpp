@@ -35,7 +35,8 @@ QString advancedReplace(QString str, QString startReplace, QString endReplace, Q
 }
 
 QString urlToQString(QString url) {
-	return QString::fromUtf8(MyCurl::urlToString(url.toStdString()).c_str());
+	return QString::fromUtf8(
+		MyCurl::urlToString(url.toStdString(), OMA::Settings::getCurlVerbose()).c_str());
 }
 QString urlToQStringJS(QString url) {
 	return QString::fromUtf8(MyAwesomium::urlToString(url.toStdString()).c_str());

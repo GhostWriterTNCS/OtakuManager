@@ -9,20 +9,20 @@
 
 namespace MyLua {
 
-static int lua_urlToString(lua_State* L) {
+static int lua_UrlToString(lua_State* L) {
 	// get first argument.
 	luaL_checkstring(L, 1);
 	std::string url = lua_tostring(L, 1);
 
 	// push result.
-	std::string s = MyCurl::urlToString(url);
+	std::string s = MyCurl::urlToString(url, OMA::Settings::getCurlVerbose());
 	lua_pushlstring(L, s.c_str(), s.length());
 
 	// return the number of results.
 	return 1;
 }
 
-static int lua_urlToStringJS(lua_State* L) {
+static int lua_UrlToStringJS(lua_State* L) {
 	// get first argument.
 	luaL_checkstring(L, 1);
 	std::string url = lua_tostring(L, 1);
@@ -83,24 +83,52 @@ static int lua_GetAllStrings(lua_State* L) {
 	return 1;
 }
 
+static int lua_Substring(lua_State* L) {
+	luaL_checkstring(L, 1);
+	QString str = QString(lua_tostring(L, 1));
+	luaL_checkstring(L, 2);
+	QString start = QString(lua_tostring(L, 2));
+	luaL_checkstring(L, 3);
+	QString end = QString(lua_tostring(L, 3));
+
+	std::string result = MyUtils::substring(str, start, end).toStdString();
+
+	lua_pushstring(L, result.c_str());
+	return 1;
+}
+
+static int lua_SubstringFromEnd(lua_State* L) {
+	luaL_checkstring(L, 1);
+	QString str = QString(lua_tostring(L, 1));
+	luaL_checkstring(L, 2);
+	QString start = QString(lua_tostring(L, 2));
+	luaL_checkstring(L, 3);
+	QString end = QString(lua_tostring(L, 3));
+
+	std::string result = MyUtils::substringFromEnd(str, start, end).toStdString();
+
+	lua_pushstring(L, result.c_str());
+	return 1;
+}
+
 // Episode class
 static int lua_Episode_garbageCollector(lua_State* L) {
 	delete *static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	return 0;
 }
-static int lua_Episode_setUrl(lua_State* L) {
+static int lua_Episode_SetUrl(lua_State* L) {
 	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	std::string s = luaL_checkstring(L, 2);
 	(*ud)->url = QString::fromLocal8Bit(s.c_str());
 	return 0;
 }
-static int lua_Episode_setName(lua_State* L) {
+static int lua_Episode_SetName(lua_State* L) {
 	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	std::string s = luaL_checkstring(L, 2);
 	(*ud)->name = QString::fromLocal8Bit(s.c_str());
 	return 0;
 }
-static int lua_Episode_hasDownload(lua_State* L) {
+static int lua_Episode_HasDownload(lua_State* L) {
 	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	bool b = lua_toboolean(L, 2);
 	(*ud)->hasDownload = b;
@@ -110,9 +138,9 @@ static int lua_Episode(lua_State* L) {
 	*static_cast<Episode**>(lua_newuserdata(L, sizeof(Episode*))) = new Episode();
 	if (luaL_newmetatable(L, "Episode")) {
 		static const luaL_Reg functions[] = {{"__gc", lua_Episode_garbageCollector},
-											 {"setUrl", lua_Episode_setUrl},
-											 {"setName", lua_Episode_setName},
-											 {"hasDownload", lua_Episode_hasDownload},
+											 {"SetUrl", lua_Episode_SetUrl},
+											 {"SetName", lua_Episode_SetName},
+											 {"HasDownload", lua_Episode_HasDownload},
 											 {nullptr, nullptr}};
 		luaL_setfuncs(L, functions, 0);
 		lua_pushvalue(L, -1);
@@ -149,7 +177,7 @@ static int lua_print(lua_State* L) {
 	return 0;
 }
 
-static int lua_split(lua_State* L) {
+static int lua_Split(lua_State* L) {
 	const char* s = luaL_checkstring(L, 1);
 	const char* sep = luaL_checkstring(L, 2);
 	const char* e;
@@ -179,14 +207,16 @@ lua_State* initialize() {
 	luaL_openlibs(L);
 
 	// register my functions
-	lua_register(L, "urlToString", lua_urlToString);
-	lua_register(L, "urlToStringJS", lua_urlToStringJS);
+	lua_register(L, "UrlToString", lua_UrlToString);
+	lua_register(L, "UrlToStringJS", lua_UrlToStringJS);
 	lua_register(L, "HtmlDoc", lua_HtmlDoc);
 	lua_register(L, "GetString", lua_GetString);
 	lua_register(L, "GetAllStrings", lua_GetAllStrings);
 	lua_register(L, "print", lua_print);
-	lua_register(L, "split", lua_split);
+	lua_register(L, "Split", lua_Split);
 	lua_register(L, "Episode", lua_Episode);
+	lua_register(L, "Substring", lua_Substring);
+	lua_register(L, "SubstringFromEnd", lua_SubstringFromEnd);
 
 	return L;
 }

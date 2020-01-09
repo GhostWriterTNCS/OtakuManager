@@ -328,6 +328,25 @@ void setYoutubeToUmmy(bool value) {
 	mutex.unlock();
 }
 
+bool getConsole() {
+	return settings->value("Other/console", "false").toBool();
+}
+void setConsole(bool value) {
+	mutex.lock();
+	settings->setValue("Other/console", value);
+	mutex.unlock();
+}
+
+bool getCurlVerbose() {
+	return settings->value("Other/curlVerbose", "false").toBool();
+}
+
+void setCurlVerbose(bool value) {
+	mutex.lock();
+	settings->setValue("Other/curlVerbose", value);
+	mutex.unlock();
+}
+
 // [Log]
 
 QList<LastEpisode> getLastEps() {

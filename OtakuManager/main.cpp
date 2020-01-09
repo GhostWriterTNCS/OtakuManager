@@ -3,6 +3,7 @@
 #include <QSystemSemaphore>
 #include <QtConcurrent\QtConcurrentRun>
 #include <QtWidgets/QApplication>
+#include <windows.h>
 #include "MainWindow.h"
 #include "MyAwesomium.h"
 #include "MyUtils.h"
@@ -42,6 +43,18 @@ int main(int argc, char* argv[]) {
 	MainWindow w;
 	w.show();
 	QCoreApplication::processEvents();
+
+	if (OMA::Settings::getConsole()) {
+		if (GetConsoleWindow() == NULL) {
+			if (AllocConsole()) {
+				(void)freopen("CONIN$", "r", stdin);
+				(void)freopen("CONOUT$", "w", stdout);
+				(void)freopen("CONOUT$", "w", stderr);
+
+				w.raise();
+			}
+		}
+	}
 
 	NewVersionWindow* newVersionWindow = new NewVersionWindow();
 	QFuture<void> future = QtConcurrent::run(checkForUpdates, newVersionWindow);

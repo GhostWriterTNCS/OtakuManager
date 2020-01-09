@@ -30,7 +30,8 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 	} else if (name.endsWith("end ", Qt::CaseInsensitive) ||
 			   name.endsWith("(fine) ", Qt::CaseInsensitive)) {
 		setStyleSheet("#groupBox { background: #FF5040; }");
-	} else if (name.contains(QRegExp("[^0-9]+01[^0-9]+"))) {
+	} else if (name.contains(QRegExp("[^0-9]+1[^0-9]+")) ||
+			   name.contains(QRegExp("[^0-9]+01[^0-9]+"))) {
 		setStyleSheet("#groupBox { background: lime; }");
 	}
 
