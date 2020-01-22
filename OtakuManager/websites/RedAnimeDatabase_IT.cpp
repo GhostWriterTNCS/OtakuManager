@@ -4,11 +4,11 @@
 void Website::initialize_RedAnimeDatabase_IT() {
 	homepage = "http://redanimedatabase.forumcommunity.net/index.php";
 	seriesPage = "http://redanimedatabase.forumcommunity.net/?f=8821471";
-	hasDoubleButtons = true;
+	// hasDoubleButtons = true;
 	getEpisodesFunction = std::bind(&Website::getEpisodes_RedAnimeDatabase_IT, this);
 	getSeriesFunction = std::bind(&Website::getSeries_RedAnimeDatabase_IT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_RedAnimeDatabase_IT, this,
-		std::placeholders::_1, std::placeholders::_2);
+									std::placeholders::_1, std::placeholders::_2);
 }
 
 bool Website::getEpisodes_RedAnimeDatabase_IT() {
@@ -45,7 +45,7 @@ bool Website::getSeries_RedAnimeDatabase_IT() {
 				html,
 				"javascript:page_jump('http://redanimedatabase.forumcommunity.net/?f=8821471',",
 				",")
-			.toInt();
+				.toInt();
 		html = MyUtils::substring(html, start, end);
 		for (int i = 1; i < pages; i++) {
 			QString temp = MyUtils::urlToQString(seriesPage + "&st=" + QString::number(i * 30));
@@ -98,7 +98,7 @@ QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type)
 			s = "";
 			for (int i = 0; i < episode.size(); i++) {
 				if ((episode[i].contains(tipo_ep + id) ||
-					episode[i].contains(tipo_ep + "0" + id)) &&
+					 episode[i].contains(tipo_ep + "0" + id)) &&
 					episode[i].contains("href")) {
 					s = episode[i];
 					break;
@@ -110,7 +110,7 @@ QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type)
 				if (type == OMA::linkTypes[LinkTypes::streaming]) {
 					if (s.contains("Streaming"))
 						url = MyUtils::substring(s, "", ">Streaming<");
-				} else if (type == OMA::linkTypes[LinkTypes::streaming2]) {
+				} /*else if (type == OMA::linkTypes[LinkTypes::streaming2]) {
 					if (s.contains("Streaming 2"))
 						url = MyUtils::substring(s, "", ">Streaming 2<");
 					else if (s.contains("Streaming"))
@@ -118,7 +118,7 @@ QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type)
 				} else if (type == OMA::linkTypes[LinkTypes::download2]) {
 					if (s.contains("Download 2"))
 						url = MyUtils::substring(s, "", ">Download 2<");
-				}
+				}*/
 				url = MyUtils::substringFromEnd(url, "href=\"");
 				url = MyUtils::substring(url, "", "\"");
 			}

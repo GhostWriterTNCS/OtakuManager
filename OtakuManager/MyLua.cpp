@@ -221,6 +221,52 @@ lua_State* initialize() {
 	return L;
 }
 
+QString getString(QString website, QString name) {
+	lua_State* L = initialize();
+
+	// load the script
+	int l = luaL_dofile(L, ("lua/" + website + ".lua").toStdString().c_str());
+	if (l != 0) {
+		/*emit OMA::getMainWindow()->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
+														"Lua module not found: " + website);*/
+		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
+		lua_close(L);
+		return false;
+	}
+
+	int stack_size = lua_gettop(L);
+
+	lua_getglobal(L, name.toStdString().c_str());
+	QString luavar = lua_tostring(L, -1);
+	lua_pop(L, 1);
+
+	lua_close(L);
+	return luavar;
+}
+
+bool getBool(QString website, QString name) {
+	lua_State* L = initialize();
+
+	// load the script
+	int l = luaL_dofile(L, ("lua/" + website + ".lua").toStdString().c_str());
+	if (l != 0) {
+		/*emit OMA::getMainWindow()->showMessageBoxSignal(QMessageBox::Icon::Warning, "Error",
+														"Lua module not found: " + website);*/
+		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
+		lua_close(L);
+		return false;
+	}
+
+	int stack_size = lua_gettop(L);
+
+	lua_getglobal(L, name.toStdString().c_str());
+	bool luavar = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+
+	lua_close(L);
+	return luavar;
+}
+
 bool getEpisodes(QString website, QList<Episode>* episodes) {
 	lua_State* L = initialize();
 

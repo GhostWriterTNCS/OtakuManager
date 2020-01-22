@@ -49,20 +49,20 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 					show =
 						(!episode->hasDownload || !website->hasDownload) && website->hasStreaming;
 					break;
-				case LinkTypes::streaming2:
+				/*case LinkTypes::streaming2:
 					show = website->hasStreaming && website->hasDoubleButtons;
 					break;
 				case LinkTypes::streaming2IfNoDownload:
 					show = (!episode->hasDownload || !website->hasDownload) &&
 						   website->hasStreaming && website->hasDoubleButtons;
-					break;
+					break;*/
 				case LinkTypes::download:
 					show = episode->hasDownload && website->hasDownload;
 					break;
-				case LinkTypes::download2:
+				/*case LinkTypes::download2:
 					show =
 						episode->hasDownload && website->hasDownload && website->hasDoubleButtons;
-					break;
+					break;*/
 				case LinkTypes::torrent:
 					show = website->hasTorrent;
 					break;

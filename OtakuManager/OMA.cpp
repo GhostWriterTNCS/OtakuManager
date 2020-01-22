@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QUrl>
+#include <QtCore\qdir.h>
+#include "MyLua.h"
 #include "MyUtils.h"
 #include "OMA.h"
 
@@ -43,6 +45,33 @@ Feed::Feed(QString name, QString url, QString oldName) {
 namespace OMA {
 
 MainWindow* mainWindow;
+QHash<QString, QStringList> websites_;
+
+QHash<QString, QStringList> websites() {
+	if (websites_.keys().size() > 0) {
+		return websites_;
+	}
+	websites_["English"] = QStringList({"Anime Heaven", "KissAnime"});
+	websites_["Italian"] = QStringList({"AnimeForce", "RedAnimeDatabase", "WebAnimex"});
+	websites_["Torrents"] = QStringList({"AniDex", "Nyaa"});
+
+	QDir directory("lua");
+	QStringList files = directory.entryList(QStringList() << "*.lua", QDir::Files);
+	foreach (QString filename, files) {
+		filename = filename.replace(".lua", "");
+		QString group = MyLua::getString(filename, "group");
+		if (!websites_.contains(group)) {
+			websites_[group] = QStringList({filename});
+		} else if (!websites_[group].contains(filename)) {
+			websites_[group].append(filename);
+		}
+	}
+	websites_["Feeds"] = OMA::Settings::getFeedNames();
+	foreach (QString group, websites_.keys()) { websites_[group].sort(); }
+
+	return websites_;
+}
+
 MainWindow* getMainWindow() {
 	return mainWindow;
 }

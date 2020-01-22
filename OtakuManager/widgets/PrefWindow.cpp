@@ -13,16 +13,10 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 
 	ui.streaming->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streaming]));
-	ui.streaming2->setChecked(
-		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streaming2]));
 	ui.streamingIfNoDownload->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streamingIfNoDownload]));
-	ui.streaming2IfNoDownload->setChecked(
-		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streaming2IfNoDownload]));
 	ui.download->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download]));
-	ui.download2->setChecked(
-		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::download2]));
 	ui.torrent->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::torrent]));
 	ui.magnet->setChecked(OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::magnet]));
@@ -32,27 +26,19 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.postIfNoDownload->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::postIfNoDownload]));
 
-	for (int i = 0; i < OMA::websites.size(); i) {
+	QHash<QString, QStringList> websites = OMA::websites();
+	QList<QString> groups = websites.keys();
+	groups.sort();
+	foreach (QString group, groups) {
 		QTreeWidgetItem* topItem = new QTreeWidgetItem();
-		topItem->setText(0, OMA::websites[i].mid(2, OMA::websites[i].length() - 4));
-		i++;
-		while (i < OMA::websites.size() && !OMA::websites[i].startsWith("-")) {
+		topItem->setText(0, group);
+		foreach (QString w, websites[group]) {
 			QTreeWidgetItem* item = new QTreeWidgetItem();
-			item->setText(0, OMA::websites[i]);
+			item->setText(0, w);
 			topItem->addChild(item);
-			i++;
 		}
 		ui.availableWebsites->addTopLevelItem(topItem);
 	}
-	QTreeWidgetItem* topItem = new QTreeWidgetItem();
-	topItem->setText(0, "Feeds");
-	QStringList feedNames = OMA::Settings::getFeedNames();
-	for (int i = 0; i < feedNames.size(); i++) {
-		QTreeWidgetItem* item = new QTreeWidgetItem();
-		item->setText(0, feedNames[i]);
-		topItem->addChild(item);
-	}
-	ui.availableWebsites->addTopLevelItem(topItem);
 
 	QList<FollowedAnime> followedList = OMA::Settings::getFollowed();
 	for (int i = 0; i < followedList.size(); i++) {
@@ -100,13 +86,14 @@ void PrefWindow::save() {
 	OMA::Settings::setWebsites(websitesList);
 
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming], ui.streaming->isChecked());
-	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2], ui.streaming2->isChecked());
+	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2],
+	 * ui.streaming2->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streamingIfNoDownload],
 							  ui.streamingIfNoDownload->isChecked());
-	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2IfNoDownload],
-							  ui.streaming2IfNoDownload->isChecked());
+	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2IfNoDownload],
+							  ui.streaming2IfNoDownload->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download], ui.download->isChecked());
-	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download2], ui.download2->isChecked());
+	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download2], ui.download2->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::torrent], ui.torrent->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::magnet], ui.magnet->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::animeInfo], ui.animeInfo->isChecked());

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QFileInfo>
 #include <QMessageBox>
 #include "MyLua.h"
 #include "OMA.h"
@@ -6,24 +7,30 @@
 
 Website::Website(QString website) {
 	name = website;
-	/*
-	 * HOW TO ADD A WEBSITE
-	 * Insert here the new website initializer.
-	 * Note: group languages and sort alphabetically.
-	 */
-	if (website == OMA::websites[Websites::AnimeHeaven_EN]) {
+	QFileInfo check_file("lua/" + website + ".lua");
+	if (check_file.exists() && check_file.isFile()) {
+		homepage = MyLua::getString(name, "homepage");
+		seriesPage = MyLua::getString(name, "seriesPage");
+		hasStreaming = MyLua::getBool(name, "hasStreaming");
+		hasDownload = MyLua::getBool(name, "hasDownload");
+		hasTorrent = MyLua::getBool(name, "hasTorrent");
+		hasMagnet = MyLua::getBool(name, "hasMagnet");
+		return;
+	}
+
+	if (website == "Anime Heaven") {
 		initialize_AnimeHeaven_EN();
-	} else if (website == OMA::websites[Websites::KissAnime_EN]) {
+	} else if (website == "KissAnime") {
 		initialize_KissAnime_EN();
-	} else if (website == OMA::websites[Websites::AnimeForce_IT]) {
+	} else if (website == "AnimeForce") {
 		initialize_AnimeForce_IT();
-	} else if (website == OMA::websites[Websites::RedAnimeDatabase_IT]) {
+	} else if (website == "RedAnimeDatabase") {
 		initialize_RedAnimeDatabase_IT();
-	} else if (website == OMA::websites[Websites::WebAnimex_IT]) {
+	} else if (website == "WebAnimex") {
 		initialize_WebAnimex_IT();
-	} else if (website == OMA::websites[Websites::AniDex_TT]) {
+	} else if (website == "AniDex") {
 		initialize_AniDex_TT();
-	} else if (website == OMA::websites[Websites::Nyaa_TT]) {
+	} else if (website == "Nyaa") {
 		initialize_Nyaa_TT();
 	} else if (OMA::Settings::getFeedNames().contains(website)) {
 		initialize_Feed();

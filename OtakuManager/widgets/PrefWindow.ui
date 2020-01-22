@@ -157,14 +157,24 @@
           <string>Buttons</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="5" column="0">
-           <widget class="QCheckBox" name="animeInfo">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="torrent">
             <property name="text">
-             <string>Anime info</string>
+             <string>Torrent</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
+          <item row="5" column="1">
+           <widget class="QCheckBox" name="postIfNoDownload">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Post if no Download</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
            <widget class="QCheckBox" name="post">
             <property name="toolTip">
              <string>Opens the page you would reach in the website.</string>
@@ -174,20 +184,17 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="download2">
-            <property name="toolTip">
-             <string>Only some websites</string>
-            </property>
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="animeInfo">
             <property name="text">
-             <string>Download 2</string>
+             <string>Anime info</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="download">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="streaming">
             <property name="text">
-             <string>Download</string>
+             <string>Streaming</string>
             </property>
            </widget>
           </item>
@@ -201,100 +208,22 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="streaming">
-            <property name="text">
-             <string>Streaming</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="streaming2IfNoDownload">
-            <property name="toolTip">
-             <string>Only some websites</string>
-            </property>
-            <property name="text">
-             <string>Streaming 2 if no Download</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QCheckBox" name="postIfNoDownload">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Post if no Download</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
-           <widget class="QCheckBox" name="streaming2">
-            <property name="toolTip">
-             <string>Only some websites</string>
-            </property>
+           <widget class="QCheckBox" name="download">
             <property name="text">
-             <string>Streaming 2</string>
+             <string>Download</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="3" column="1">
            <widget class="QCheckBox" name="magnet">
             <property name="text">
              <string>Magnet</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="torrent">
-            <property name="text">
-             <string>Torrent</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="feedTab">
-      <attribute name="title">
-       <string>Feeds</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <widget class="QListWidget" name="feedListWidget"/>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QPushButton" name="addFeed">
-           <property name="text">
-            <string>Add feed</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="removeFeed">
-           <property name="text">
-            <string>Remove selected</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="rssHorizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>
@@ -359,6 +288,47 @@
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="feedTab">
+      <attribute name="title">
+       <string>Feeds</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QListWidget" name="feedListWidget"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="addFeed">
+           <property name="text">
+            <string>Add feed</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeFeed">
+           <property name="text">
+            <string>Remove selected</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="rssHorizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

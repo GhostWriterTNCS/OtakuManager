@@ -30,7 +30,6 @@ public:
 	QString seriesPage;
 	bool hasStreaming = true;
 	bool hasDownload = true;
-	bool hasDoubleButtons = false;
 	bool hasTorrent = false;
 	bool hasMagnet = false;
 	bool isFeed = false;
@@ -59,12 +58,6 @@ public:
 	bool goToEpisode(Episode* episode, QString type);
 
 private:
-	/*
-	 * HOW TO ADD A WEBSITE
-	 * Insert here the new website functions (duplicate the three functions and replace the website
-	 * name).
-	 * Note: use the same name as in 'enum Websites'.
-	 */
 	// ENGLISH
 	void initialize_AnimeHeaven_EN();
 	bool getEpisodes_AnimeHeaven_EN();

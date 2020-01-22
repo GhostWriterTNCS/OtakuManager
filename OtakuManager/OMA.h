@@ -1,39 +1,18 @@
 #pragma once
+#include <QHash>
 #include <QSettings>
 #include "MainWindow.h"
 
 enum LinkTypes {
 	streaming,
 	streamingIfNoDownload,
-	streaming2,
-	streaming2IfNoDownload,
 	download,
-	download2,
 	torrent,
 	magnet,
 	animeInfo,
 	customLink,
 	post,
 	postIfNoDownload
-};
-
-/*
- * HOW TO ADD A WEBSITE
- * Insert here the new website name.
- * Note: add the language suffix and put the website in the correct language group. Groups are
- * sorted alphabeticcaly.
- */
-enum Websites {
-	ENGLISH,
-	AnimeHeaven_EN,
-	KissAnime_EN,
-	ITALIAN,
-	AnimeForce_IT,
-	RedAnimeDatabase_IT,
-	WebAnimex_IT,
-	TORRENT,
-	AniDex_TT,
-	Nyaa_TT
 };
 
 class LastEpisode {
@@ -66,26 +45,15 @@ public:
 
 namespace OMA {
 
-const QString version = "3.5.4";
+const QString version = "3.5.5";
 
-const QStringList linkTypes = {"Streaming",	  "StreamingIfNoDownload",
-							   "Streaming 2", "Streaming 2IfNoDownload",
-							   "Download",	  "Download 2",
-							   "Torrent",	  "Magnet",
-							   "Anime info",  "Custom link",
-							   "Post",		  "PostIfNoDownload"};
+const QStringList linkTypes = {
+	"Streaming",  "StreamingIfNoDownload", "Download", "Torrent",		  "Magnet",
+	"Anime info", "Custom link",		   "Post",	   "PostIfNoDownload"};
 
 const QStringList feedTypes = {"Atom", "RSS"};
 
-/*
- * HOW TO ADD A WEBSITE
- * Insert here the new website name.
- * Note: put the website in the correct language group. Groups are sorted alphabeticcaly. The
- * website position must be the same in 'enum Websites' and in 'const QStringList websites'.
- */
-const QStringList websites = {
-	"- English -",		"Anime Heaven", "KissAnime",	"- Italian -", "AnimeForce",
-	"RedAnimeDatabase", "WebAnimex",	"- Torrents -", "AniDex",	   "Nyaa"};
+QHash<QString, QStringList> websites();
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "

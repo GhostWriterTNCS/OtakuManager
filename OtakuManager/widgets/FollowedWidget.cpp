@@ -5,15 +5,21 @@ FollowedWidget::FollowedWidget(FollowedAnime* followed, QWidget* parent) : QWidg
 	ui.setupUi(this);
 	ui.websiteComboBox->insertItem(0, "*");
 	QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui.websiteComboBox->model());
-	QStringList websites = OMA::websites;
-	websites.append("- Feed -");
-	QStringList feedNames = OMA::Settings::getFeedNames();
-	websites.append(feedNames);
-	for (int i = 0; i < websites.size(); i++) {
-		ui.websiteComboBox->addItem(websites[i]);
+	QHash<QString, QStringList> websites = OMA::websites();
+	int i = 0;
+	QList<QString> groups = websites.keys();
+	groups.sort();
+	foreach (QString group, groups) {
+		ui.websiteComboBox->addItem(group);
 		QStandardItem* item = model->item(i + 1);
-		item->setFlags(websites[i].startsWith("-") ? item->flags() & ~Qt::ItemIsEnabled
-												   : item->flags() | Qt::ItemIsEnabled);
+		item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+		i++;
+		foreach (QString w, websites[group]) {
+			ui.websiteComboBox->addItem(w);
+			QStandardItem* item = model->item(i + 1);
+			item->setFlags(item->flags() | Qt::ItemIsEnabled);
+			i++;
+		}
 	}
 
 	this->followed = followed;
