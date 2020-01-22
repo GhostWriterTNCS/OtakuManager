@@ -25,4 +25,5 @@ private slots:
 
 private:
 	Ui::PrefWindow ui;
+	void setupTableRow(int row, FollowedAnime* anime = nullptr);
 };

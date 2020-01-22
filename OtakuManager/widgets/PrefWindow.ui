@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>545</width>
+    <width>727</width>
     <height>518</height>
    </rect>
   </property>
@@ -233,16 +233,39 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QListWidget" name="followedListWidget">
-         <property name="dragDropMode">
-          <enum>QAbstractItemView::InternalMove</enum>
+        <widget class="QTableWidget" name="followedTable">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="verticalScrollMode">
+         <property name="horizontalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="rowCount">
+          <number>1</number>
+         </property>
+         <property name="columnCount">
+          <number>4</number>
+         </property>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
         </widget>
        </item>
        <item>
@@ -251,13 +274,6 @@
           <widget class="QPushButton" name="addFollowed">
            <property name="text">
             <string>Add anime/keyword</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="removeFollowed">
-           <property name="text">
-            <string>Remove selected</string>
            </property>
           </widget>
          </item>
@@ -279,7 +295,7 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can add the name of an anime or a keyword (for example &lt;span style=&quot; font-style:italic;&quot;&gt;movie&lt;/span&gt; to highlight movies).&lt;/p&gt;&lt;p&gt;Names are case insensitive. Two blank spaces will be added at begging and at the end of the episode name on checking for corrispondence.&lt;/p&gt;&lt;p&gt;If &lt;span style=&quot; font-style:italic;&quot;&gt;Regex&lt;/span&gt; is not enabled, letters with accents are ignored and only these special characters are allowed:&lt;br/&gt;- _ &amp;amp; [ ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can add the name of an anime or a keyword (for example &lt;span style=&quot; font-style:italic;&quot;&gt;movie&lt;/span&gt; to highlight movies). Names are case insensitive.&lt;/p&gt;&lt;p&gt;If &lt;span style=&quot; font-style:italic;&quot;&gt;Regex&lt;/span&gt; is not enabled, letters with accents are ignored and only these special characters are allowed: - _ &amp;amp; [ ]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>

@@ -110,15 +110,7 @@ QString Website::goToEpisode_RedAnimeDatabase_IT(Episode* episode, QString type)
 				if (type == OMA::linkTypes[LinkTypes::streaming]) {
 					if (s.contains("Streaming"))
 						url = MyUtils::substring(s, "", ">Streaming<");
-				} /*else if (type == OMA::linkTypes[LinkTypes::streaming2]) {
-					if (s.contains("Streaming 2"))
-						url = MyUtils::substring(s, "", ">Streaming 2<");
-					else if (s.contains("Streaming"))
-						url = MyUtils::substring(s, "", ">Streaming<");
-				} else if (type == OMA::linkTypes[LinkTypes::download2]) {
-					if (s.contains("Download 2"))
-						url = MyUtils::substring(s, "", ">Download 2<");
-				}*/
+				}
 				url = MyUtils::substringFromEnd(url, "href=\"");
 				url = MyUtils::substring(url, "", "\"");
 			}

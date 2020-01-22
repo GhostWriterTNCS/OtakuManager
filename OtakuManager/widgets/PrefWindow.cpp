@@ -2,6 +2,7 @@
 #include <QFileDialog>
 #include <QItemDelegate>
 #include <QScrollBar>
+#include <QStandardItemModel>
 #include <QTreeWidgetItem>
 #include "FeedWidget.h"
 #include "FollowedWidget.h"
@@ -9,6 +10,8 @@
 
 PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.setupUi(this);
+
+	// General settings
 	ui.updateCheckBox->setChecked(OMA::Settings::getCheckForUpdates());
 
 	ui.streaming->setChecked(
@@ -40,21 +43,33 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 		ui.availableWebsites->addTopLevelItem(topItem);
 	}
 
+	// Followed anime
 	QList<FollowedAnime> followedList = OMA::Settings::getFollowed();
-	for (int i = 0; i < followedList.size(); i++) {
+	/*for (int i = 0; i < followedList.size(); i++) {
 		FollowedWidget* widget = new FollowedWidget(&(followedList[i]));
 		QListWidgetItem* item = new QListWidgetItem();
 		item->setSizeHint(QSize(item->sizeHint().width(), widget->sizeHint().height()));
 		ui.followedListWidget->addItem(item);
 		ui.followedListWidget->setItemWidget(item, widget);
 	}
-	ui.followedListWidget->verticalScrollBar()->setSingleStep(10);
+	ui.followedListWidget->verticalScrollBar()->setSingleStep(10);*/
+
+	ui.followedTable->setHorizontalHeaderLabels({"Anime", "Regex", "Website", "Custom link"});
+	ui.followedTable->setRowCount(followedList.size());
+	ui.followedTable->setColumnWidth(0, 230);
+	ui.followedTable->setColumnWidth(1, 50);
+	ui.followedTable->setColumnWidth(2, 140);
+	for (int i = 0; i < followedList.size(); i++) {
+		setupTableRow(i, &followedList[i]);
+	}
+	// ui.followedTable->sortItems(0);
 
 	QStringList activeWebsites = OMA::Settings::getWebsites();
 	for (int i = 0; i < activeWebsites.size(); i++) {
 		ui.activeWebsites->addItem(activeWebsites[i]);
 	}
 
+	// Feeds
 	QList<Feed> feedList = OMA::Settings::getFeeds();
 	for (int i = 0; i < feedList.size(); i++) {
 		FeedWidget* widget = new FeedWidget(&(feedList[i]));
@@ -65,6 +80,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	}
 	ui.feedListWidget->verticalScrollBar()->setSingleStep(10);
 
+	// Other
 	ui.AniDexUrl->setText(OMA::Settings::getAniDexUrl());
 	ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
 	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
@@ -76,7 +92,53 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
 }
 
+void PrefWindow::setupTableRow(int row, FollowedAnime* anime) {
+	if (anime != nullptr) {
+		ui.followedTable->setItem(row, 0, new QTableWidgetItem(anime->anime));
+	} else {
+		ui.followedTable->setItem(row, 0, new QTableWidgetItem(""));
+	}
+
+	QTableWidgetItem* pItem = new QTableWidgetItem();
+	if (anime != nullptr) {
+		pItem->setCheckState(anime->regex ? Qt::Checked : Qt::Unchecked);
+	} else {
+		pItem->setCheckState(Qt::Unchecked);
+	}
+	ui.followedTable->setItem(row, 1, pItem);
+
+	QComboBox* combo;
+	combo = new QComboBox;
+	combo->addItem("*");
+	QStandardItemModel* model = qobject_cast<QStandardItemModel*>(combo->model());
+	QHash<QString, QStringList> websites = OMA::websites();
+	QList<QString> groups = websites.keys();
+	groups.sort();
+	int j = 0;
+	foreach (QString group, groups) {
+		j++;
+		combo->addItem(group);
+		QStandardItem* item = model->item(j);
+		item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+		foreach (QString w, websites[group]) {
+			j++;
+			combo->addItem(w);
+		}
+	}
+	if (anime != nullptr) {
+		combo->setCurrentText(anime->website);
+	}
+	ui.followedTable->setCellWidget(row, 2, combo);
+
+	if (anime != nullptr) {
+		ui.followedTable->setItem(row, 3, new QTableWidgetItem(anime->customLink));
+	} else {
+		ui.followedTable->setItem(row, 3, new QTableWidgetItem(""));
+	}
+}
+
 void PrefWindow::save() {
+	// General settings
 	OMA::Settings::setCheckForUpdates(ui.updateCheckBox->isChecked());
 
 	QStringList websitesList;
@@ -86,14 +148,9 @@ void PrefWindow::save() {
 	OMA::Settings::setWebsites(websitesList);
 
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming], ui.streaming->isChecked());
-	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2],
-	 * ui.streaming2->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streamingIfNoDownload],
 							  ui.streamingIfNoDownload->isChecked());
-	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::streaming2IfNoDownload],
-							  ui.streaming2IfNoDownload->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download], ui.download->isChecked());
-	/*OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::download2], ui.download2->isChecked());*/
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::torrent], ui.torrent->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::magnet], ui.magnet->isChecked());
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::animeInfo], ui.animeInfo->isChecked());
@@ -101,8 +158,9 @@ void PrefWindow::save() {
 	OMA::Settings::setButtons(OMA::linkTypes[LinkTypes::postIfNoDownload],
 							  ui.postIfNoDownload->isChecked());
 
+	// Followed anime
 	QList<FollowedAnime> followedList;
-	for (int i = 0; i < ui.followedListWidget->count(); i++) {
+	/*for (int i = 0; i < ui.followedListWidget->count(); i++) {
 		FollowedWidget* followed =
 			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
 		if (!followed->ui.animeTitle->text().isEmpty()) {
@@ -111,9 +169,29 @@ void PrefWindow::save() {
 											  followed->ui.websiteComboBox->currentText(),
 											  followed->ui.customLinkLineEdit->text()));
 		}
+	}*/
+	for (int i = 0; i < ui.followedTable->rowCount(); i++) {
+		if (!ui.followedTable->item(i, 0)->text().isEmpty()) {
+			FollowedAnime anime;
+			anime.anime = ui.followedTable->item(i, 0)->text();
+			anime.regex = ui.followedTable->item(i, 1)->checkState() == Qt::Checked ? true : false;
+			anime.website = ((QComboBox*)ui.followedTable->cellWidget(i, 2))->currentText();
+			anime.customLink = ui.followedTable->item(i, 3)->text();
+			followedList.append(anime);
+		}
+
+		/*FollowedWidget* followed =
+			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
+		if (!followed->ui.animeTitle->text().isEmpty()) {
+			followedList.append(FollowedAnime(followed->ui.animeTitle->text(),
+											  followed->ui.regex->isChecked(),
+											  followed->ui.websiteComboBox->currentText(),
+											  followed->ui.customLinkLineEdit->text()));
+		}*/
 	}
 	OMA::Settings::setFollowed(followedList);
 
+	// Feeds
 	QList<Feed> feedList;
 	for (int i = 0; i < ui.feedListWidget->count(); i++) {
 		FeedWidget* feed = (FeedWidget*)(ui.feedListWidget->itemWidget(ui.feedListWidget->item(i)));
@@ -123,6 +201,7 @@ void PrefWindow::save() {
 	}
 	OMA::Settings::setFeeds(feedList);
 
+	// Other
 	OMA::Settings::setAniDexUrl(ui.AniDexUrl->displayText().trimmed());
 	OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
 	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
@@ -157,19 +236,24 @@ void PrefWindow::on_removeWebsite_clicked() {
 }
 
 void PrefWindow::on_addFollowed_clicked() {
-	FollowedWidget* widget = new FollowedWidget(new FollowedAnime());
+	/*FollowedWidget* widget = new FollowedWidget(new FollowedAnime());
 	QListWidgetItem* item = new QListWidgetItem();
 	item->setSizeHint(QSize(item->sizeHint().width(), widget->sizeHint().height()));
 	ui.followedListWidget->addItem(item);
 	ui.followedListWidget->setItemWidget(item, widget);
 	ui.followedListWidget->scrollToBottom();
-	widget->ui.animeTitle->setFocus();
+	widget->ui.animeTitle->setFocus();*/
+
+	ui.followedTable->setRowCount(ui.followedTable->rowCount() + 1);
+	setupTableRow(ui.followedTable->rowCount() - 1);
+	ui.followedTable->scrollToBottom();
+	// ui.followedTable->setCurrentCell(ui.followedTable->rowCount() - 1, 0);
 }
 void PrefWindow::on_removeFollowed_clicked() {
-	QList<QListWidgetItem*> list = ui.followedListWidget->selectedItems();
+	/*QList<QListWidgetItem*> list = ui.followedListWidget->selectedItems();
 	if (list.size() > 0) {
 		delete list[0];
-	}
+	}*/
 }
 
 void PrefWindow::on_addFeed_clicked() {
