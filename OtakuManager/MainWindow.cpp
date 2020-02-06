@@ -23,8 +23,17 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 			SLOT(showMessageBox(QMessageBox::Icon, QString, QString)));
 
 	ui.mainTabWidget->removeTab(1);
+	if (ui.mainTabWidget->tabPosition() == QTabWidget::TabPosition::West ||
+		ui.mainTabWidget->tabPosition() == QTabWidget::TabPosition::East) {
+		ui.mainTabWidget->tabBar()->setStyle(new CustomTabStyle);
+	}
+
 	ui.followedTabWidget->removeTab(0);
 	ui.followedTabWidget->removeTab(0);
+	if (ui.followedTabWidget->tabPosition() == QTabWidget::TabPosition::West ||
+		ui.followedTabWidget->tabPosition() == QTabWidget::TabPosition::East) {
+		ui.followedTabWidget->tabBar()->setStyle(new CustomTabStyle);
+	}
 
 	QStringList list = OMA::Settings::getWebsites();
 	for (int i = 0; i < list.size(); i++) {

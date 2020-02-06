@@ -205,7 +205,6 @@
     </ClCompile>
     <ClCompile Include="Website.cpp" />
     <ClCompile Include="websites\AniDex_TT.cpp" />
-    <ClCompile Include="websites\AnimeForce_IT.cpp" />
     <ClCompile Include="websites\AnimeHeaven_EN.cpp" />
     <ClCompile Include="websites\Feeds.cpp" />
     <ClCompile Include="websites\KissAnime_EN.cpp" />

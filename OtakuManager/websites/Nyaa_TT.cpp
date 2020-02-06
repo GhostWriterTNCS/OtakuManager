@@ -9,7 +9,6 @@ void Website::initialize_Nyaa_TT() {
 	hasTorrent = true;
 	hasMagnet = true;
 	getEpisodesFunction = std::bind(&Website::getEpisodes_Nyaa_TT, this);
-	getSeriesFunction = std::bind(&Website::getSeries_Nyaa_TT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_Nyaa_TT, this, std::placeholders::_1,
 									std::placeholders::_2);
 }
@@ -42,10 +41,6 @@ bool Website::getEpisodes_Nyaa_TT() {
 		}
 		return true;
 	}
-	return false;
-}
-
-bool Website::getSeries_Nyaa_TT() {
 	return false;
 }
 

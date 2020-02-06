@@ -10,7 +10,6 @@ Website::Website(QString website) {
 	QFileInfo check_file("lua/" + website + ".lua");
 	if (check_file.exists() && check_file.isFile()) {
 		homepage = MyLua::getString(name, "homepage");
-		seriesPage = MyLua::getString(name, "seriesPage");
 		hasStreaming = MyLua::getBool(name, "hasStreaming");
 		hasDownload = MyLua::getBool(name, "hasDownload");
 		hasTorrent = MyLua::getBool(name, "hasTorrent");
@@ -22,8 +21,6 @@ Website::Website(QString website) {
 		initialize_AnimeHeaven_EN();
 	} else if (website == "KissAnime") {
 		initialize_KissAnime_EN();
-	} else if (website == "AnimeForce") {
-		initialize_AnimeForce_IT();
 	} else if (website == "RedAnimeDatabase") {
 		initialize_RedAnimeDatabase_IT();
 	} else if (website == "WebAnimex") {
@@ -59,14 +56,6 @@ bool Website::getEpisodes() {
 		std::cout << "No episodes" << std::endl;
 	}
 	return succesful;
-}
-
-bool Website::getSeries() {
-	series.clear();
-	if (!seriesPage.isEmpty()) {
-		return getSeriesFunction();
-	}
-	return false;
 }
 
 bool Website::goToEpisode(Episode* episode, QString type) {

@@ -293,12 +293,12 @@ bool getEpisodes(QString website, QList<Episode>* episodes) {
 	std::cout << num_returns << " results." << std::endl;
 
 	if (lua_istable(L, -1)) {
-		// printf("1 is a table\n");
-		lua_pushnil(L); /* first key */
+		lua_pushnil(L);
 		while (lua_next(L, -2) != 0) {
 			/* uses 'key' (at index -2) and 'value' (at index -1) */
 			Episode** ud = static_cast<Episode**>(luaL_checkudata(L, -1, "Episode"));
-			std::cout << (*ud)->name.toStdString() << " " << (*ud)->url.toStdString() << std::endl;
+			// std::cout << (*ud)->name.toStdString() << " " << (*ud)->url.toStdString() <<
+			// std::endl;
 			episodes->append(**ud);
 			/* removes 'value'; keeps 'key' for next iteration */
 			lua_pop(L, 1);
@@ -319,6 +319,7 @@ bool getEpisodes(QString website, QList<Episode>* episodes) {
 	lua_close(L);
 	return true;
 }
+
 QString goToEpisode(QString website, Episode* episode, QString type) {
 	lua_State* L = initialize();
 
@@ -349,7 +350,7 @@ QString goToEpisode(QString website, Episode* episode, QString type) {
 	std::string url = "";
 	if (lua_isstring(L, -1)) {
 		url = lua_tostring(L, lua_gettop(L));
-		std::cout << url << std::endl;
+		// std::cout << url << std::endl;
 	} else {
 		std::cout << "Result is not a string." << std::endl;
 	}

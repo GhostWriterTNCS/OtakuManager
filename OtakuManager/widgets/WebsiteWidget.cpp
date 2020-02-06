@@ -13,16 +13,11 @@ WebsiteWidget::WebsiteWidget(Website* website, QTabWidget* parentTab, QWidget* f
 	this->followedWidget = followedWidget;
 	this->followedTab = followedTab;
 	this->tabIndex = tabIndex;
-	// QString url = website->homepage;
 	ui.websiteLabel->setText("<h2><a href='" +
 							 MyUtils::substringFromEnd(website->homepage, "", "index.php") + "'>" +
 							 website->name + "</a></h2>");
-	if (website->seriesPage.isEmpty()) {
-		ui.seriesLabel->setText("Series not available for this website.");
-	}
 
 	connect(this, SIGNAL(episodesUpdated(bool)), this, SLOT(applyUpdatedEpisodes(bool)));
-	connect(this, SIGNAL(seriesUpdated(bool)), this, SLOT(applyUpdatedSeries(bool)));
 }
 
 void getEpisodes(WebsiteWidget* ww) {
@@ -50,21 +45,26 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 		int newCount = 0;
 		int followedCount = 0;
 		int followedNewCount = 0;
-		for (int i = 0; i < website->episodes.size(); i++) {
-			EpisodeWidget* episode = new EpisodeWidget(&(website->episodes[i]), website);
-			ui.episodesScrollAreaContent->layout()->addWidget(episode);
-			if (OMA::isFollowed(website->episodes[i].name, website->name)) {
-				followedWidget->layout()->addWidget(
-					new EpisodeWidget(&(website->episodes[i]), website));
-				followedCount++;
-				if (website->episodes[i].isNew) {
-					followedNewCount++;
+		if (website->episodes.size() == 0) {
+			ui.episodesScrollAreaContent->layout()->addWidget(
+				new QLabel("<h3 style='text-align: center;'>No episodes found.</h3>"));
+		} else {
+			for (int i = 0; i < website->episodes.size(); i++) {
+				EpisodeWidget* episode = new EpisodeWidget(&(website->episodes[i]), website);
+				ui.episodesScrollAreaContent->layout()->addWidget(episode);
+				if (OMA::isFollowed(website->episodes[i].name, website->name)) {
+					followedWidget->layout()->addWidget(
+						new EpisodeWidget(&(website->episodes[i]), website));
+					followedCount++;
+					if (website->episodes[i].isNew) {
+						followedNewCount++;
+					}
 				}
+				if (website->episodes[i].isNew) {
+					newCount++;
+				}
+				episodes.append(&website->episodes[i]);
 			}
-			if (website->episodes[i].isNew) {
-				newCount++;
-			}
-			episodes.append(&website->episodes[i]);
 		}
 
 		if (newCount > 0) {
@@ -95,39 +95,6 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 	QCoreApplication::processEvents();
 }
 
-void getSeries(WebsiteWidget* ww) {
-	bool successful = ww->website->getSeries();
-	emit ww->seriesUpdated(successful);
-}
-void WebsiteWidget::updateSeries() {
-	if (!website->seriesPage.isEmpty()) {
-		OMA::addStatusMessage("Getting series from " + website->name + "...");
-		while (QLayoutItem* item = ui.seriesScrollAreaContent->layout()->takeAt(0)) {
-			delete item->widget();
-		}
-		series.clear();
-		QCoreApplication::processEvents();
-		QFuture<void> future = QtConcurrent::run(getSeries, this);
-	}
-}
-void WebsiteWidget::applyUpdatedSeries(bool successful) {
-	if (successful) {
-		for (int i = 0; i < website->series.size(); i++) {
-			AnimeWidget* anime = new AnimeWidget(&(website->series[i]), website);
-			ui.seriesScrollAreaContent->layout()->addWidget(anime);
-			series.append(&website->series[i]);
-		}
-	} else {
-		ui.seriesScrollAreaContent->layout()->addWidget(new QLabel(OMA::errorMex));
-	}
-	OMA::removeStatusMessage("Getting series from " + website->name + "...");
-	QCoreApplication::processEvents();
-}
-
 void WebsiteWidget::on_updateButton_clicked() {
-	if (ui.tabWidget->currentIndex() == 0) {
-		updateEpisodes();
-	} else {
-		updateSeries();
-	}
+	updateEpisodes();
 }

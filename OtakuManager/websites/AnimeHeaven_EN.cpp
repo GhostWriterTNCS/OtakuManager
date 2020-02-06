@@ -4,18 +4,16 @@
 void Website::initialize_AnimeHeaven_EN() {
 	homepage = "http://animehaven.to/";
 	episodesPage = "http://animehaven.to/anime-list?show_latest_anime=true";
-	seriesPage = "http://animehaven.to/anime-list?show_latest_anime=true&show=series";
 	hasDownload = false;
 	getEpisodesFunction = std::bind(&Website::getEpisodes_AnimeHeaven_EN, this);
-	getSeriesFunction = std::bind(&Website::getSeries_AnimeHeaven_EN, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_AnimeHeaven_EN, this,
-		std::placeholders::_1, std::placeholders::_2);
+									std::placeholders::_1, std::placeholders::_2);
 }
 
 bool Website::getEpisodes_AnimeHeaven_EN() {
 	QString html = MyUtils::urlToQString(episodesPage);
 	QString start = "<div id=\"latest_updates_section\" class=\"full-width-artikle-block "
-		"infinite-scroll all-anime-list-section\">";
+					"infinite-scroll all-anime-list-section\">";
 	QString end = "<li class=\"last_justify_fix\">";
 	if (html.contains(end)) {
 		html = MyUtils::substring(html, start, end);
@@ -49,26 +47,6 @@ bool Website::getEpisodes_AnimeHeaven_EN() {
 	return false;
 }
 
-bool Website::getSeries_AnimeHeaven_EN() {
-	QString html = MyUtils::urlToQString(seriesPage);
-	QString start = "<div id=\"latest_updates_section\" class=\"full-width-artikle-block "
-		"infinite-scroll all-anime-list-section\">";
-	QString end = "<li class=\"last_justify_fix\">";
-	if (html.contains(end)) {
-		html = MyUtils::substring(html, start, end);
-		QStringList list = html.split("<!-- #post- -->");
-		for (int i = 0; i < list.size() - 1; i++) {
-			Anime anime;
-			html = list[i];
-			anime.url = MyUtils::substring(html, "href=\"", "\"");
-			anime.name = MyUtils::substring(html, "title=\"", "\"");
-			series.push_back(anime);
-		}
-		return true;
-	}
-	return false;
-}
-
 QString Website::goToEpisode_AnimeHeaven_EN(Episode* episode, QString type) {
 	QString s;
 	if (type == OMA::linkTypes[LinkTypes::streaming]) {
@@ -80,7 +58,7 @@ QString Website::goToEpisode_AnimeHeaven_EN(Episode* episode, QString type) {
 		s = MyUtils::substring(s, "red.html?af=");
 		s = MyUtils::redirectedUrlQt(s);
 		s = MyUtils::advancedReplace(s, "",
-			".php?file=", "http://go.animeforce.org/1706398/http://");
+									 ".php?file=", "http://go.animeforce.org/1706398/http://");
 	} else if (type == OMA::linkTypes[LinkTypes::animeInfo]) {
 		s = MyUtils::urlToQString(episode->url);
 		if (s.contains("class=\"breadcrumbs\"")) {

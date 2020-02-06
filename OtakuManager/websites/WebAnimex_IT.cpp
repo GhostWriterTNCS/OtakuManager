@@ -3,9 +3,7 @@
 
 void Website::initialize_WebAnimex_IT() {
 	homepage = "http://webanimex.com/";
-	seriesPage = "http://webanimex.com/episodi-in-streaming/anime-in-corso/";
 	getEpisodesFunction = std::bind(&Website::getEpisodes_WebAnimex_IT, this);
-	getSeriesFunction = std::bind(&Website::getSeries_WebAnimex_IT, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_WebAnimex_IT, this, std::placeholders::_1,
 									std::placeholders::_2);
 }
@@ -31,30 +29,6 @@ bool Website::getEpisodes_WebAnimex_IT() {
 				episode.hasDownload = false;
 			episode.name = MyUtils::substring(episode.name, "", " - [SubITA]");
 			episodes.push_back(episode);
-		}
-		return true;
-	}
-	return false;
-}
-
-bool Website::getSeries_WebAnimex_IT() {
-	QString html = MyUtils::urlToQString(seriesPage);
-	QString start = "<div id=\"content\">";
-	QString end = "<!-- #content -->";
-	if (html.contains(end)) {
-		html = MyUtils::substring(html, start, end);
-		QStringList list = html.split("<h2>");
-		for (int i = 1; i < list.size(); i++) {
-			Anime anime;
-			QString s = list[i];
-			s = MyUtils::substring(s, "href=\"", "\"");
-			anime.url = s;
-
-			s = list[i];
-			s = MyUtils::substring(s, "title=\"", " in streaming");
-			s = MyUtils::substring(s, "", "\"");
-			anime.name = s.trimmed();
-			series.push_back(anime);
 		}
 		return true;
 	}

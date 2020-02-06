@@ -193,9 +193,6 @@
     <ClCompile Include="websites\AnimeHeaven_EN.cpp">
       <Filter>Websites</Filter>
     </ClCompile>
-    <ClCompile Include="websites\AnimeForce_IT.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
     <ClCompile Include="websites\AniDex_TT.cpp">
       <Filter>Websites</Filter>
     </ClCompile>

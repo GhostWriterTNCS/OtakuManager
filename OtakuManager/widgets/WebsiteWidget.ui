@@ -91,112 +91,29 @@
     </widget>
    </item>
    <item>
-    <widget class="QTabWidget" name="tabWidget">
-     <property name="currentIndex">
-      <number>0</number>
+    <widget class="QScrollArea" name="episodesScrollArea">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <widget class="QWidget" name="lastEpisodesTab">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="episodesScrollAreaContent">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>398</width>
+        <height>260</height>
+       </rect>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
-      <attribute name="title">
-       <string>Last episodes</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="_2">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QScrollArea" name="episodesScrollArea">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="episodesScrollAreaContent">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>392</width>
-            <height>234</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <layout class="QGridLayout" name="lastEpisodesGrid"/>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="ongoingAnimeTab">
-      <attribute name="title">
-       <string>Ongoing anime</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="_3">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QScrollArea" name="seriesScrollArea">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="seriesScrollAreaContent">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>392</width>
-            <height>234</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="ongoingAnimeGrid">
-           <item row="0" column="0">
-            <widget class="QLabel" name="seriesLabel">
-             <property name="text">
-              <string>Update to show ongoing anime.</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QGridLayout" name="lastEpisodesGrid"/>
      </widget>
     </widget>
    </item>

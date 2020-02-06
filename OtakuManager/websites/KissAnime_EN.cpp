@@ -3,11 +3,9 @@
 
 void Website::initialize_KissAnime_EN() {
 	homepage = "https://kissanime.io/";
-	seriesPage = "https://kissanime.io/Status/Ongoing/LatestUpdate";
 	getEpisodesFunction = std::bind(&Website::getEpisodes_KissAnime_EN, this);
-	getSeriesFunction = std::bind(&Website::getSeries_KissAnime_EN, this);
 	goToEpisodeFunction = std::bind(&Website::goToEpisode_KissAnime_EN, this, std::placeholders::_1,
-		std::placeholders::_2);
+									std::placeholders::_2);
 }
 
 bool Website::getEpisodes_KissAnime_EN() {
@@ -27,26 +25,6 @@ bool Website::getEpisodes_KissAnime_EN() {
 			episode.name = html.trimmed();
 
 			episodes.push_back(episode);
-		}
-		return true;
-	}
-	return false;
-}
-
-bool Website::getSeries_KissAnime_EN() {
-	QString html = MyUtils::urlToQStringJS(seriesPage);
-	QString start = "<div class=\"listing full\">";
-	QString end = "<div class=\"pagination pagination-left\">";
-	if (html.contains(end)) {
-		html = MyUtils::substring(html, start, end);
-		QStringList list = html.split("<a class=\"item_movies_link\"");
-		for (int i = 1; i < list.size(); i++) {
-			Anime anime;
-			QString s = list[i];
-			anime.url = MyUtils::substring(s, "href=\"", "\"");
-
-			anime.name = MyUtils::substring(s, ">", "<").trimmed();
-			series.push_back(anime);
 		}
 		return true;
 	}

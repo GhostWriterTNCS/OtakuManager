@@ -23,7 +23,7 @@ bool getEpisodes(QString website, QList<Episode>* episodes);
 /**
 	Get the series.
 */
-bool getSeries(QString website);
+// bool getSeries(QString website);
 
 /**
 	Perform an action according to the chosen type (streaming, download, anime info...)
