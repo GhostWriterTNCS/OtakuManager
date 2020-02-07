@@ -18,6 +18,10 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 		ui.iconLayout->addWidget(new NewIcon());
 	}
 
+	if (OMA::isFollowed(episode->name, website->name)) {
+		ui.episodeTitle->setStyleSheet("font-weight: bold;");
+	}
+
 	QString name = " " + episode->name + " ";
 	if (name.contains(QRegExp("[^a-z]+movie[^a-z]+", Qt::CaseInsensitive)) ||
 		name.contains(QRegExp("[^a-z]+film[^a-z]+", Qt::CaseInsensitive))) {

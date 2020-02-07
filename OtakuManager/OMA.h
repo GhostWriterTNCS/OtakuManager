@@ -45,7 +45,7 @@ public:
 
 namespace OMA {
 
-const QString version = "3.5.5";
+const QString version = "3.6";
 
 const QStringList linkTypes = {
 	"Streaming",  "StreamingIfNoDownload", "Download", "Torrent",		  "Magnet",
@@ -119,6 +119,15 @@ bool getCheckForUpdates();
 	Set check for updates on startup ON (true) or OFF (false).
 */
 void setCheckForUpdates(bool b);
+
+/**
+	Is check for updates on startup enable?
+*/
+bool getShowFollowedTab();
+/**
+	Set check for updates on startup ON (true) or OFF (false).
+*/
+void setShowFollowedTab(bool b);
 
 /**
 	Get the enabled websites.

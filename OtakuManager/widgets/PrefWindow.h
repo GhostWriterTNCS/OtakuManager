@@ -16,7 +16,6 @@ private slots:
 	void on_addWebsite_clicked();
 
 	void on_addFollowed_clicked();
-	void on_removeFollowed_clicked();
 
 	void on_addFeed_clicked();
 	void on_removeFeed_clicked();

@@ -44,10 +44,26 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QCheckBox" name="updateCheckBox">
-         <property name="text">
-          <string>Auto check for updates</string>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>General</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QCheckBox" name="updateCheckBox">
+            <property name="text">
+             <string>Auto check for updates</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="followedTabCheckBox">
+            <property name="text">
+             <string>Show Followed anime tab</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>

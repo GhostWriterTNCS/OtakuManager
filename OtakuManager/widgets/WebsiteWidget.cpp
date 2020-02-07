@@ -68,7 +68,11 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 		}
 
 		if (newCount > 0) {
-			parentTab->setTabText(tabIndex, website->name + " (" + QString::number(newCount) + ")");
+			parentTab->setTabText(tabIndex, website->name + " (" +
+												(!OMA::Settings::getShowFollowedTab()
+													 ? QString::number(followedNewCount) + "/"
+													 : "") +
+												QString::number(newCount) + ")");
 		} else {
 			parentTab->setTabText(tabIndex, website->name);
 		}

@@ -13,6 +13,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 
 	// General settings
 	ui.updateCheckBox->setChecked(OMA::Settings::getCheckForUpdates());
+	ui.followedTabCheckBox->setChecked(OMA::Settings::getShowFollowedTab());
 
 	ui.streaming->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streaming]));
@@ -45,15 +46,6 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 
 	// Followed anime
 	QList<FollowedAnime> followedList = OMA::Settings::getFollowed();
-	/*for (int i = 0; i < followedList.size(); i++) {
-		FollowedWidget* widget = new FollowedWidget(&(followedList[i]));
-		QListWidgetItem* item = new QListWidgetItem();
-		item->setSizeHint(QSize(item->sizeHint().width(), widget->sizeHint().height()));
-		ui.followedListWidget->addItem(item);
-		ui.followedListWidget->setItemWidget(item, widget);
-	}
-	ui.followedListWidget->verticalScrollBar()->setSingleStep(10);*/
-
 	ui.followedTable->setHorizontalHeaderLabels({"Anime", "Regex", "Website", "Custom link"});
 	ui.followedTable->setRowCount(followedList.size());
 	ui.followedTable->setColumnWidth(0, 230);
@@ -62,7 +54,6 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	for (int i = 0; i < followedList.size(); i++) {
 		setupTableRow(i, &followedList[i]);
 	}
-	// ui.followedTable->sortItems(0);
 
 	QStringList activeWebsites = OMA::Settings::getWebsites();
 	for (int i = 0; i < activeWebsites.size(); i++) {
@@ -140,6 +131,7 @@ void PrefWindow::setupTableRow(int row, FollowedAnime* anime) {
 void PrefWindow::save() {
 	// General settings
 	OMA::Settings::setCheckForUpdates(ui.updateCheckBox->isChecked());
+	OMA::Settings::setShowFollowedTab(ui.followedTabCheckBox->isChecked());
 
 	QStringList websitesList;
 	for (int i = 0; i < ui.activeWebsites->count(); ++i) {
@@ -160,16 +152,6 @@ void PrefWindow::save() {
 
 	// Followed anime
 	QList<FollowedAnime> followedList;
-	/*for (int i = 0; i < ui.followedListWidget->count(); i++) {
-		FollowedWidget* followed =
-			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
-		if (!followed->ui.animeTitle->text().isEmpty()) {
-			followedList.append(FollowedAnime(followed->ui.animeTitle->text(),
-											  followed->ui.regex->isChecked(),
-											  followed->ui.websiteComboBox->currentText(),
-											  followed->ui.customLinkLineEdit->text()));
-		}
-	}*/
 	for (int i = 0; i < ui.followedTable->rowCount(); i++) {
 		if (!ui.followedTable->item(i, 0)->text().isEmpty()) {
 			FollowedAnime anime;
@@ -179,15 +161,6 @@ void PrefWindow::save() {
 			anime.customLink = ui.followedTable->item(i, 3)->text();
 			followedList.append(anime);
 		}
-
-		/*FollowedWidget* followed =
-			(FollowedWidget*)(ui.followedListWidget->itemWidget(ui.followedListWidget->item(i)));
-		if (!followed->ui.animeTitle->text().isEmpty()) {
-			followedList.append(FollowedAnime(followed->ui.animeTitle->text(),
-											  followed->ui.regex->isChecked(),
-											  followed->ui.websiteComboBox->currentText(),
-											  followed->ui.customLinkLineEdit->text()));
-		}*/
 	}
 	OMA::Settings::setFollowed(followedList);
 
@@ -236,24 +209,9 @@ void PrefWindow::on_removeWebsite_clicked() {
 }
 
 void PrefWindow::on_addFollowed_clicked() {
-	/*FollowedWidget* widget = new FollowedWidget(new FollowedAnime());
-	QListWidgetItem* item = new QListWidgetItem();
-	item->setSizeHint(QSize(item->sizeHint().width(), widget->sizeHint().height()));
-	ui.followedListWidget->addItem(item);
-	ui.followedListWidget->setItemWidget(item, widget);
-	ui.followedListWidget->scrollToBottom();
-	widget->ui.animeTitle->setFocus();*/
-
 	ui.followedTable->setRowCount(ui.followedTable->rowCount() + 1);
 	setupTableRow(ui.followedTable->rowCount() - 1);
 	ui.followedTable->scrollToBottom();
-	// ui.followedTable->setCurrentCell(ui.followedTable->rowCount() - 1, 0);
-}
-void PrefWindow::on_removeFollowed_clicked() {
-	/*QList<QListWidgetItem*> list = ui.followedListWidget->selectedItems();
-	if (list.size() > 0) {
-		delete list[0];
-	}*/
 }
 
 void PrefWindow::on_addFeed_clicked() {

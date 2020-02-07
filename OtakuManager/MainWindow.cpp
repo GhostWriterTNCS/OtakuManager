@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 		ui.mainTabWidget->tabPosition() == QTabWidget::TabPosition::East) {
 		ui.mainTabWidget->tabBar()->setStyle(new CustomTabStyle);
 	}
+	if (!OMA::Settings::getShowFollowedTab()) {
+		ui.mainTabWidget->removeTab(0);
+	}
 
 	ui.followedTabWidget->removeTab(0);
 	ui.followedTabWidget->removeTab(0);
@@ -39,8 +42,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 	for (int i = 0; i < list.size(); i++) {
 		Website* website = new Website(list[i]);
 		QWidget* scrollAreaContent = new QWidget();
-		WebsiteWidget* websiteWidget = new WebsiteWidget(
-			website, ui.mainTabWidget, scrollAreaContent, ui.followedTabWidget, i + 1);
+		WebsiteWidget* websiteWidget =
+			new WebsiteWidget(website, ui.mainTabWidget, scrollAreaContent, ui.followedTabWidget,
+							  i + (OMA::Settings::getShowFollowedTab() ? 1 : 0));
 		websites.append(websiteWidget);
 		ui.mainTabWidget->addTab(websiteWidget, website->name);
 		QWidget* followed = new QWidget();
@@ -66,22 +70,6 @@ void MainWindow::updateAllEpisodes() {
 		websites[i]->updateEpisodes();
 	}
 }
-
-/*void MainWindow::initSettings() {
-	OMA::Settings::setVersion();
-	OMA::Settings::setCheckForUpdates(OMA::Settings::getCheckForUpdates());
-	OMA::Settings::setWebsites(OMA::Settings::getWebsites());
-	QStringList list = OMA::Settings::getButtons();
-	QString buttons;
-	for (int i = 0; i < list.size(); i++) {
-		buttons = list[i] + "|";
-	}
-	if (buttons.endsWith("|")) {
-		buttons = buttons.mid(0, buttons.length() - 1);
-	}
-	OMA::Settings::setButtons(buttons);
-	OMA::Settings::setFollowed(OMA::Settings::getFollowed());
-}*/
 
 void MainWindow::openPreferences() {
 	PrefWindow* w = new PrefWindow();

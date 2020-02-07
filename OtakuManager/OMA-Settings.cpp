@@ -69,6 +69,15 @@ void setCheckForUpdates(bool value) {
 	mutex.unlock();
 }
 
+bool getShowFollowedTab() {
+	return settings->value("showFollowedTab", "false").toBool();
+}
+void setShowFollowedTab(bool value) {
+	mutex.lock();
+	settings->setValue("showFollowedTab", value);
+	mutex.unlock();
+}
+
 QString getWebsitesQString() {
 	return settings->value("websites", "Nyaa").toString();
 }

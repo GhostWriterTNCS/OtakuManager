@@ -53,7 +53,7 @@ bool Website::getEpisodes() {
 		}
 		OMA::Settings::setLastEp(name, episodes[0].name);
 	} else {
-		std::cout << "No episodes" << std::endl;
+		std::cout << "No episodes for " << name.toStdString().c_str() << std::endl;
 	}
 	return succesful;
 }
