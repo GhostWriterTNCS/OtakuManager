@@ -8,6 +8,10 @@ WebsiteWidget::WebsiteWidget(Website* website, QTabWidget* parentTab, QWidget* f
 							 QTabWidget* followedTab, int tabIndex)
 	: QWidget((QWidget*)parentTab) {
 	ui.setupUi(this);
+	if (OMA::Settings::getShowFollowedTab()) {
+		ui.updateAllButton->hide();
+	}
+
 	this->website = website;
 	this->parentTab = parentTab;
 	this->followedWidget = followedWidget;
@@ -101,4 +105,8 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 
 void WebsiteWidget::on_updateButton_clicked() {
 	updateEpisodes();
+}
+
+void WebsiteWidget::on_updateAllButton_clicked() {
+	OMA::getMainWindow()->updateAllEpisodes();
 }

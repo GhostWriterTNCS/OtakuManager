@@ -24,6 +24,7 @@ signals:
 
 private slots:
 	void on_updateButton_clicked();
+	void on_updateAllButton_clicked();
 	void applyUpdatedEpisodes(bool successful);
 
 private:
