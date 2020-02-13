@@ -39,7 +39,7 @@ Website::Website(QString website) {
 bool Website::getEpisodes() {
 	episodes.clear();
 	bool succesful = MyLua::getEpisodes(name, &episodes);
-	if (!succesful) {
+	if (!succesful && getEpisodesFunction != nullptr) {
 		succesful = getEpisodesFunction();
 	}
 	if (episodes.size() > 0) {
@@ -75,7 +75,7 @@ bool Website::goToEpisode(Episode* episode, QString type) {
 	} else if (type != OMA::linkTypes[LinkTypes::post] &&
 			   type != OMA::linkTypes[LinkTypes::customLink]) {
 		url = MyLua::goToEpisode(name, episode, type);
-		if (url.isEmpty()) {
+		if (url.isEmpty() && goToEpisodeFunction != nullptr) {
 			url = goToEpisodeFunction(episode, type);
 		}
 	}
