@@ -47,10 +47,11 @@ namespace OMA {
 MainWindow* mainWindow;
 QHash<QString, QStringList> websites_;
 
-QHash<QString, QStringList> websites() {
-	if (websites_.keys().size() > 0) {
+QHash<QString, QStringList> websites(bool forceRefresh) {
+	if (websites_.keys().size() > 0 && !forceRefresh) {
 		return websites_;
 	}
+	websites_.clear();
 	websites_["English"] = QStringList({"Anime Heaven", "KissAnime"});
 	websites_["Italian"] = QStringList({"AnimeForce", "RedAnimeDatabase", "WebAnimex"});
 	websites_["Torrents"] = QStringList({"AniDex", "Nyaa"});

@@ -30,7 +30,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.postIfNoDownload->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::postIfNoDownload]));
 
-	QHash<QString, QStringList> websites = OMA::websites();
+	QHash<QString, QStringList> websites = OMA::websites(true);
 	QList<QString> groups = websites.keys();
 	groups.sort();
 	foreach (QString group, groups) {

@@ -45,7 +45,7 @@ bool Website::getEpisodes() {
 	if (episodes.size() > 0) {
 		QString lastEp = OMA::Settings::getLastEp(name);
 		for (int i = 0; i < episodes.size(); i++) {
-			if (episodes[i].name != lastEp) {
+			if (episodes[i].name.remove("|") != lastEp) {
 				episodes[i].isNew = true;
 			} else {
 				break;

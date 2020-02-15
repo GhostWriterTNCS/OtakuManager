@@ -382,7 +382,7 @@ void setLastEp(QString website, QString episode) {
 	QList<LastEpisode> lastEps = getLastEps();
 	for (int i = 0; i < lastEps.size(); i++) {
 		if (lastEps[i].website == website) {
-			lastEps[i].episode = episode;
+			lastEps[i].episode = episode.remove("|");
 			added = true;
 			break;
 		}

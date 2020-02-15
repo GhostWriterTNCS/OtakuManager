@@ -53,7 +53,7 @@ const QStringList linkTypes = {
 
 const QStringList feedTypes = {"Atom", "RSS"};
 
-QHash<QString, QStringList> websites();
+QHash<QString, QStringList> websites(bool forceRefresh = false);
 
 const QString errorMex = "<h3 style='text-align: center;'>Error during connection :(</h3><p "
 						 "style='text-align: center;'>If problem persists, check your internet "
