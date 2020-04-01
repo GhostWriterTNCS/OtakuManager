@@ -80,8 +80,12 @@ bool Website::goToEpisode(Episode* episode, QString type) {
 		}
 	}
 
-	if (url.startsWith("https://www.youtube.com/watch?v=") && OMA::Settings::getYoutubeToUmmy()) {
-		url = url.replace("https://", "ummy://");
+	if (url.startsWith("https://www.youtube.com/watch?v=")) {
+		if (OMA::Settings::getYoutubeToUmmy()) {
+			url = url.replace("https://", "ummy://");
+		} else if (!OMA::Settings::getYoutubeCustomLink().isEmpty()) {
+			url = OMA::Settings::getYoutubeCustomLink().replace("*", url);
+		}
 	}
 
 	return OMA::upenUrl(url);

@@ -544,8 +544,35 @@
     <ResourceCompile Include="OtakuManager.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\icon.ico" />
-    <Image Include="resources\new.ico" />
-    <Image Include="resources\seen.ico" />
+    <Image Include="resources\Anime info.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Download.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\new.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Post.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\seen.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Streaming.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Custom link.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Magnet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Torrent.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

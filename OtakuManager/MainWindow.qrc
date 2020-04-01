@@ -1,7 +1,14 @@
 <RCC>
-  <qresource prefix="/MainWindow">
-    <file>resources/seen.ico</file>
-    <file>resources/new.ico</file>
-    <file>resources/icon.ico</file>
-  </qresource>
+    <qresource prefix="/MainWindow">
+        <file>resources/seen.ico</file>
+        <file>resources/new.ico</file>
+        <file>resources/icon.ico</file>
+        <file>resources/Anime info.png</file>
+        <file>resources/Download.png</file>
+        <file>resources/Post.png</file>
+        <file>resources/Streaming.png</file>
+        <file>resources/Custom link.png</file>
+        <file>resources/Magnet.png</file>
+        <file>resources/Torrent.png</file>
+    </qresource>
 </RCC>

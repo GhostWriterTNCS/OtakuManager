@@ -337,6 +337,15 @@ void setYoutubeToUmmy(bool value) {
 	mutex.unlock();
 }
 
+QString getYoutubeCustomLink() {
+	return settings->value("Other/youtubeCustomLink", "").toString();
+}
+void setYoutubeCustomLink(QString value) {
+	mutex.lock();
+	settings->setValue("Other/youtubeCustomLink", value);
+	mutex.unlock();
+}
+
 bool getConsole() {
 	return settings->value("Other/console", "false").toBool();
 }

@@ -9,7 +9,9 @@ UrlButton::UrlButton(QString name, EpisodeWidget* parent) : QPushButton(parent) 
 	ui.setupUi(this);
 	this->type = name;
 	this->episodeWidget = parent;
-	this->setText(name);
+	this->setText("");
+	this->setToolTip(name);
+	this->setIcon(QIcon(":/MainWindow/resources/" + name + ".png"));
 
 	connect(this, SIGNAL(episodeDone(bool)), this, SLOT(applyEpisode(bool)));
 }

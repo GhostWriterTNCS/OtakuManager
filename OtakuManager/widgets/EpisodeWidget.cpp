@@ -76,7 +76,8 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 			}
 			if (show) {
 				UrlButton* urlButton = new UrlButton(button.replace("IfNoDownload", ""), this);
-				ui.gridLayout->addWidget(urlButton, count / 2, count % 2, 1, 1);
+				// ui.gridLayout->addWidget(urlButton, count / 2, count % 2, 1, 1);
+				ui.horizontalLayout->addWidget(urlButton);
 				count++;
 			}
 		}

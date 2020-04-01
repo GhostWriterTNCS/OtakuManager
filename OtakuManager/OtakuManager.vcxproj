@@ -552,9 +552,16 @@
     <ResourceCompile Include="OtakuManager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\Anime info.png" />
+    <Image Include="resources\Custom link.png" />
+    <Image Include="resources\Download.png" />
     <Image Include="resources\icon.ico" />
+    <Image Include="resources\Magnet.png" />
     <Image Include="resources\new.ico" />
+    <Image Include="resources\Post.png" />
     <Image Include="resources\seen.ico" />
+    <Image Include="resources\Streaming.png" />
+    <Image Include="resources\Torrent.png" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="widgets\FeedWidget.ui">

@@ -233,6 +233,15 @@ bool getYoutubeToUmmy();
 void setYoutubeToUmmy(bool value);
 
 /**
+	Get the custom link for YouTube videos.
+*/
+QString getYoutubeCustomLink();
+/**
+	Set the custom link for YouTube videos.
+*/
+void setYoutubeCustomLink(QString value);
+
+/**
 	Show console?
 */
 bool getConsole();
