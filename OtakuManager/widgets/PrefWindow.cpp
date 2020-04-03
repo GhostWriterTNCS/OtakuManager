@@ -14,6 +14,7 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	// General settings
 	ui.updateCheckBox->setChecked(OMA::Settings::getCheckForUpdates());
 	ui.followedTabCheckBox->setChecked(OMA::Settings::getShowFollowedTab());
+	ui.tabsOnSideCheckBox->setChecked(OMA::Settings::getTabsOnSide());
 
 	ui.streaming->setChecked(
 		OMA::Settings::getButtons().contains(OMA::linkTypes[LinkTypes::streaming]));
@@ -133,6 +134,7 @@ void PrefWindow::save() {
 	// General settings
 	OMA::Settings::setCheckForUpdates(ui.updateCheckBox->isChecked());
 	OMA::Settings::setShowFollowedTab(ui.followedTabCheckBox->isChecked());
+	OMA::Settings::setTabsOnSide(ui.tabsOnSideCheckBox->isChecked());
 
 	QStringList websitesList;
 	for (int i = 0; i < ui.activeWebsites->count(); ++i) {

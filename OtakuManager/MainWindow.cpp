@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 			SLOT(showMessageBox(QMessageBox::Icon, QString, QString)));
 
 	ui.mainTabWidget->removeTab(1);
+
+	if (OMA::Settings::getTabsOnSide()) {
+		ui.mainTabWidget->setTabPosition(QTabWidget::TabPosition::West);
+	}
+
 	if (ui.mainTabWidget->tabPosition() == QTabWidget::TabPosition::West ||
 		ui.mainTabWidget->tabPosition() == QTabWidget::TabPosition::East) {
 		ui.mainTabWidget->tabBar()->setStyle(new CustomTabStyle);

@@ -129,6 +129,9 @@ bool getShowFollowedTab();
 */
 void setShowFollowedTab(bool b);
 
+bool getTabsOnSide();
+void setTabsOnSide(bool b);
+
 /**
 	Get the enabled websites.
 */

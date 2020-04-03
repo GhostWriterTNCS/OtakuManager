@@ -48,18 +48,25 @@
          <property name="title">
           <string>General</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
-          <item>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="followedTabCheckBox">
+            <property name="text">
+             <string>Show Followed anime tab</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
            <widget class="QCheckBox" name="updateCheckBox">
             <property name="text">
              <string>Auto check for updates</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="followedTabCheckBox">
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="tabsOnSideCheckBox">
             <property name="text">
-             <string>Show Followed anime tab</string>
+             <string>Show tabs on side in main window</string>
             </property>
            </widget>
           </item>
