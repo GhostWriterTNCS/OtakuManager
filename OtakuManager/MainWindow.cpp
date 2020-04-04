@@ -1,4 +1,5 @@
 #include <functional>
+#include <QSettings>
 #include "AboutWindow.h"
 #include "ColorsWindow.h"
 #include "EpisodeWidget.h"
@@ -12,6 +13,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 	OMA::setMainWindow(this);
 	OMA::Settings::fix();
 
+	QList<int> sizeList = OMA::Settings::getSize();
+	resize(sizeList[1], sizeList[2]);
+	if (sizeList[0] == 1) {
+		setWindowState(Qt::WindowMaximized);
+	}
 	setWindowTitle("Otaku Manager " + OMA::version);
 
 	connect(ui.actionPreferences, &QAction::triggered, this, &MainWindow::openPreferences);
@@ -66,6 +72,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 }
 
 MainWindow::~MainWindow() {
+	OMA::Settings::setSize();
 	OMA::Settings::setVersion();
 	OMA::Settings::sync();
 }

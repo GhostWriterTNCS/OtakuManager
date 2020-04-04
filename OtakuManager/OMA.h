@@ -100,6 +100,12 @@ void sync();
 */
 void fix();
 
+/*
+	Get main window size.
+*/
+QList<int> getSize();
+void setSize();
+
 // [General]
 
 /**
@@ -120,13 +126,7 @@ bool getCheckForUpdates();
 */
 void setCheckForUpdates(bool b);
 
-/**
-	Is check for updates on startup enable?
-*/
 bool getShowFollowedTab();
-/**
-	Set check for updates on startup ON (true) or OFF (false).
-*/
 void setShowFollowedTab(bool b);
 
 bool getTabsOnSide();

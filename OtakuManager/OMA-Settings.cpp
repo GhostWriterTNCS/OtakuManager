@@ -1,3 +1,4 @@
+#include <iostream>
 #include <QMutex>
 #include <QStandardPaths>
 #include "MyUtils.h"
@@ -46,6 +47,29 @@ void fix() {
 			settings->remove("Other/seen");
 		}
 	}
+	mutex.unlock();
+}
+
+QList<int> getSize() {
+	QStringList s = settings->value("size", "0,600,400").toString().split(",");
+	QList<int> list = QList<int>();
+	list.append(s[0].toInt());
+	list.append(s[1].toInt());
+	list.append(s[2].toInt());
+	return list;
+}
+void setSize() {
+	QString s = "";
+	if (getMainWindow()->isMaximized()) {
+		QList<int> list = getSize();
+		s = "1," + QString::number(list[1]) + "," + QString::number(list[2]);
+	} else {
+		s = "0";
+		s += "," + QString::number(getMainWindow()->size().width());
+		s += "," + QString::number(getMainWindow()->size().height());
+	}
+	mutex.lock();
+	settings->setValue("size", s);
 	mutex.unlock();
 }
 
