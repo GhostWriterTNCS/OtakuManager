@@ -172,7 +172,8 @@ void PrefWindow::save() {
 	for (int i = 0; i < ui.feedListWidget->count(); i++) {
 		FeedWidget* feed = (FeedWidget*)(ui.feedListWidget->itemWidget(ui.feedListWidget->item(i)));
 		if (!feed->ui.url->text().isEmpty()) {
-			feedList.append(Feed(feed->ui.name->text(), feed->ui.url->text(), feed->oldName));
+			feedList.append(Feed(feed->ui.name->text(), feed->ui.url->text(),
+								 feed->ui.homepage->text(), feed->oldName));
 		}
 	}
 	OMA::Settings::setFeeds(feedList);

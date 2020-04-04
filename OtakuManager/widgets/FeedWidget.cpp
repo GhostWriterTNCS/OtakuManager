@@ -6,4 +6,5 @@ FeedWidget::FeedWidget(Feed* feed, QWidget* parent) : QWidget(parent) {
 	oldName = feed->name;
 	ui.name->setText(feed->name);
 	ui.url->setText(feed->url);
+	ui.homepage->setText(feed->homepage);
 }

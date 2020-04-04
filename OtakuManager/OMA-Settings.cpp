@@ -1,4 +1,3 @@
-#include <iostream>
 #include <QMutex>
 #include <QStandardPaths>
 #include "MyUtils.h"
@@ -173,7 +172,7 @@ QList<Feed> getFeeds() {
 	QStringList list = getFeedString().split("\n");
 	QList<Feed> feed;
 	for (int i = 0; i < list.size(); i++) {
-		if (list[i].split("|").size() == 2) {
+		if (list[i].split("|").size() > 1) {
 			feed.append(list[i].split("|"));
 		}
 	}
@@ -187,11 +186,11 @@ QStringList getFeedNames() {
 	}
 	return names;
 }
-void setFeeds(QString name, QString url, QString oldName) {
+void setFeeds(QString name, QString url, QString homepage, QString oldName) {
 	mutex.lock();
 	QList<Feed> list = getFeeds();
 	if (!url.isEmpty()) {
-		list.append(Feed(name, url, oldName));
+		list.append(Feed(name, url, homepage, oldName));
 	}
 	setFeeds(list);
 	mutex.unlock();
@@ -204,7 +203,7 @@ void setFeeds(QList<Feed> list) {
 	QList<FollowedAnime> followed = getFollowed();
 	bool followedEdited = false;
 	for (int i = 0; i < list.size(); i++) {
-		s += list[i].name + "|" + list[i].url + "\n";
+		s += list[i].name + "|" + list[i].url + "|" + list[i].homepage + "\n";
 		if (!list[i].oldName.isEmpty()) {
 			for (int w = 0; w < websites.size(); w++) {
 				if (websites[w] == list[i].oldName) {

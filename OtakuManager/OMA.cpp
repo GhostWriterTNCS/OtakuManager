@@ -34,11 +34,17 @@ Feed::Feed(QStringList list) {
 	if (list.size() > 1) {
 		this->name = list[0];
 		this->url = list[1];
+		if (list.size() > 2) {
+			this->homepage = list[2];
+		} else {
+			this->homepage = "";
+		}
 	}
 }
-Feed::Feed(QString name, QString url, QString oldName) {
+Feed::Feed(QString name, QString url, QString homepage, QString oldName) {
 	this->name = name;
 	this->url = url;
+	this->homepage = homepage;
 	this->oldName = oldName;
 }
 

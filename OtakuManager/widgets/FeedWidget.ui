@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>359</width>
-    <height>62</height>
+    <height>85</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,17 +50,20 @@
       <property name="bottomMargin">
        <number>3</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="nameLabel">
-        <property name="text">
-         <string>Name:</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="urlLabel">
         <property name="text">
          <string>Url:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="url"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="nameLabel">
+        <property name="text">
+         <string>Name:</string>
         </property>
        </widget>
       </item>
@@ -73,8 +76,19 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="url"/>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="homepage">
+        <property name="toolTip">
+         <string>The link to open from the website name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Home:</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

@@ -37,10 +37,11 @@ class Feed {
 public:
 	QString name = "";
 	QString url = "";
+	QString homepage = "";
 	QString oldName = "";
 	Feed();
 	Feed(QStringList list);
-	Feed(QString name, QString url, QString oldName = "");
+	Feed(QString name, QString url, QString homepage, QString oldName = "");
 };
 
 namespace OMA {
@@ -165,7 +166,7 @@ QStringList getFeedNames();
 /**
 	Add an Feed.
 */
-void setFeeds(QString name, QString url, QString oldName = "");
+void setFeeds(QString name, QString url, QString homepage, QString oldName = "");
 /**
 	Set Feed.
 */

@@ -5,7 +5,12 @@ void Website::initialize_Feed() {
 	QList<Feed> feeds = OMA::Settings::getFeeds();
 	for (int i = 0; i < feeds.size(); i++) {
 		if (feeds[i].name == name) {
-			homepage = feeds[i].url;
+			episodesPage = feeds[i].url;
+			if (feeds[i].homepage.isEmpty()) {
+				homepage = feeds[i].url;
+			} else {
+				homepage = feeds[i].homepage;
+			}
 		}
 	}
 	isFeed = true;
@@ -17,7 +22,7 @@ void Website::initialize_Feed() {
 }
 
 bool Website::getEpisodes_Feed() {
-	QString html = MyUtils::urlToQString(homepage);
+	QString html = MyUtils::urlToQString(episodesPage);
 	QString start, end, type;
 	if (html.contains("<feed ")) {
 		start = "<entry>";
