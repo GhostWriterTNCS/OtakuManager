@@ -77,12 +77,15 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 													 ? QString::number(followedNewCount) + "/"
 													 : "") +
 												QString::number(newCount) + ")");
+			HighlightTab(parentTab, tabIndex);
 		} else {
 			parentTab->setTabText(tabIndex, website->name);
 		}
+
 		if (followedNewCount > 0) {
 			followedTab->setTabText(tabIndex - 1,
 									website->name + " (" + QString::number(followedNewCount) + ")");
+			HighlightTab(followedTab, tabIndex - 1);
 		} else {
 			followedTab->setTabText(tabIndex - 1, website->name);
 		}
@@ -101,6 +104,12 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 
 	OMA::removeStatusMessage("Getting episodes from " + website->name + "...");
 	QCoreApplication::processEvents();
+}
+
+void WebsiteWidget::HighlightTab(QTabWidget* parentTab, int tabIndex) {
+	QFont font = parentTab->font();
+	font.setBold(true);
+	parentTab->tabBar()->setTabTextColor(tabIndex, Qt::blue);
 }
 
 void WebsiteWidget::on_updateButton_clicked() {
