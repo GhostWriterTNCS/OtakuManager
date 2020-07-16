@@ -8,7 +8,8 @@
 Website::Website(QString website) {
 	name = website;
 	QFileInfo check_file("lua/" + website + ".lua");
-	if (check_file.exists() && check_file.isFile()) {
+	if (check_file.exists() && check_file.isFile() &&
+		MyLua::getString(name, "homepage").size() > 0) {
 		homepage = MyLua::getString(name, "homepage");
 		hasStreaming = MyLua::getBool(name, "hasStreaming");
 		hasDownload = MyLua::getBool(name, "hasDownload");

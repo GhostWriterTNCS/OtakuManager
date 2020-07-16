@@ -4,13 +4,13 @@
 #include "MainWindow.h"
 
 enum LinkTypes {
+	customLink,
 	streaming,
 	streamingIfNoDownload,
 	download,
 	torrent,
 	magnet,
 	animeInfo,
-	customLink,
 	post,
 	postIfNoDownload
 };
@@ -46,11 +46,11 @@ public:
 
 namespace OMA {
 
-const QString version = "3.6";
+const QString version = "3.7";
 
-const QStringList linkTypes = {
-	"Streaming",  "StreamingIfNoDownload", "Download", "Torrent",		  "Magnet",
-	"Anime info", "Custom link",		   "Post",	   "PostIfNoDownload"};
+const QStringList linkTypes = {"Custom link", "Streaming", "StreamingIfNoDownload",
+							   "Download",	  "Torrent",   "Magnet",
+							   "Anime info",  "Post",	   "PostIfNoDownload"};
 
 const QStringList feedTypes = {"Atom", "RSS"};
 

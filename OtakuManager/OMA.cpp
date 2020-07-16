@@ -67,6 +67,9 @@ QHash<QString, QStringList> websites(bool forceRefresh) {
 	foreach (QString filename, files) {
 		filename = filename.replace(".lua", "");
 		QString group = MyLua::getString(filename, "group");
+		if (group.size() == 0) {
+			continue;
+		}
 		if (!websites_.contains(group)) {
 			websites_[group] = QStringList({filename});
 		} else if (!websites_[group].contains(filename)) {

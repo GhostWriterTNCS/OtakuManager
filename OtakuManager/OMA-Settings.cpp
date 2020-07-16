@@ -1,3 +1,5 @@
+#include <iostream>
+#include <list>
 #include <QMutex>
 #include <QStandardPaths>
 #include "MyUtils.h"
@@ -269,6 +271,11 @@ int getFollowedCount(QString website) {
 FollowedAnime getFollowed(QString name, QString website) {
 	name = " " + name + " ";
 	QList<FollowedAnime> list = getFollowed();
+
+	std::list<FollowedAnime> l = list.toStdList();
+	l.sort([](FollowedAnime lhs, FollowedAnime rhs) { return lhs.regex < rhs.regex; });
+	list = QList<FollowedAnime>::fromStdList(l);
+
 	for (int i = 0; i < list.size(); i++) {
 		if (list[i].regex) {
 			if (name.contains(QRegExp(list[i].anime, Qt::CaseInsensitive))) {
