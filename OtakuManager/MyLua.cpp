@@ -29,6 +29,7 @@ static int lua_UrlToStringJS(lua_State* L) {
 
 	// push result.
 	std::string s = MyAwesomium::urlToString(url);
+	std::cout << s << std::endl;
 	lua_pushlstring(L, s.c_str(), s.length());
 
 	// return the number of results.
@@ -116,30 +117,50 @@ static int lua_Episode_garbageCollector(lua_State* L) {
 	delete *static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	return 0;
 }
-static int lua_Episode_SetUrl(lua_State* L) {
-	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
-	std::string s = luaL_checkstring(L, 2);
-	(*ud)->url = QString::fromLocal8Bit(s.c_str());
-	return 0;
-}
+
 static int lua_Episode_SetName(lua_State* L) {
 	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	std::string s = luaL_checkstring(L, 2);
 	(*ud)->name = QString::fromLocal8Bit(s.c_str());
 	return 0;
 }
+
+static int lua_Episode_SetUrl(lua_State* L) {
+	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
+	std::string s = luaL_checkstring(L, 2);
+	(*ud)->url = QString::fromLocal8Bit(s.c_str());
+	return 0;
+}
+
+static int lua_Episode_SetDownload(lua_State* L) {
+	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
+	std::string s = luaL_checkstring(L, 2);
+	(*ud)->downloadLink = QString::fromLocal8Bit(s.c_str());
+	return 0;
+}
+
+static int lua_Episode_SetMagnet(lua_State* L) {
+	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
+	std::string s = luaL_checkstring(L, 2);
+	(*ud)->magnetLink = QString::fromLocal8Bit(s.c_str());
+	return 0;
+}
+
 static int lua_Episode_HasDownload(lua_State* L) {
 	Episode** ud = static_cast<Episode**>(luaL_checkudata(L, 1, "Episode"));
 	bool b = lua_toboolean(L, 2);
 	(*ud)->hasDownload = b;
 	return 0;
 }
+
 static int lua_Episode(lua_State* L) {
 	*static_cast<Episode**>(lua_newuserdata(L, sizeof(Episode*))) = new Episode();
 	if (luaL_newmetatable(L, "Episode")) {
 		static const luaL_Reg functions[] = {{"__gc", lua_Episode_garbageCollector},
-											 {"SetUrl", lua_Episode_SetUrl},
 											 {"SetName", lua_Episode_SetName},
+											 {"SetUrl", lua_Episode_SetUrl},
+											 {"SetDownload", lua_Episode_SetDownload},
+											 {"SetMagner", lua_Episode_SetMagnet},
 											 {"HasDownload", lua_Episode_HasDownload},
 											 {nullptr, nullptr}};
 		luaL_setfuncs(L, functions, 0);

@@ -26,8 +26,6 @@ Website::Website(QString website) {
 		initialize_RedAnimeDatabase_IT();
 	} else if (website == "WebAnimex") {
 		initialize_WebAnimex_IT();
-	} else if (website == "AniDex") {
-		initialize_AniDex_TT();
 	} else if (website == "Nyaa") {
 		initialize_Nyaa_TT();
 	} else if (OMA::Settings::getFeedNames().contains(website)) {

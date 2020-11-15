@@ -56,10 +56,9 @@ void loopFunction() {
 				return;
 
 			// Get the page source.
-			WebString webString =
-				view->ExecuteJavascriptWithResult(
-						WSLit("document.getElementsByTagName('html')[0].innerHTML"), WSLit(""))
-					.ToString();
+			WebString webString = view->ExecuteJavascriptWithResult(
+										  WSLit("document.documentElement.outerHTML"), WSLit(""))
+									  .ToString();
 
 			view->Destroy();
 
@@ -93,7 +92,11 @@ std::string urlToString(std::string url) {
 		Sleep(250);
 		i++;
 	}
-	std::cout << "[MyAwesomium] Finished " << url << std::endl;
+	if (i == 120) {
+		std::cout << "[MyAwesomium] Aborted " << url << std::endl;
+	} else {
+		std::cout << "[MyAwesomium] Finished " << url << std::endl;
+	}
 	return result;
 }
 

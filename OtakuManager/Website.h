@@ -69,10 +69,6 @@ private:
 	QString goToEpisode_WebAnimex_IT(Episode* episode, QString type);
 
 	// TORRENT
-	void initialize_AniDex_TT();
-	bool getEpisodes_AniDex_TT();
-	QString goToEpisode_AniDex_TT(Episode* episode, QString type);
-
 	void initialize_Nyaa_TT();
 	bool getEpisodes_Nyaa_TT();
 	QString goToEpisode_Nyaa_TT(Episode* episode, QString type);

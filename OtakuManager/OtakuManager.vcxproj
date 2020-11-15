@@ -204,7 +204,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Website.cpp" />
-    <ClCompile Include="websites\AniDex_TT.cpp" />
     <ClCompile Include="websites\AnimeHeaven_EN.cpp" />
     <ClCompile Include="websites\Feeds.cpp" />
     <ClCompile Include="websites\KissAnime_EN.cpp" />
