@@ -9,7 +9,7 @@ void Website::initialize_KissAnime_EN() {
 }
 
 bool Website::getEpisodes_KissAnime_EN() {
-	QString html = MyUtils::urlToQStringJS(homepage);
+	QString html = MyUtils::urlToQString(homepage);
 	QString start = "<div class=\"barTitle full\">Latest anime update</div>";
 	QString end = "<div class=\"full more_in_tab more_in_rightBox\">";
 	if (html.contains(end)) {
@@ -36,7 +36,7 @@ QString Website::goToEpisode_KissAnime_EN(Episode* episode, QString type) {
 	if (type == OMA::linkTypes[LinkTypes::animeInfo]) {
 		s = MyUtils::substringFromEnd(episode->url, "", "/");
 	} else if (type == OMA::linkTypes[LinkTypes::download]) {
-		s = MyUtils::urlToQStringJS(episode->url);
+		s = MyUtils::urlToQString(episode->url);
 		if (s.contains("<div class=\"clear2 h20\"></div>")) {
 			s = MyUtils::substring(s, "id=\"divDownload\"", "</div>");
 			s = MyUtils::substring(s, "href=\"", "\"").replace("&amp;", "&");

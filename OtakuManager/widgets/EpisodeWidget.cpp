@@ -63,7 +63,7 @@ EpisodeWidget::EpisodeWidget(Episode* episode, Website* website, QWidget* parent
 					show = website->hasMagnet;
 					break;
 				case LinkTypes::animeInfo:
-					show = !website->isFeed;
+					show = website->hasInfo;
 					break;
 				case LinkTypes::customLink:
 					show = !OMA::Settings::getFollowed(episode->name).customLink.isEmpty();

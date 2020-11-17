@@ -113,9 +113,9 @@
     <ClCompile Include="HtmlDoc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="MyAwesomium.cpp" />
     <ClCompile Include="MyCurl\MyCurl.cpp" />
     <ClCompile Include="MyLua.cpp" />
+    <ClCompile Include="MyPhantomJS\MyPhantomJS.cpp" />
     <ClCompile Include="MyUtils.cpp" />
     <ClCompile Include="OMA-Settings.cpp" />
     <ClCompile Include="OMA.cpp" />
@@ -276,9 +276,9 @@
     <ClInclude Include="..\include\lua\lvm.h" />
     <ClInclude Include="..\include\lua\lzio.h" />
     <ClInclude Include="HtmlDoc.h" />
-    <ClInclude Include="MyAwesomium.h" />
     <ClInclude Include="MyCurl\MyCurl.h" />
     <ClInclude Include="MyLua.h" />
+    <ClInclude Include="MyPhantomJS\MyPhantomJS.h" />
     <ClInclude Include="MyUtils.h" />
     <ClInclude Include="OMA.h" />
     <ClInclude Include="QtGeneratedFiles\ui_AboutWindow.h" />

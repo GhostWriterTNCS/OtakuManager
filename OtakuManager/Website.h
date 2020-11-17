@@ -31,6 +31,7 @@ public:
 	bool hasDownload = true;
 	bool hasTorrent = false;
 	bool hasMagnet = false;
+	bool hasInfo = true;
 	bool isFeed = false;
 	std::function<bool()> getEpisodesFunction;
 	std::function<QString(Episode*, QString)> goToEpisodeFunction;

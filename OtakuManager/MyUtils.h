@@ -30,7 +30,7 @@ QString urlToQString(QString url);
 /**
 	Parse the html by url and return the content as QString after JavaScript exectution.
 */
-QString urlToQStringJS(QString url);
+QString urlToQStringJS(QString url, QString query);
 
 /**
 	Parse the html by url and create a file from the page content.

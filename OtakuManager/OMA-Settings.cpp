@@ -346,14 +346,14 @@ void setAniDexUrl(QString url) {
 	mutex.unlock();
 }
 
-bool getDownloadTorrent() {
+/*bool getDownloadTorrent() {
 	return settings->value("Other/downloadTorrent", "false").toBool();
 }
 void setDownloadTorrent(bool value) {
 	mutex.lock();
 	settings->setValue("Other/downloadTorrent", value);
 	mutex.unlock();
-}
+}*/
 
 QString getTorrentDir() {
 	return settings
@@ -401,6 +401,18 @@ bool getCurlVerbose() {
 void setCurlVerbose(bool value) {
 	mutex.lock();
 	settings->setValue("Other/curlVerbose", value);
+	mutex.unlock();
+}
+
+QString getCurlUserAgent() {
+	return settings
+		->value("Other/curlUserAgent",
+				"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0")
+		.toString();
+}
+void setCurlUserAgent(QString value) {
+	mutex.lock();
+	settings->setValue("Other/curlUserAgent", value);
 	mutex.unlock();
 }
 

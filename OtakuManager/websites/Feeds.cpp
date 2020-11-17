@@ -13,9 +13,10 @@ void Website::initialize_Feed() {
 			}
 		}
 	}
-	isFeed = true;
 	hasStreaming = false;
 	hasDownload = false;
+	hasInfo = false;
+	isFeed = true;
 	getEpisodesFunction = std::bind(&Website::getEpisodes_Feed, this);
 	goToEpisodeFunction =
 		std::bind(&Website::goToEpisode_Feed, this, std::placeholders::_1, std::placeholders::_2);

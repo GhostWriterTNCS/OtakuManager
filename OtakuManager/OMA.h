@@ -46,7 +46,7 @@ public:
 
 namespace OMA {
 
-const QString version = "3.7";
+const QString version = "3.8";
 
 const QStringList linkTypes = {"Custom link", "Streaming", "StreamingIfNoDownload",
 							   "Download",	  "Torrent",   "Magnet",
@@ -203,20 +203,20 @@ void setFollowed(QList<FollowedAnime> list);
 /**
 	Get custom AniDex url.
 */
-QString getAniDexUrl();
+// QString getAniDexUrl();
 /**
 	Set custom AniDex url.
 */
-void setAniDexUrl(QString url);
+// void setAniDexUrl(QString url);
 
 /**
 	Direct download torren files?
 */
-bool getDownloadTorrent();
+// bool getDownloadTorrent();
 /**
 	Set direct download torren files ON (true) of OFF (false).
 */
-void setDownloadTorrent(bool value);
+// void setDownloadTorrent(bool value);
 
 /**
 	Get torren files download directory.
@@ -262,6 +262,9 @@ bool getCurlVerbose();
 	Set cURL verbose.
 */
 void setCurlVerbose(bool value);
+
+QString getCurlUserAgent();
+void setCurlUserAgent(QString value);
 
 // [Log]
 

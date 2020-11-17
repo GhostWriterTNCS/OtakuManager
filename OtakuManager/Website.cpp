@@ -15,6 +15,7 @@ Website::Website(QString website) {
 		hasDownload = MyLua::getBool(name, "hasDownload");
 		hasTorrent = MyLua::getBool(name, "hasTorrent");
 		hasMagnet = MyLua::getBool(name, "hasMagnet");
+		hasInfo = MyLua::getBool(name, "hasInfo");
 		return;
 	}
 
@@ -58,7 +59,7 @@ bool Website::getEpisodes() {
 }
 
 bool Website::goToEpisode(Episode* episode, QString type) {
-	if (type == OMA::linkTypes[LinkTypes::torrent] && OMA::Settings::getDownloadTorrent()) {
+	if (type == OMA::linkTypes[LinkTypes::torrent]) {
 		QString dir = OMA::Settings::getTorrentDir();
 		if (!dir.isEmpty()) {
 			dir = dir + "\\";

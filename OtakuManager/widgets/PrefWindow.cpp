@@ -73,13 +73,14 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.feedListWidget->verticalScrollBar()->setSingleStep(10);
 
 	// Other
-	ui.AniDexUrl->setText(OMA::Settings::getAniDexUrl());
-	ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
+	// ui.AniDexUrl->setText(OMA::Settings::getAniDexUrl());
+	// ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
 	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
 	ui.youtubeToUmmy->setChecked(OMA::Settings::getYoutubeToUmmy());
 	// ui.youtubeCustomLink->setText(OMA::Settings::getYoutubeCustomLink());
 	ui.console->setChecked(OMA::Settings::getConsole());
 	ui.curlVerbose->setChecked(OMA::Settings::getCurlVerbose());
+	ui.curlUserAgent->setText(OMA::Settings::getCurlUserAgent());
 
 	connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &PrefWindow::save);
 	connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
@@ -179,13 +180,14 @@ void PrefWindow::save() {
 	OMA::Settings::setFeeds(feedList);
 
 	// Other
-	OMA::Settings::setAniDexUrl(ui.AniDexUrl->displayText().trimmed());
-	OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
+	// OMA::Settings::setAniDexUrl(ui.AniDexUrl->displayText().trimmed());
+	// OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
 	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
 	OMA::Settings::setYoutubeToUmmy(ui.youtubeToUmmy->isChecked());
 	// OMA::Settings::setYoutubeCustomLink(ui.youtubeCustomLink->displayText().trimmed());
 	OMA::Settings::setConsole(ui.console->isChecked());
 	OMA::Settings::setCurlVerbose(ui.curlVerbose->isChecked());
+	OMA::Settings::setCurlUserAgent(ui.curlUserAgent->displayText().trimmed());
 
 	close();
 }

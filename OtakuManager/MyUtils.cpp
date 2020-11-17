@@ -1,6 +1,5 @@
-﻿#include "MyAwesomium.h"
-#include "MyCurl.h"
-#include "MyUtils.h"
+﻿#include "MyCurl.h"
+#include "MyPhantomJS\MyPhantomJS.h"
 #include "OMA.h"
 
 namespace MyUtils {
@@ -35,11 +34,15 @@ QString advancedReplace(QString str, QString startReplace, QString endReplace, Q
 }
 
 QString urlToQString(QString url) {
-	return QString::fromUtf8(
-		MyCurl::urlToString(url.toStdString(), OMA::Settings::getCurlVerbose()).c_str());
+	return QString::fromUtf8(MyCurl::urlToString(url.toStdString(), OMA::Settings::getCurlVerbose(),
+												 OMA::Settings::getCurlUserAgent().toStdString())
+								 .c_str());
+	// return QString::fromUtf8(MyPhantomJS::urlToString(url.toStdString()).c_str());
 }
-QString urlToQStringJS(QString url) {
-	return QString::fromUtf8(MyAwesomium::urlToString(url.toStdString()).c_str());
+QString urlToQStringJS(QString url, QString query) {
+	// return QString::fromUtf8(MyAwesomium::urlToString(url.toStdString()).c_str());
+	return QString::fromUtf8(
+		MyPhantomJS::urlToStringJS(url.toStdString(), query.toStdString()).c_str());
 }
 
 bool urlToFile(QString url, QString filename) {

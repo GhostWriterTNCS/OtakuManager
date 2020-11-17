@@ -1,9 +1,9 @@
 #include <iostream>
 
 #include "HtmlDoc.h"
-#include "MyAwesomium.h"
 #include "MyCurl.h"
 #include "MyLua.h"
+#include "MyPhantomJS\MyPhantomJS.h"
 #include "OMA.h"
 #include "Website.h"
 
@@ -15,7 +15,8 @@ static int lua_UrlToString(lua_State* L) {
 	std::string url = lua_tostring(L, 1);
 
 	// push result.
-	std::string s = MyCurl::urlToString(url, OMA::Settings::getCurlVerbose());
+	std::string s = MyCurl::urlToString(url, OMA::Settings::getCurlVerbose(),
+										OMA::Settings::getCurlUserAgent().toStdString());
 	lua_pushlstring(L, s.c_str(), s.length());
 
 	// return the number of results.
@@ -26,10 +27,11 @@ static int lua_UrlToStringJS(lua_State* L) {
 	// get first argument.
 	luaL_checkstring(L, 1);
 	std::string url = lua_tostring(L, 1);
+	std::string query = lua_tostring(L, 2);
 
 	// push result.
-	std::string s = MyAwesomium::urlToString(url);
-	std::cout << s << std::endl;
+	std::string s = MyPhantomJS::urlToStringJS(url, query);
+	// std::cout << s << std::endl;
 	lua_pushlstring(L, s.c_str(), s.length());
 
 	// return the number of results.
@@ -75,7 +77,6 @@ static int lua_GetAllStrings(lua_State* L) {
 	std::string xpath = lua_tostring(L, 2);
 
 	std::vector<std::string> result = doc->GetAllStrings(xpath);
-
 	lua_newtable(L); // put result in a table
 	for (int i = 0; i < result.size(); i++) {
 		lua_pushlstring(L, result[i].c_str(), result[i].length());
@@ -160,7 +161,7 @@ static int lua_Episode(lua_State* L) {
 											 {"SetName", lua_Episode_SetName},
 											 {"SetUrl", lua_Episode_SetUrl},
 											 {"SetDownload", lua_Episode_SetDownload},
-											 {"SetMagner", lua_Episode_SetMagnet},
+											 {"SetMagnet", lua_Episode_SetMagnet},
 											 {"HasDownload", lua_Episode_HasDownload},
 											 {nullptr, nullptr}};
 		luaL_setfuncs(L, functions, 0);

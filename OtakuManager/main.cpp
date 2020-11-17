@@ -5,7 +5,6 @@
 #include <QtWidgets/QApplication>
 #include <windows.h>
 #include "MainWindow.h"
-#include "MyAwesomium.h"
 #include "MyUtils.h"
 #include "NewVersionWindow.h"
 #include "OMA.h"
@@ -62,6 +61,5 @@ int main(int argc, char* argv[]) {
 	w.updateAllEpisodes();
 	a.exec();
 
-	MyAwesomium::ShutdownWebCore();
 	return 0;
 }
