@@ -79,12 +79,9 @@ std::string ExecCmd(const std::string cmd) {
 }
 
 std::string urlToString(std::string url) {
-	return ExecCmd("phantomjs\\phantomjs.exe phantomjs\\getHtml.js \"" + url + "\"");
-}
-
-std::string urlToStringJS(std::string url, std::string query) {
-	return ExecCmd("phantomjs\\phantomjs.exe phantomjs\\getHtml.js \"" + url + "\" \"" + query +
-				   "\"");
+	return ExecCmd(
+		"phantomjs\\phantomjs.exe --cookies-file=phantomjs\\cookies.txt phantomjs\\getHtml.js \"" +
+		url + "\"");
 }
 
 } // namespace MyPhantomJS

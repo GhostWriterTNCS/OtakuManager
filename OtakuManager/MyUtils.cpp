@@ -39,10 +39,9 @@ QString urlToQString(QString url) {
 								 .c_str());
 	// return QString::fromUtf8(MyPhantomJS::urlToString(url.toStdString()).c_str());
 }
-QString urlToQStringJS(QString url, QString query) {
+QString urlToQStringJS(QString url) {
 	// return QString::fromUtf8(MyAwesomium::urlToString(url.toStdString()).c_str());
-	return QString::fromUtf8(
-		MyPhantomJS::urlToStringJS(url.toStdString(), query.toStdString()).c_str());
+	return QString::fromUtf8(MyPhantomJS::urlToString(url.toStdString()).c_str());
 }
 
 bool urlToFile(QString url, QString filename) {

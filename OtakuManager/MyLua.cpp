@@ -27,10 +27,9 @@ static int lua_UrlToStringJS(lua_State* L) {
 	// get first argument.
 	luaL_checkstring(L, 1);
 	std::string url = lua_tostring(L, 1);
-	std::string query = lua_tostring(L, 2);
 
 	// push result.
-	std::string s = MyPhantomJS::urlToStringJS(url, query);
+	std::string s = MyPhantomJS::urlToString(url);
 	// std::cout << s << std::endl;
 	lua_pushlstring(L, s.c_str(), s.length());
 
@@ -243,7 +242,7 @@ lua_State* initialize() {
 	return L;
 }
 
-QString getString(QString website, QString name) {
+QString getString(QString website, QString name, QString defaultValue) {
 	lua_State* L = initialize();
 
 	// load the script
@@ -253,12 +252,18 @@ QString getString(QString website, QString name) {
 														"Lua module not found: " + website);*/
 		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
 		lua_close(L);
-		return false;
+		return defaultValue;
 	}
 
 	int stack_size = lua_gettop(L);
 
 	lua_getglobal(L, name.toStdString().c_str());
+
+	if (lua_isnoneornil(L, -1)) {
+		lua_close(L);
+		return defaultValue;
+	}
+
 	QString luavar = lua_tostring(L, -1);
 	lua_pop(L, 1);
 
@@ -266,7 +271,7 @@ QString getString(QString website, QString name) {
 	return luavar;
 }
 
-bool getBool(QString website, QString name) {
+bool getBool(QString website, QString name, bool defaultValue) {
 	lua_State* L = initialize();
 
 	// load the script
@@ -276,12 +281,18 @@ bool getBool(QString website, QString name) {
 														"Lua module not found: " + website);*/
 		std::cerr << "Lua module not found: " + website.toStdString() << std::endl;
 		lua_close(L);
-		return false;
+		return defaultValue;
 	}
 
 	int stack_size = lua_gettop(L);
 
 	lua_getglobal(L, name.toStdString().c_str());
+
+	if (lua_isnoneornil(L, -1)) {
+		lua_close(L);
+		return defaultValue;
+	}
+
 	bool luavar = lua_toboolean(L, -1);
 	lua_pop(L, 1);
 

@@ -11,9 +11,9 @@ extern "C" {
 
 namespace MyLua {
 
-QString getString(QString website, QString name);
+QString getString(QString website, QString name, QString defaultValue = "");
 
-bool getBool(QString website, QString name);
+bool getBool(QString website, QString name, bool defaultValue = false);
 
 /**
 	Get the episodes.

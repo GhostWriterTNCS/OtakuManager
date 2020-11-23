@@ -11,11 +11,11 @@ Website::Website(QString website) {
 	if (check_file.exists() && check_file.isFile() &&
 		MyLua::getString(name, "homepage").size() > 0) {
 		homepage = MyLua::getString(name, "homepage");
-		hasStreaming = MyLua::getBool(name, "hasStreaming");
-		hasDownload = MyLua::getBool(name, "hasDownload");
-		hasTorrent = MyLua::getBool(name, "hasTorrent");
-		hasMagnet = MyLua::getBool(name, "hasMagnet");
-		hasInfo = MyLua::getBool(name, "hasInfo");
+		hasStreaming = MyLua::getBool(name, "hasStreaming", true);
+		hasDownload = MyLua::getBool(name, "hasDownload", true);
+		hasTorrent = MyLua::getBool(name, "hasTorrent", false);
+		hasMagnet = MyLua::getBool(name, "hasMagnet", false);
+		hasInfo = MyLua::getBool(name, "hasInfo", true);
 		return;
 	}
 
