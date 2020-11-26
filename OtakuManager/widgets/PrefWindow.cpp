@@ -73,7 +73,6 @@ PrefWindow::PrefWindow(QWidget* parent) : QDialog(parent) {
 	ui.feedListWidget->verticalScrollBar()->setSingleStep(10);
 
 	// Other
-	// ui.AniDexUrl->setText(OMA::Settings::getAniDexUrl());
 	// ui.downloadTorrents->setChecked(OMA::Settings::getDownloadTorrent());
 	ui.torrentsDir->setText(OMA::Settings::getTorrentDir());
 	ui.youtubeToUmmy->setChecked(OMA::Settings::getYoutubeToUmmy());
@@ -180,7 +179,6 @@ void PrefWindow::save() {
 	OMA::Settings::setFeeds(feedList);
 
 	// Other
-	// OMA::Settings::setAniDexUrl(ui.AniDexUrl->displayText().trimmed());
 	// OMA::Settings::setDownloadTorrent(ui.downloadTorrents->isChecked());
 	OMA::Settings::setTorrentDir(ui.torrentsDir->displayText().trimmed());
 	OMA::Settings::setYoutubeToUmmy(ui.youtubeToUmmy->isChecked());

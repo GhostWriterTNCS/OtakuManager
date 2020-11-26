@@ -119,12 +119,9 @@ QString getVersion();
 void setVersion();
 
 /**
-	Is check for updates on startup enable?
+	Check for updates on startup?
 */
 bool getCheckForUpdates();
-/**
-	Set check for updates on startup ON (true) or OFF (false).
-*/
 void setCheckForUpdates(bool b);
 
 bool getShowFollowedTab();
@@ -134,41 +131,29 @@ bool getTabsOnSide();
 void setTabsOnSide(bool b);
 
 /**
-	Get the enabled websites.
+	Websites to show.
 */
 QString getWebsitesQString();
-/**
-	Get the enabled websites.
-*/
 QStringList getWebsites();
-/**
-	Set the enabled websites.
-*/
 void setWebsites(QStringList list);
 
 /**
-	Get the enabled buttons.
+	Buttons to show.
 */
 QStringList getButtons();
-/**
-	Set the enabled buttons.
-*/
 void setButtons(QString hidden, bool hide = true);
 
 /**
-	Get Feed.
+	Feeds.
 */
 QList<Feed> getFeeds();
-/**
-Get Feed.
-*/
 QStringList getFeedNames();
 /**
-	Add an Feed.
+	Edit a feed.
 */
 void setFeeds(QString name, QString url, QString homepage, QString oldName = "");
 /**
-	Set Feed.
+	Set feeds.
 */
 void setFeeds(QList<Feed> list);
 
@@ -178,10 +163,6 @@ void setFeeds(QList<Feed> list);
 	Get the followed anime/keywords.
 */
 QList<FollowedAnime> getFollowed();
-/**
-	Get the count of followed anime/keywords.
-*/
-// int getFollowedCount(QString website);
 /**
 	Return the FollowedAnime structure for an episode name and website. Leave website as an empty
 	string to search in all websites. If the episode is not followed or it is not followed for the
@@ -201,66 +182,39 @@ void setFollowed(QList<FollowedAnime> list);
 // [Other]
 
 /**
-	Get custom AniDex url.
-*/
-// QString getAniDexUrl();
-/**
-	Set custom AniDex url.
-*/
-// void setAniDexUrl(QString url);
-
-/**
-	Direct download torren files?
+	Direct download torrent files?
 */
 // bool getDownloadTorrent();
-/**
-	Set direct download torren files ON (true) of OFF (false).
-*/
 // void setDownloadTorrent(bool value);
 
 /**
-	Get torren files download directory.
+	Torrent files download directory.
 */
 QString getTorrentDir();
-/**
-	Set torren files download directory.
-*/
 void setTorrentDir(QString dir);
 
 /**
 	Open YouTube links with Ummy?
 */
 bool getYoutubeToUmmy();
-/**
-	Set open YouTube links with Ummy ON (true) of OFF (false).
-*/
 void setYoutubeToUmmy(bool value);
 
 /**
-	Get the custom link for YouTube videos.
+	Use a custom link for YouTube videos.
 */
 QString getYoutubeCustomLink();
-/**
-	Set the custom link for YouTube videos.
-*/
 void setYoutubeCustomLink(QString value);
 
 /**
 	Show console?
 */
 bool getConsole();
-/**
-	Set show console.
-*/
 void setConsole(bool value);
 
 /**
 	cURL verbose?
 */
 bool getCurlVerbose();
-/**
-	Set cURL verbose.
-*/
 void setCurlVerbose(bool value);
 
 QString getCurlUserAgent();
@@ -289,9 +243,6 @@ QString getSeen();
 	Set if a episodes is seen.
 */
 void setSeen(QString ep, bool seen = true);
-
-// QList<int> getWindowValues();
-// void setWindowValues(QList<int> values);
 
 } // namespace Settings
 
