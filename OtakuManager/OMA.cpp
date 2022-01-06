@@ -58,9 +58,6 @@ QHash<QString, QStringList> websites(bool forceRefresh) {
 		return websites_;
 	}
 	websites_.clear();
-	websites_["English"] = QStringList({"Anime Heaven", "KissAnime"});
-	websites_["Italian"] = QStringList({"AnimeForce", "RedAnimeDatabase", "WebAnimex"});
-	websites_["Torrent"] = QStringList({"Nyaa"});
 
 	QDir directory("lua");
 	QStringList files = directory.entryList(QStringList() << "*.lua", QDir::Files);

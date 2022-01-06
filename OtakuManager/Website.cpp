@@ -19,17 +19,7 @@ Website::Website(QString website) {
 		return;
 	}
 
-	if (website == "Anime Heaven") {
-		initialize_AnimeHeaven_EN();
-	} else if (website == "KissAnime") {
-		initialize_KissAnime_EN();
-	} else if (website == "RedAnimeDatabase") {
-		initialize_RedAnimeDatabase_IT();
-	} else if (website == "WebAnimex") {
-		initialize_WebAnimex_IT();
-	} else if (website == "Nyaa") {
-		initialize_Nyaa_TT();
-	} else if (OMA::Settings::getFeedNames().contains(website)) {
+	if (OMA::Settings::getFeedNames().contains(website)) {
 		initialize_Feed();
 	} else {
 		QMessageBox::warning(OMA::getMainWindow(), "Error", "Website not valid: " + website);
@@ -89,4 +79,70 @@ bool Website::goToEpisode(Episode* episode, QString type) {
 	}
 
 	return OMA::upenUrl(url);
+}
+
+/*
+	Feeds handler
+*/
+void Website::initialize_Feed() {
+	QList<Feed> feeds = OMA::Settings::getFeeds();
+	for (int i = 0; i < feeds.size(); i++) {
+		if (feeds[i].name == name) {
+			episodesPage = feeds[i].url;
+			if (feeds[i].homepage.isEmpty()) {
+				homepage = feeds[i].url;
+			} else {
+				homepage = feeds[i].homepage;
+			}
+		}
+	}
+	hasStreaming = false;
+	hasDownload = false;
+	hasInfo = false;
+	isFeed = true;
+	getEpisodesFunction = std::bind(&Website::getEpisodes_Feed, this);
+	goToEpisodeFunction =
+		std::bind(&Website::goToEpisode_Feed, this, std::placeholders::_1, std::placeholders::_2);
+}
+
+bool Website::getEpisodes_Feed() {
+	QString html = MyUtils::urlToQString(episodesPage);
+	QString start, end, type;
+	if (html.contains("<feed ")) {
+		start = "<entry>";
+		end = "</feed>";
+		type = "Atom";
+	} else if (html.contains("<rss ")) {
+		start = "<item>";
+		end = "</rss>";
+		type = "RSS";
+	}
+	if (!end.isEmpty() && html.contains(end)) {
+		html = MyUtils::substring(html, start, end);
+		QStringList list = html.split(start);
+		for (int i = 0; i < list.size(); i++) {
+			Episode episode;
+			list[i] = list[i].replace("\"", "'");
+			html = list[i];
+			if (type == "Atom") {
+				html = MyUtils::substring(html, "<link rel='alternate'", "/>");
+				html = MyUtils::substring(html, "href='", "'");
+			} else if (type == "RSS") {
+				html = MyUtils::substring(html, "<link>", "</link>");
+			}
+			episode.url = html;
+
+			html = MyUtils::substring(list[i], "<title", "</title>");
+			html = MyUtils::substring(html, ">", "<");
+			episode.name = MyUtils::decodeHtml(html).trimmed();
+
+			episodes.push_back(episode);
+		}
+		return true;
+	}
+	return false;
+}
+
+QString Website::goToEpisode_Feed(Episode* episode, QString type) {
+	return "";
 }

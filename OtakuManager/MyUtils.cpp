@@ -53,7 +53,18 @@ QString redirectedUrlQt(QString url) {
 }
 
 QString decodeHtml(QString html) {
-	return QString::fromLocal8Bit(MyCurl::decodeHtml(html.toStdString()).c_str());
+	std::vector<std::vector<std::string>> encodings = {
+		{"&quot;", "\""}, {"&lsquo;", "‘"}, {"&rsquo;", "’"}, {"&ldquo;", "“"},
+		{"&rdquo;", "”"}, {"&amp;", "&"},	{"&#33;", "!"},	  {"&#033;", "!"},
+		{"&#38;", "&"},	  {"&#038;", "&"},	{"&#39;", "'"},	  {"&#039;", "'"},
+		{"&#333;", "ō"},  {"&#8730;", "√"}, {"â€“", "–"},	  {"âˆš", "√"}};
+
+	for (int i = 0; i < encodings.size(); i++) {
+		if (html.indexOf(encodings[i][0].c_str()) >= 0) {
+			html = html.replace(encodings[i][0].c_str(), encodings[i][1].c_str());
+		}
+	}
+	return html;
 }
 
 QString simplify(QString s) {

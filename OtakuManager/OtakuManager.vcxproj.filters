@@ -38,9 +38,6 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Websites">
-      <UniqueIdentifier>{8f11389a-835e-4768-af1f-9fbe43bb1118}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lua">
       <UniqueIdentifier>{83fbade3-d84a-4b47-b4f5-9ebfd5197297}</UniqueIdentifier>
     </Filter>
@@ -174,24 +171,6 @@
     </ClCompile>
     <ClCompile Include="widgets\AboutWindow.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\KissAnime_EN.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\WebAnimex_IT.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\RedAnimeDatabase_IT.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\Nyaa_TT.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\AnimeHeaven_EN.cpp">
-      <Filter>Websites</Filter>
-    </ClCompile>
-    <ClCompile Include="websites\Feeds.cpp">
-      <Filter>Websites</Filter>
     </ClCompile>
     <ClCompile Include="QtGeneratedFiles\Debug\moc_FeedWidget.cpp">
       <Filter>Generated Files\Debug</Filter>

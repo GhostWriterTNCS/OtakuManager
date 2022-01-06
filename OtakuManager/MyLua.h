@@ -21,6 +21,11 @@ bool getBool(QString website, QString name, bool defaultValue = false);
 bool getEpisodes(QString website, QList<Episode>* episodes);
 
 /**
+	Get the episodes from a specific url.
+*/
+bool getEpisodesByUrl(QString website, QString url, QList<Episode>* episodes);
+
+/**
 	Get the series.
 */
 // bool getSeries(QString website);

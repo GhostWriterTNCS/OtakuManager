@@ -29,5 +29,5 @@ private slots:
 
 private:
 	Ui::WebsiteWidget ui;
-	void HighlightTab(QTabWidget* parentTab, int tabIndex);
+	void HighlightTab(QTabWidget* parentTab, int tabIndex, bool value);
 };

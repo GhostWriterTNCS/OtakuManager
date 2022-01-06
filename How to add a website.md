@@ -1,45 +1,80 @@
-# How to add a website
+# How to add a website (Lua)
 
-These are the files to edit in order to add a new website.
+Create a new .lua module and put it in the *lua* folder.
 
-## OMA.h
+## Parameters
 
-Add the website name in *enum Websites* and in *const QStringList websites*.
+###  `homepage`
+The page OMA will open when you press on the website title.
 
-Websites are grouped by language and sorted alphabetically.
+### `group`
+Where to put the module in the *Preferences* window.
 
-## Website.h
+### `hasStreaming` *default True*
+If the website can show the *Streaming* button for the episodes.
 
-Add these private methods:
-* void initialize_*WebsiteName*();
-* bool getEpisodes_*WebsiteName*();
-* bool getSeries_*WebsiteName*();
-* QString goToEpisode_*WebsiteName*(Episode* episode, QString type);
+### `hasDownload` *default True*
+If the website can show the *Download* button for the episodes.
 
-## Website.cpp
+### `hasTorrent` *default False*
+If the website can show the *Torrent* button for the episodes.
 
-Add initialize_*WebsiteName*(); in the if block.
+### `hasMagnet` *default False*
+If the website can show the *Magnet* button for the episodes.
 
-## Add *WebsiteName*.cpp in websites folder
+### `hasInfo` *default True*
+If the website can show the *Anime info* button for the episodes.
 
-Include:
-* #include "OMA.h"
-* #include "Website.h"
+## Methods
 
-Implement:
-* void initialize_*WebsiteName*();  
-	Initialize Website with the required parameters:
-	* QString homepage.
-	* QString episodesPage -> only if it's different from homepage.
-	* QString seriesPage -> only if website has it.
-	* bool hasStreaming -> default *true*.
-	* bool hasDownload -> default *true*.
-	* bool hasDoubleButtons -> default *false*.
-	* getEpisodesFunction = std::bind(&Website::getEpisodes_*WebsiteName*, this).
-	* getSeriesFunction = std::bind(&Website::getEpisodes_*WebsiteName*, this).
-	* goToEpisodeFunction = std::bind(&Website::getEpisodes_*WebsiteName*, this).
-* bool Website::getEpisodes_*WebsiteName*().
-* bool Website::getSeries_*WebsiteName*() -> just *return false;* if website doesn't have series.
-* QString Website::goToEpisode_*WebsiteName*(Episode* episode, QString type).
+### `getEpisodes()`
+Used to get the list of episodes.
 
-Take a look to other websites files.
+Use `ep = Espidode()` to initialize the episode object.
+
+Use `ep:SetName(value)` to set the name that will be shown.
+
+Use `ep:SetUrl(value)` to set the url that will be sent to `goToEpisode(episodeUrl, buttonType)`.
+
+Use `ep:SetDownload(value)` to set a different url for the *Download* button (optional).
+
+Use `ep:SetMagnet(value)` to set a different url for the *Magnet* button (optional).
+
+Use `ep:HasDownload(value)` to specify if the episode can show the *Download* button (optional, *default True*).
+
+### `goToEpisode(episodeUrl, buttonType)` *optional*
+Used to get the open the proper url from the various buttons.
+
+If not defined, OMA will open the url provided in `getEpisodes()` `ep:SetUrl(value)`.
+
+## Available methods
+When creating a lua module, you can call the following methods from OMA.
+
+### `UrlToString(url)`
+Returns the HTML of the page at `url`.
+
+### `UrlToStringJS(url)`
+Returns the HTML of the page at `url` after the JavaScripts have been executed (slower).
+
+### `HtmlDoc(html, encoding)`
+Returns an `HtmlDoc` object that you can use in `GetString` and `GetAllStrings`.
+
+### `GetString(htmlDoc, xpath)`
+Returns the first content of the first node that satisfies the `xpath`.
+
+### `GetAllStrings(htmlDoc, xpath)`
+Returns a list (lua table) of all the content of the nodes that satisfy the `xpath`.
+
+### `Substring(str, start, end)`
+Returns the substring of `str` between `start`and `end`.
+
+### `SubstringFromEnd(str, start, end)`
+Returns the substring of `str` between `start`and `end`. It searches for `start` and `end` from the end of `str`.
+
+### `Split(str, separator)`
+Returns a list (lua table) of strings.
+
+### `print(value)`
+Prints `value` in the OMA console.
+
+`value` can be a lua table.

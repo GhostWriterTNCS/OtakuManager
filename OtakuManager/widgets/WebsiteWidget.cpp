@@ -77,17 +77,19 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 													 ? QString::number(followedNewCount) + "/"
 													 : "") +
 												QString::number(newCount) + ")");
-			HighlightTab(parentTab, tabIndex);
+			HighlightTab(parentTab, tabIndex, true);
 		} else {
 			parentTab->setTabText(tabIndex, website->name);
+			HighlightTab(parentTab, tabIndex, false);
 		}
 
 		if (followedNewCount > 0) {
 			followedTab->setTabText(tabIndex - 1,
 									website->name + " (" + QString::number(followedNewCount) + ")");
-			HighlightTab(followedTab, tabIndex - 1);
+			HighlightTab(followedTab, tabIndex - 1, true);
 		} else {
 			followedTab->setTabText(tabIndex - 1, website->name);
+			HighlightTab(parentTab, tabIndex, false);
 		}
 
 		if (followedCount == 0) {
@@ -106,10 +108,15 @@ void WebsiteWidget::applyUpdatedEpisodes(bool successful) {
 	QCoreApplication::processEvents();
 }
 
-void WebsiteWidget::HighlightTab(QTabWidget* parentTab, int tabIndex) {
+void WebsiteWidget::HighlightTab(QTabWidget* parentTab, int tabIndex, bool value) {
 	QFont font = parentTab->font();
-	font.setBold(true);
-	parentTab->tabBar()->setTabTextColor(tabIndex, Qt::blue);
+	if (value) {
+		font.setBold(true);
+		parentTab->tabBar()->setTabTextColor(tabIndex, Qt::blue);
+	} else {
+		font.setBold(false);
+		parentTab->tabBar()->setTabTextColor(tabIndex, Qt::black);
+	}
 }
 
 void WebsiteWidget::on_updateButton_clicked() {
