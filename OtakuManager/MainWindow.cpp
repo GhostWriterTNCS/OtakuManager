@@ -50,6 +50,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 	}
 
 	QStringList list = OMA::Settings::getWebsites();
+	if (list.size() == 0) {
+		QMessageBox::information(OMA::getMainWindow(), "Info",
+								 "Use Otaku Manager > Preferences to add a website");
+		return;
+	}
+
 	for (int i = 0; i < list.size(); i++) {
 		Website* website = new Website(list[i]);
 		QWidget* scrollAreaContent = new QWidget();

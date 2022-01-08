@@ -104,7 +104,7 @@ void setShowFollowedTab(bool value) {
 }
 
 bool getTabsOnSide() {
-	return settings->value("tabsOnSide", "false").toBool();
+	return settings->value("tabsOnSide", "true").toBool();
 }
 void setTabsOnSide(bool value) {
 	mutex.lock();
@@ -113,10 +113,14 @@ void setTabsOnSide(bool value) {
 }
 
 QString getWebsitesQString() {
-	return settings->value("websites", "Nyaa").toString();
+	return settings->value("websites", "").toString();
 }
 QStringList getWebsites() {
-	return getWebsitesQString().split("|");
+	QString websites = getWebsitesQString();
+	if (websites.isEmpty()) {
+		return QStringList();
+	}
+	return websites.split("|");
 }
 void setWebsites(QString s) {
 	mutex.lock();
